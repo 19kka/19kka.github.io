@@ -7,6 +7,109 @@
     <atom:link href="http://pixyll.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>tsocks on Mac</title>
+        <description>&lt;p&gt;这几天折腾了一下关于Mac下的应用代理，写下这篇blog用来总结。&lt;/p&gt;
+
+&lt;p&gt;由于一些原因，国内访问国外一些网站有问题，有些应用提供了代理的设置，但是大多数是没有的。所以我们需要一些工具，使之可以正常使用。&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;前提工具准备&lt;/h3&gt;
+&lt;p&gt;1.在Mac下有一个方便的下载安装工具，类似于Ubuntu的apt-get 叫做&lt;a href=&quot;brew.sh&quot;&gt;Brew&lt;/a&gt;,下载方式他的官网有很详细的介绍。&lt;br /&gt;
+2.一台提供sock代理的服务器&lt;/p&gt;
+
+&lt;h3 id=&quot;tsocks&quot;&gt;安装tsocks&lt;/h3&gt;
+&lt;p&gt;一般我们使用brew进行安装时，brew install＋应用名。但是由于brew于一些三方作者的关系，我们需要手动创建formual。&lt;em&gt;这里是&lt;a href=&quot;https://github.com/Homebrew/homebrew/issues/11870&quot;&gt;原因&lt;/a&gt;&lt;/em&gt;  &lt;/p&gt;
+
+&lt;p&gt;首先&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;vi /usr/local/Library/Formula/tsocks.rb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;内容如下  &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;a name=&quot;True-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;formula&amp;#39;&lt;/span&gt;
+&lt;a name=&quot;True-2&quot;&gt;&lt;/a&gt;
+&lt;a name=&quot;True-3&quot;&gt;&lt;/a&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Tsocks&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Formula&lt;/span&gt;
+&lt;a name=&quot;True-4&quot;&gt;&lt;/a&gt;
+&lt;a name=&quot;True-5&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;c1&quot;&gt;# The original is http://tsocks.sourceforge.net/&lt;/span&gt;
+&lt;a name=&quot;True-6&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;c1&quot;&gt;# This GitHub repo is a maintained fork with OSX support&lt;/span&gt;
+&lt;a name=&quot;True-7&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;n&quot;&gt;homepage&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;http://github.com/pc/tsocks&amp;#39;&lt;/span&gt;
+&lt;a name=&quot;True-8&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;https://github.com/pc/tsocks.git&amp;#39;&lt;/span&gt;
+&lt;a name=&quot;True-9&quot;&gt;&lt;/a&gt;
+&lt;a name=&quot;True-10&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;n&quot;&gt;depends_on&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;autoconf&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:build&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;MacOS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xcode_version&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
+&lt;a name=&quot;True-11&quot;&gt;&lt;/a&gt;
+&lt;a name=&quot;True-12&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;install&lt;/span&gt;
+&lt;a name=&quot;True-13&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;autoconf&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;-v&amp;quot;&lt;/span&gt;
+&lt;a name=&quot;True-14&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;./configure&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;--prefix=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;--disable-debug&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;--disable-dependency-tracking&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;--with-conf=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config_file&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
+&lt;a name=&quot;True-15&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;n&quot;&gt;inreplace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;tsocks&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;change_make_var!&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;LIBDIR&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;a name=&quot;True-16&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;make&amp;quot;&lt;/span&gt;
+&lt;a name=&quot;True-17&quot;&gt;&lt;/a&gt;   &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;make install&amp;quot;&lt;/span&gt;
+&lt;a name=&quot;True-18&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;n&quot;&gt;etc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;tsocks.conf.simple.example&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;tsocks.conf&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;unless&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;config_file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exist?&lt;/span&gt;
+&lt;a name=&quot;True-19&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;a name=&quot;True-20&quot;&gt;&lt;/a&gt;
+&lt;a name=&quot;True-21&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test&lt;/span&gt;
+&lt;a name=&quot;True-22&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Your current public ip is:&amp;#39;&lt;/span&gt;
+&lt;a name=&quot;True-23&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;n&quot;&gt;ohai&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`curl -sS ifconfig.me 2&amp;gt;&amp;amp;1`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chomp&lt;/span&gt;
+&lt;a name=&quot;True-24&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;If your correctly configured &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config_file&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;, this should show the ip you have trough the proxy&amp;quot;&lt;/span&gt;
+&lt;a name=&quot;True-25&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Your ip through the proxy is:&amp;#39;&lt;/span&gt;
+&lt;a name=&quot;True-26&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;n&quot;&gt;ohai&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`tsocks curl -sS ifconfig.me 2&amp;gt;&amp;amp;1`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chomp&lt;/span&gt;
+&lt;a name=&quot;True-27&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;a name=&quot;True-28&quot;&gt;&lt;/a&gt;
+&lt;a name=&quot;True-29&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;config_file&lt;/span&gt;
+&lt;a name=&quot;True-30&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;n&quot;&gt;etc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;tsocks.conf&amp;#39;&lt;/span&gt;
+&lt;a name=&quot;True-31&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;a name=&quot;True-32&quot;&gt;&lt;/a&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;之后输入  &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;brew install --HEAD tsocks
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;下载安装可能需要等待很久，需要耐心等待下。&lt;/p&gt;
+
+&lt;p&gt;如果安装的时候提示  &lt;code&gt;configure:error:cannot run C compiled programs&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;尝试使用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;xcode-select --install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;一切顺利我们就开始使用啦。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;vi /usr/local/etc/tsocks.conf 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;tsocks-1&quot;&gt;配置tsocks&lt;/h3&gt;
+
+&lt;p&gt;server = proxy.xxx.com #your proxy domain or IP address  &lt;/p&gt;
+
+&lt;p&gt;server_type = 5   #to use socks V5  &lt;/p&gt;
+
+&lt;p&gt;server_port = 1080 #the port of your porxy  &lt;/p&gt;
+
+&lt;p&gt;添加到配置中,查看是否生效&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tsocks wget www.google.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果走的是sock5服务器，那么说明tsocks已经生效了，我们可以使用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tsocks open -a &#39;Safari&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;打开任何应用，或者:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tsocks git push
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用命令行。enjoy it!&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 28 Sep 2015 20:32:18 +0800</pubDate>
+        <link>http://pixyll.com/proxy/2015/09/28/my-tsocks/</link>
+        <guid isPermaLink="true">http://pixyll.com/proxy/2015/09/28/my-tsocks/</guid>
+      </item>
+    
+      <item>
         <title>Announcing Version 2.0</title>
         <description>&lt;p&gt;In an effort to make Pixyll easier to customize and more aesthetically pleasing, we’ve release version &lt;code&gt;2.0&lt;/code&gt;.&lt;/p&gt;
 
@@ -171,66 +274,6 @@ or add, features.&lt;/p&gt;
         <pubDate>Tue, 10 Jun 2014 20:31:19 +0800</pubDate>
         <link>http://pixyll.com/jekyll/pixyll/2014/06/10/see-pixyll-in-action/</link>
         <guid isPermaLink="true">http://pixyll.com/jekyll/pixyll/2014/06/10/see-pixyll-in-action/</guid>
-      </item>
-    
-      <item>
-        <title>So, What is Jekyll?</title>
-        <description>&lt;p&gt;这几天折腾了一下关于Mac下的应用代理，写下这篇blog用来总结。&lt;/p&gt;
-
-&lt;p&gt;由于一些原因，国内访问国外一些网站有问题，有些应用提供了代理的设置，但是大多数是没有的。所以我们需要一些工具，使之可以正常使用。&lt;/p&gt;
-
-&lt;h3 id=&quot;section&quot;&gt;前提工具准备&lt;/h3&gt;
-&lt;p&gt;1.在Mac下有一个方便的下载安装工具，类似于Ubuntu的apt-get 叫做&lt;a href=&quot;brew.sh&quot;&gt;Brew&lt;/a&gt;,下载方式他的官网有很详细的介绍。&lt;br /&gt;
-2.一台提供sock代理的服务器&lt;/p&gt;
-
-&lt;h3 id=&quot;tsocks&quot;&gt;安装tsocks&lt;/h3&gt;
-&lt;p&gt;一般我们使用brew进行安装时，brew install＋应用名。但是由于brew于一些三方作者的关系，我们需要手动创建formual。&lt;em&gt;这里是&lt;a href=&quot;https://github.com/Homebrew/homebrew/issues/11870&quot;&gt;原因&lt;/a&gt;&lt;/em&gt;  &lt;/p&gt;
-
-&lt;p&gt;1.vi /usr/local/Library/Formula/tsocks.rb
-内容如下  &lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;a name=&quot;True-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;formula&amp;#39;&lt;/span&gt;
-&lt;a name=&quot;True-2&quot;&gt;&lt;/a&gt;
-&lt;a name=&quot;True-3&quot;&gt;&lt;/a&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Tsocks&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Formula&lt;/span&gt;
-&lt;a name=&quot;True-4&quot;&gt;&lt;/a&gt;
-&lt;a name=&quot;True-5&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;c1&quot;&gt;# The original is http://tsocks.sourceforge.net/&lt;/span&gt;
-&lt;a name=&quot;True-6&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;c1&quot;&gt;# This GitHub repo is a maintained fork with OSX support&lt;/span&gt;
-&lt;a name=&quot;True-7&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;n&quot;&gt;homepage&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;http://github.com/pc/tsocks&amp;#39;&lt;/span&gt;
-&lt;a name=&quot;True-8&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;https://github.com/pc/tsocks.git&amp;#39;&lt;/span&gt;
-&lt;a name=&quot;True-9&quot;&gt;&lt;/a&gt;
-&lt;a name=&quot;True-10&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;n&quot;&gt;depends_on&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;autoconf&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:build&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;MacOS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xcode_version&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
-&lt;a name=&quot;True-11&quot;&gt;&lt;/a&gt;
-&lt;a name=&quot;True-12&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;install&lt;/span&gt;
-&lt;a name=&quot;True-13&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;autoconf&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;-v&amp;quot;&lt;/span&gt;
-&lt;a name=&quot;True-14&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;./configure&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;--prefix=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;--disable-debug&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;--disable-dependency-tracking&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;--with-conf=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config_file&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
-&lt;a name=&quot;True-15&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;n&quot;&gt;inreplace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;tsocks&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;change_make_var!&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;LIBDIR&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;a name=&quot;True-16&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;make&amp;quot;&lt;/span&gt;
-&lt;a name=&quot;True-17&quot;&gt;&lt;/a&gt;   &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;make install&amp;quot;&lt;/span&gt;
-&lt;a name=&quot;True-18&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;n&quot;&gt;etc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;tsocks.conf.simple.example&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;tsocks.conf&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;unless&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;config_file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exist?&lt;/span&gt;
-&lt;a name=&quot;True-19&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;a name=&quot;True-20&quot;&gt;&lt;/a&gt;
-&lt;a name=&quot;True-21&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test&lt;/span&gt;
-&lt;a name=&quot;True-22&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Your current public ip is:&amp;#39;&lt;/span&gt;
-&lt;a name=&quot;True-23&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;n&quot;&gt;ohai&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`curl -sS ifconfig.me 2&amp;gt;&amp;amp;1`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chomp&lt;/span&gt;
-&lt;a name=&quot;True-24&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;If your correctly configured &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config_file&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;, this should show the ip you have trough the proxy&amp;quot;&lt;/span&gt;
-&lt;a name=&quot;True-25&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Your ip through the proxy is:&amp;#39;&lt;/span&gt;
-&lt;a name=&quot;True-26&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;n&quot;&gt;ohai&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`tsocks curl -sS ifconfig.me 2&amp;gt;&amp;amp;1`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chomp&lt;/span&gt;
-&lt;a name=&quot;True-27&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;a name=&quot;True-28&quot;&gt;&lt;/a&gt;
-&lt;a name=&quot;True-29&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;config_file&lt;/span&gt;
-&lt;a name=&quot;True-30&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;n&quot;&gt;etc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;tsocks.conf&amp;#39;&lt;/span&gt;
-&lt;a name=&quot;True-31&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;a name=&quot;True-32&quot;&gt;&lt;/a&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;之后输入&lt;br /&gt;
-brew install –HEAD tsocks&lt;/p&gt;
-
-&lt;p&gt;安装可能需要等待很久，需要耐心等待下。&lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 09 Jun 2014 20:32:18 +0800</pubDate>
-        <link>http://pixyll.com/jekyll/pixyll/2014/06/09/my-tsocks/</link>
-        <guid isPermaLink="true">http://pixyll.com/jekyll/pixyll/2014/06/09/my-tsocks/</guid>
       </item>
     
       <item>

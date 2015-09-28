@@ -3,16 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>So, What is Jekyll? &#8211; Pixyll</title>
+    <title>tsocks on Mac &#8211; Pixyll</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Transform your plain text into static websites and blogs. Simple, static, and blog-aware.">
     <meta name="author" content="John Otander">
-    <meta name="keywords" content="jekyll, pixyll">
-    <link rel="canonical" href="http://pixyll.com/jekyll/pixyll/2014/06/09/my-tsocks/">
+    <meta name="keywords" content="proxy">
+    <link rel="canonical" href="http://pixyll.com/proxy/2015/09/28/my-tsocks/">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Pixyll" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?201509281642" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?201509281726" type="text/css">
 
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
@@ -26,17 +26,17 @@
     <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="So, What is Jekyll?">
+    <meta property="og:title" content="tsocks on Mac">
     <meta property="og:description" content="A simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff.">
-    <meta property="og:url" content="http://pixyll.com/jekyll/pixyll/2014/06/09/my-tsocks/">
+    <meta property="og:url" content="http://pixyll.com/proxy/2015/09/28/my-tsocks/">
     <meta property="og:site_name" content="Pixyll">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
     
-    <meta name="twitter:title" content="So, What is Jekyll?" />
+    <meta name="twitter:title" content="tsocks on Mac" />
     <meta name="twitter:description" content="Transform your plain text into static websites and blogs. Simple, static, and blog-aware." />
-    <meta name="twitter:url" content="http://pixyll.com/jekyll/pixyll/2014/06/09/my-tsocks/" />
+    <meta name="twitter:url" content="http://pixyll.com/proxy/2015/09/28/my-tsocks/" />
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
@@ -80,11 +80,9 @@
         
 
 
-
-
 <div class="post-header mb2">
-  <h1>So, What is Jekyll?</h1>
-  <span class="post-meta">Jun 9, 2014</span><br>
+  <h1>tsocks on Mac</h1>
+  <span class="post-meta">Sep 28, 2015</span><br>
   
   <span class="post-meta small">
   
@@ -105,8 +103,12 @@
 <h3 id="tsocks">安装tsocks</h3>
 <p>一般我们使用brew进行安装时，brew install＋应用名。但是由于brew于一些三方作者的关系，我们需要手动创建formual。<em>这里是<a href="https://github.com/Homebrew/homebrew/issues/11870">原因</a></em>  </p>
 
-<p>1.vi /usr/local/Library/Formula/tsocks.rb
-内容如下  </p>
+<p>首先</p>
+
+<pre><code>vi /usr/local/Library/Formula/tsocks.rb
+</code></pre>
+
+<p>内容如下  </p>
 
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><a name="True-1"></a><span class="nb">require</span> <span class="s1">&#39;formula&#39;</span>
 <a name="True-2"></a>
@@ -141,10 +143,49 @@
 <a name="True-31"></a>  <span class="k">end</span>
 <a name="True-32"></a><span class="k">end</span></code></pre></div>
 
-<p>之后输入<br />
-brew install –HEAD tsocks</p>
+<p>之后输入  </p>
 
-<p>安装可能需要等待很久，需要耐心等待下。</p>
+<pre><code>brew install --HEAD tsocks
+</code></pre>
+
+<p>下载安装可能需要等待很久，需要耐心等待下。</p>
+
+<p>如果安装的时候提示  <code>configure:error:cannot run C compiled programs</code></p>
+
+<p>尝试使用</p>
+
+<pre><code>xcode-select --install
+</code></pre>
+
+<p>一切顺利我们就开始使用啦。</p>
+
+<pre><code>vi /usr/local/etc/tsocks.conf 
+</code></pre>
+
+<h3 id="tsocks-1">配置tsocks</h3>
+
+<p>server = proxy.xxx.com #your proxy domain or IP address  </p>
+
+<p>server_type = 5   #to use socks V5  </p>
+
+<p>server_port = 1080 #the port of your porxy  </p>
+
+<p>添加到配置中,查看是否生效</p>
+
+<pre><code>tsocks wget www.google.com
+</code></pre>
+
+<p>如果走的是sock5服务器，那么说明tsocks已经生效了，我们可以使用</p>
+
+<pre><code>tsocks open -a 'Safari'
+</code></pre>
+
+<p>打开任何应用，或者:</p>
+
+<pre><code>tsocks git push
+</code></pre>
+
+<p>使用命令行。enjoy it!</p>
 
 
 </article>
