@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>So, What is Jekyll? &#8211; Pixyll</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Transform your plain text into static websites and blogs. Simple, static, and blog-aware.">
+    <meta name="author" content="John Otander">
+    <meta name="keywords" content="jekyll, pixyll">
+    <link rel="canonical" href="http://pixyll.com/jekyll/pixyll/2014/06/09/my-tsocks/">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Pixyll" href="/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css?201509281642" type="text/css">
+
+    <!-- Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+
+    <!-- Verifications -->
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="So, What is Jekyll?">
+    <meta property="og:description" content="A simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff.">
+    <meta property="og:url" content="http://pixyll.com/jekyll/pixyll/2014/06/09/my-tsocks/">
+    <meta property="og:site_name" content="Pixyll">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+    <meta name="twitter:title" content="So, What is Jekyll?" />
+    <meta name="twitter:description" content="Transform your plain text into static websites and blogs. Simple, static, and blog-aware." />
+    <meta name="twitter:url" content="http://pixyll.com/jekyll/pixyll/2014/06/09/my-tsocks/" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+
+    
+</head>
+
+<body class="site">
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://pixyll.com" class="site-title">Pixyll</a>
+      <nav class="site-nav">
+        <a href="/about/">About</a>
+<a href="/contact/">Contact</a>
+
+      </nav>
+      <div class="clearfix"></div>
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+
+
+<div class="post-header mb2">
+  <h1>So, What is Jekyll?</h1>
+  <span class="post-meta">Jun 9, 2014</span><br>
+  
+  <span class="post-meta small">
+  
+    1 minute read
+  
+  </span>
+</div>
+
+<article class="post-content">
+  <p>这几天折腾了一下关于Mac下的应用代理，写下这篇blog用来总结。</p>
+
+<p>由于一些原因，国内访问国外一些网站有问题，有些应用提供了代理的设置，但是大多数是没有的。所以我们需要一些工具，使之可以正常使用。</p>
+
+<h3 id="section">前提工具准备</h3>
+<p>1.在Mac下有一个方便的下载安装工具，类似于Ubuntu的apt-get 叫做<a href="brew.sh">Brew</a>,下载方式他的官网有很详细的介绍。<br />
+2.一台提供sock代理的服务器</p>
+
+<h3 id="tsocks">安装tsocks</h3>
+<p>一般我们使用brew进行安装时，brew install＋应用名。但是由于brew于一些三方作者的关系，我们需要手动创建formual。<em>这里是<a href="https://github.com/Homebrew/homebrew/issues/11870">原因</a></em>  </p>
+
+<p>1.vi /usr/local/Library/Formula/tsocks.rb
+内容如下  </p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><a name="True-1"></a><span class="nb">require</span> <span class="s1">&#39;formula&#39;</span>
+<a name="True-2"></a>
+<a name="True-3"></a><span class="k">class</span> <span class="nc">Tsocks</span> <span class="o">&lt;</span> <span class="no">Formula</span>
+<a name="True-4"></a>
+<a name="True-5"></a>  <span class="c1"># The original is http://tsocks.sourceforge.net/</span>
+<a name="True-6"></a>  <span class="c1"># This GitHub repo is a maintained fork with OSX support</span>
+<a name="True-7"></a>  <span class="n">homepage</span> <span class="s1">&#39;http://github.com/pc/tsocks&#39;</span>
+<a name="True-8"></a>  <span class="n">head</span> <span class="s1">&#39;https://github.com/pc/tsocks.git&#39;</span>
+<a name="True-9"></a>
+<a name="True-10"></a>  <span class="n">depends_on</span> <span class="s1">&#39;autoconf&#39;</span> <span class="o">=&gt;</span> <span class="ss">:build</span> <span class="k">if</span> <span class="no">MacOS</span><span class="o">.</span><span class="n">xcode_version</span><span class="o">.</span><span class="n">to_f</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="o">.</span><span class="mi">3</span>
+<a name="True-11"></a>
+<a name="True-12"></a>  <span class="k">def</span> <span class="nf">install</span>
+<a name="True-13"></a>    <span class="nb">system</span> <span class="s2">&quot;autoconf&quot;</span><span class="p">,</span> <span class="s2">&quot;-v&quot;</span>
+<a name="True-14"></a>    <span class="nb">system</span> <span class="s2">&quot;./configure&quot;</span><span class="p">,</span> <span class="s2">&quot;--prefix=</span><span class="si">#{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;--disable-debug&quot;</span><span class="p">,</span> <span class="s2">&quot;--disable-dependency-tracking&quot;</span><span class="p">,</span> <span class="s2">&quot;--with-conf=</span><span class="si">#{</span><span class="n">config_file</span><span class="si">}</span><span class="s2">&quot;</span>
+<a name="True-15"></a>  <span class="n">inreplace</span><span class="p">(</span><span class="s2">&quot;tsocks&quot;</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">bin</span><span class="o">|</span> <span class="n">bin</span><span class="o">.</span><span class="n">change_make_var!</span> <span class="s2">&quot;LIBDIR&quot;</span><span class="p">,</span> <span class="n">lib</span> <span class="p">}</span>
+<a name="True-16"></a>  <span class="nb">system</span> <span class="s2">&quot;make&quot;</span>
+<a name="True-17"></a>   <span class="nb">system</span> <span class="s2">&quot;make install&quot;</span>
+<a name="True-18"></a>  <span class="n">etc</span><span class="o">.</span><span class="n">install</span> <span class="s2">&quot;tsocks.conf.simple.example&quot;</span> <span class="o">=&gt;</span> <span class="s2">&quot;tsocks.conf&quot;</span> <span class="k">unless</span> <span class="n">config_file</span><span class="o">.</span><span class="n">exist?</span>
+<a name="True-19"></a>  <span class="k">end</span>
+<a name="True-20"></a>
+<a name="True-21"></a>  <span class="k">def</span> <span class="nf">test</span>
+<a name="True-22"></a>    <span class="nb">puts</span> <span class="s1">&#39;Your current public ip is:&#39;</span>
+<a name="True-23"></a>    <span class="n">ohai</span> <span class="sb">`curl -sS ifconfig.me 2&gt;&amp;1`</span><span class="o">.</span><span class="n">chomp</span>
+<a name="True-24"></a>    <span class="nb">puts</span> <span class="s2">&quot;If your correctly configured </span><span class="si">#{</span><span class="n">config_file</span><span class="si">}</span><span class="s2">, this should show the ip you have trough the proxy&quot;</span>
+<a name="True-25"></a>    <span class="nb">puts</span> <span class="s1">&#39;Your ip through the proxy is:&#39;</span>
+<a name="True-26"></a>    <span class="n">ohai</span> <span class="sb">`tsocks curl -sS ifconfig.me 2&gt;&amp;1`</span><span class="o">.</span><span class="n">chomp</span>
+<a name="True-27"></a>  <span class="k">end</span>
+<a name="True-28"></a>
+<a name="True-29"></a>  <span class="k">def</span> <span class="nf">config_file</span>
+<a name="True-30"></a>    <span class="n">etc</span> <span class="o">/</span> <span class="s1">&#39;tsocks.conf&#39;</span>
+<a name="True-31"></a>  <span class="k">end</span>
+<a name="True-32"></a><span class="k">end</span></code></pre></div>
+
+<p>之后输入<br />
+brew install –HEAD tsocks</p>
+
+<p>安装可能需要等待很久，需要耐心等待下。</p>
+
+
+</article>
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    <small>
+      Theme crafted with &lt;3 by <a href="http://johnotander.com">John Otander</a> (<a href="https://twitter.com/4lpine">@4lpine</a>).<br>
+      &lt;/&gt; available on <a href="https://github.com/johnotander/pixyll">Github</a>.
+    </small>
+  </div>
+</footer>
+
+</body>
+</html>
