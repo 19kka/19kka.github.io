@@ -3,16 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Say Hello &#8211; Pixyll</title>
+    <title>Contact me &#8211; 19kka</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="A simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff.">
-    <meta name="author" content="John Otander">
+    <meta name="description" content="enjoy your life">
+    <meta name="author" content="19kka">
     
-    <link rel="canonical" href="http://pixyll.com/contact/">
-    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Pixyll" href="/feed.xml" />
+    <link rel="canonical" href="http://19kka.github.com/contact/">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for 19kka" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?201509281726" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?201509291508" type="text/css">
 
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
@@ -26,17 +26,19 @@
     <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Say Hello">
-    <meta property="og:description" content="A simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff.">
-    <meta property="og:url" content="http://pixyll.com/contact/">
-    <meta property="og:site_name" content="Pixyll">
+    <meta property="og:title" content="Contact me">
+    <meta property="og:description" content="enjoy your life">
+    <meta property="og:url" content="http://19kka.github.com/contact/">
+    <meta property="og:site_name" content="19kka">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
     
-    <meta name="twitter:title" content="Say Hello" />
-    <meta name="twitter:description" content="A simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff." />
-    <meta name="twitter:url" content="http://pixyll.com/contact/" />
+        <meta name="twitter:site" content="@fake_meat" />
+    
+    <meta name="twitter:title" content="Contact me" />
+    <meta name="twitter:description" content="enjoy your life" />
+    <meta name="twitter:url" content="http://19kka.github.com/contact/" />
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
@@ -62,7 +64,7 @@
     <header class="site-header px2 px-responsive">
   <div class="mt2 wrap">
     <div class="measure">
-      <a href="http://pixyll.com" class="site-title">Pixyll</a>
+      <a href="http://19kka.github.com" class="site-title">19kka</a>
       <nav class="site-nav">
         <a href="/about/">About</a>
 <a href="/contact/">Contact</a>
@@ -79,21 +81,55 @@
       <div class="measure">
         <div class="post">
   <header class="post-header">
-    <h1 class="h2">Say Hello</h1>
+    <h1 class="h2">Contact me</h1>
   </header>
   <article class="post-content">
   <div class="py2">
   
-    <form action="https://formspree.io/your_email@example.com" method="POST" class="form-stacked">
-      <input type="text" name="email" class="field-light" placeholder="Email Address">
+    <form class="form-stacked">
+      <input type="text" name="subject" class="field-light" placeholder="Subject">
       <textarea type="text" name="content" class="field-light" rows="5" placeholder="What would you like to say?"></textarea>
-      <input type="hidden" name="_next" value="/thanks/" />
       <input type="hidden" name="_subject" value="New submission!" />
       <input type="text" name="_gotcha" style="display:none" />
-      <input type="submit" class="button button-blue button-big mobile-block" value="Say Hello">
+      <button type='button' class="button button-blue button-big mobile-block">Say Hello</button>
     </form>
   
 </div>
+
+
+  <script>
+
+    var contactForm = document.querySelector('form'),
+    inputEmailSubject = contactForm.querySelector('[name="subject"]'),
+    textAreaMessage = contactForm.querySelector('[name="content"]'),
+    sendButton = contactForm.querySelector('button');
+
+    sendButton.addEventListener('click', function(event){
+      event.preventDefault();
+
+      sendButton.innerHTML = 'sending..';
+      var s = 'mailto:'+'matcha.19kka@gmail.com'+'?body='+textAreaMessage.value+'&subject='+inputEmailSubject.value;
+      // alert(s);
+      location.href = s;
+      // var xhr = new XMLHttpRequest();
+      // xhr.open('POST', '//formspree.io/matcha.19kka@gmail.com', true);
+      // xhr.setRequestHeader("Accept", "application/json")
+      // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+
+      // xhr.send(
+      //   "email=" + inputEmail.value +
+      //   "&message=" + textAreaMessage.value);
+
+      // xhr.onloadend = function (res) {
+      //   if (res.target.status === 200){
+      //     sendButton.innerHTML = 'Message sent!';
+      //   }
+      //   else {
+      //     sendButton.innerHTML = 'Error!';
+      //   }
+      // }
+    });
+</script>
 
 
 
@@ -107,8 +143,7 @@
   <footer class="center">
   <div class="measure">
     <small>
-      Theme crafted with &lt;3 by <a href="http://johnotander.com">John Otander</a> (<a href="https://twitter.com/4lpine">@4lpine</a>).<br>
-      &lt;/&gt; available on <a href="https://github.com/johnotander/pixyll">Github</a>.
+      <a href="http://19kka.github.com">19kka</a> (<a href="https://twitter.com/fake_meat">@feke_meat</a>).<br>
     </small>
   </div>
 </footer>

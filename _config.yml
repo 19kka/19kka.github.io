@@ -1,10 +1,10 @@
 # Site settings
-title:       Pixyll
-email:       your_email@example.com
-author:      John Otander
-description: "A simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff."
+title:       19kka
+email:       matcha.19kka@gmail.com
+author:      19kka
+description: "enjoy your life"
 baseurl:     ""
-url:         "http://pixyll.com"
+url:         "http://19kka.github.com"
 date_format: "%b %-d, %Y"
 
 # Google services
@@ -16,17 +16,17 @@ animated:             false
 show_related_posts:   false
 show_post_footers:    false
 show_social_icons:    false
-ajaxify_contact_form: false
+ajaxify_contact_form: true
 
 # Disqus post comments
 # (leave blank to disable Disqus)
 disqus_shortname:
 
 # Social icons
-github_username:
+github_username: 19kka
 bitbucket_username:
 stackoverflow_id:
-twitter_username:
+twitter_username: fake_meat
 google_plus_id:
 linkedin_username:
 angellist_username:
