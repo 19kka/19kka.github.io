@@ -7,6 +7,24 @@
     <atom:link href="http://19kka.github.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>python tips</title>
+        <description>&lt;p&gt;汇总一些自己遇到的python的小技巧。&lt;/p&gt;
+
+&lt;h3 id=&quot;pythonshell&quot;&gt;python内嵌shell函数&lt;/h3&gt;
+&lt;p&gt;使用  &lt;a href=&quot;https://docs.python.org/2/library/subprocess.html&quot;&gt;subpro module&lt;/a&gt; 库&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;subprocess&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;ls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;-l&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;之后补上。&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 09 Oct 2015 17:00:18 +0800</pubDate>
+        <link>http://19kka.github.com/python/2015/10/09/python-tips/</link>
+        <guid isPermaLink="true">http://19kka.github.com/python/2015/10/09/python-tips/</guid>
+      </item>
+    
+      <item>
         <title>build protobuf on Mac</title>
         <description>&lt;p&gt;十一之前编译了protobuf给iOS用，但是网上的教程良莠不齐，这次做一个总结，也给自己一个记录。前面部分是可以方便的编译完然后立刻使用，后面部分是详细的叙述。&lt;/p&gt;
 
