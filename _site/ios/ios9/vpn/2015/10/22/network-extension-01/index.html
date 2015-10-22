@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>build protobuf on Mac &#8211; 19kka</title>
+    <title>Network Extension 01 iOS9 &#8211; 19kka</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="build Google Protocol Buffer">
+    <meta name="description" content="Use Network Extension API">
     <meta name="author" content="19kka">
-    <meta name="keywords" content="protobuf">
-    <link rel="canonical" href="http://19kka.github.com/protobuf/2015/10/08/build-protobuf/">
+    <meta name="keywords" content="ios, ios9, vpn">
+    <link rel="canonical" href="http://19kka.github.com/ios/ios9/vpn/2015/10/22/network-extension-01/">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for 19kka" href="/feed.xml" />
 
     <!-- Custom CSS -->
@@ -26,9 +26,9 @@
     <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="build protobuf on Mac">
+    <meta property="og:title" content="Network Extension 01 iOS9">
     <meta property="og:description" content="enjoy your life">
-    <meta property="og:url" content="http://19kka.github.com/protobuf/2015/10/08/build-protobuf/">
+    <meta property="og:url" content="http://19kka.github.com/ios/ios9/vpn/2015/10/22/network-extension-01/">
     <meta property="og:site_name" content="19kka">
 
     <!-- Twitter Card -->
@@ -36,9 +36,9 @@
     
         <meta name="twitter:site" content="@fake_meat" />
     
-    <meta name="twitter:title" content="build protobuf on Mac" />
-    <meta name="twitter:description" content="build Google Protocol Buffer" />
-    <meta name="twitter:url" content="http://19kka.github.com/protobuf/2015/10/08/build-protobuf/" />
+    <meta name="twitter:title" content="Network Extension 01 iOS9" />
+    <meta name="twitter:description" content="Use Network Extension API" />
+    <meta name="twitter:url" content="http://19kka.github.com/ios/ios9/vpn/2015/10/22/network-extension-01/" />
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
@@ -85,8 +85,8 @@
 
 
 <div class="post-header mb2">
-  <h1>build protobuf on Mac</h1>
-  <span class="post-meta">Oct 8, 2015</span><br>
+  <h1>Network Extension 01 iOS9</h1>
+  <span class="post-meta">Oct 22, 2015</span><br>
   
   <span class="post-meta small">
   
@@ -96,51 +96,12 @@
 </div>
 
 <article class="post-content">
-  <p>十一之前编译了protobuf给iOS用，但是网上的教程良莠不齐，这次做一个总结，也给自己一个记录。前面部分是可以方便的编译完然后立刻使用，后面部分是详细的叙述。</p>
+  <h3 id="network-extension-api">开始学习使用Network Extension API</h3>
+<p>身在墙内，平时折腾手动着VPN。iOS9推出了这个新的API，听说可以开启全局的Sock代理，透明代理等等。好奇心的作用下翻了圈Google，很多推友已经着手开始行动了。<br />
+这里先推荐一个推，最近好像快推出他的应用了。<a href="https://twitter.com/Blankwonder">@Blankwonder</a></p>
 
-<h3 id="section">前提准备</h3>
-
-<p>1 一个针对sh脚本 地址在这里<em><a href="https://gist.github.com/BennettSmith/9487468ae3375d0db0cc">https://gist.github.com/BennettSmith/9487468ae3375d0db0cc</a></em>
-<em>推荐使用这个脚本，因为如果你赶时间，这个会让你很方便。</em></p>
-
-<p>2.一个过墙的命令行代理（最好有）</p>
-
-<h3 id="section-1">编译</h3>
-<pre><code>$ cd build-protobuf
-$ sudo ./build-protobuf.sh 可以看到这个脚本中还有从github/google/protobuf/release中下载源码，所以整个过程需要一些时间。
-</code></pre>
-
-<p>成功之后会.a文件会在 当前目录的生成一个目录 protobuf-2.x.x
-现在的版本号为2.6.1。一共有3个文件夹,目录树如下。</p>
-
-<pre><code>.
-├── bin
-├── include
-│   └── google
-└── lib
-    ├── libprotobuf-lite.a
-    ├── libprotobuf-lite.la
-    ├── libprotobuf.a
-    ├── libprotobuf.la
-    ├── libprotoc.a
-    ├── libprotoc.la
-    └── pkgconfig
-</code></pre>
-
-<h3 id="section-2">使用</h3>
-<ol>
-  <li>在Header Search Paths 处添加 /usr/local/include</li>
-  <li>libprotobuf.a拖入Xcode </li>
-</ol>
-
-<p>然后没问题就可以运行了。</p>
-
-<p>感谢脚本的作者。</p>
-
-<h3 id="section-3">可能碰到的问题</h3>
-
-<p>之后补上。</p>
-
+<p>~~参考了WWDC2015的<a href="https://developer.apple.com/videos/play/wwdc2015-717/">视频</a>,其实还是一知半解，所以在Xcode的Documentation and API Reference 中下载了SimpleTunnel的Demo，但是由于The NEProvider family of APIs require entitlement 所以发送了邮件给networkextension@apple.com。<br />
+等待中。。~~</p>
 
 </article>
 
