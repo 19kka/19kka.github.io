@@ -12,8 +12,8 @@
 &lt;p&gt;身在墙内，平时折腾手动着VPN。iOS9推出了这个新的API，听说可以开启全局的Sock代理，透明代理等等。好奇心的作用下翻了圈Google，很多推友已经着手开始行动了。&lt;br /&gt;
 这里先推荐一个推，最近好像快推出他的应用了。&lt;a href=&quot;https://twitter.com/Blankwonder&quot;&gt;@Blankwonder&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;~~参考了WWDC2015的&lt;a href=&quot;https://developer.apple.com/videos/play/wwdc2015-717/&quot;&gt;视频&lt;/a&gt;,其实还是一知半解，所以在Xcode的Documentation and API Reference 中下载了SimpleTunnel的Demo，但是由于The NEProvider family of APIs require entitlement 所以发送了邮件给networkextension@apple.com。&lt;br /&gt;
-等待中。。~~&lt;/p&gt;
+&lt;p&gt;参考了WWDC2015的&lt;a href=&quot;https://developer.apple.com/videos/play/wwdc2015-717/&quot;&gt;视频&lt;/a&gt;,其实还是一知半解，所以在Xcode的Documentation and API Reference 中下载了SimpleTunnel的Demo，但是由于The NEProvider family of APIs require entitlement 所以发送了邮件给networkextension@apple.com。&lt;br /&gt;
+等待中。。&lt;/p&gt;
 </description>
         <pubDate>Thu, 22 Oct 2015 18:00:18 +0800</pubDate>
         <link>http://19kka.github.com/ios/ios9/vpn/2015/10/22/network-extension-01/</link>
