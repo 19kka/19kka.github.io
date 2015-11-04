@@ -7,6 +7,21 @@
     <atom:link href="http://19kka.github.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Network Extension API</title>
+        <description>&lt;p&gt;我想做一个用来更加快捷的连接VPN，能支持sock v5。&lt;br /&gt;
+进阶功能：
+流量过滤&lt;/p&gt;
+
+&lt;p&gt;I want to be a more efficient connection for VPN, support sock v5.
+Advanced features:
+Traffic Filtering&lt;/p&gt;
+</description>
+        <pubDate>Wed, 04 Nov 2015 17:32:18 +0800</pubDate>
+        <link>http://19kka.github.com/vpn/ios9/2015/11/04/Network-Extension-API/</link>
+        <guid isPermaLink="true">http://19kka.github.com/vpn/ios9/2015/11/04/Network-Extension-API/</guid>
+      </item>
+    
+      <item>
         <title>Network Extension 01 iOS9</title>
         <description>&lt;h3 id=&quot;network-extension-api&quot;&gt;开始学习使用Network Extension API&lt;/h3&gt;
 &lt;p&gt;身在墙内，平时折腾手动着VPN。iOS9推出了这个新的API，听说可以开启全局的Sock代理，透明代理等等。好奇心的作用下翻了圈Google，很多推友已经着手开始行动了。&lt;br /&gt;
