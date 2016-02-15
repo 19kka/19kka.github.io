@@ -7,6 +7,42 @@
     <atom:link href="http://19kka.github.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Writing Images on MacOS</title>
+        <description>&lt;h2 id=&quot;be-root-or-your-are-rootadmin&quot;&gt;1.Be root or your are root(admin)&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;su
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;unmount-disk&quot;&gt;2.unmount Disk&lt;/h2&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;diskutil&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;find-your-disk-then-unmount-it&quot;&gt;find your disk then unmount it&lt;/h4&gt;
+
+&lt;p&gt;looks like 
+/dev/disk0
+………..TYPE NAME…&lt;/p&gt;
+
+&lt;p&gt;/dev/disk1
+……..XXX…XXX&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;diskutil&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unmountDisk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diskN&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;you will see:
+xxxxxx diskN was successful&lt;/p&gt;
+
+&lt;h2 id=&quot;use-the-dd&quot;&gt;3.Use the ‘dd’&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo dd if=xxx.iso of=/dev/sdX bs=4096
+&lt;/code&gt;&lt;/pre&gt;
+
+</description>
+        <pubDate>Mon, 15 Feb 2016 22:00:18 +0800</pubDate>
+        <link>http://19kka.github.com/linux/2016/02/15/DD-Img-on-mac/</link>
+        <guid isPermaLink="true">http://19kka.github.com/linux/2016/02/15/DD-Img-on-mac/</guid>
+      </item>
+    
+      <item>
         <title>在真实的世界的WebRTC (一)（译）</title>
         <description>&lt;h4 id=&quot;httpwwwhtml5rockscomentutorialswebrtcinfrastructurehttpwwwhtml5rockscomentutorialswebrtcinfrastructure&quot;&gt;原文地址&lt;a href=&quot;http://www.html5rocks.com/en/tutorials/webrtc/infrastructure/&quot;&gt;http://www.html5rocks.com/en/tutorials/webrtc/infrastructure/&lt;/a&gt;&lt;/h4&gt;
 

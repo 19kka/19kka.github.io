@@ -12,7 +12,7 @@ categories: Linux
 
 
 ##2.unmount Disk
-{% highlight shell lineno %}
+{% highlight C %}
 	diskutil list
 {% endhighlight %}
 
@@ -25,7 +25,7 @@ looks like
 /dev/disk1
 ........XXX...XXX
 
-{% highlight shell lineno %}
+{% highlight C %}
 	diskutil unmountDisk /dev/diskN
 {% endhighlight %} 
 
