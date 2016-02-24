@@ -7,6 +7,42 @@
     <atom:link href="http://19kka.github.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Nas on linux(bananapi)</title>
+        <description>&lt;h2 id=&quot;ready&quot;&gt;Ready&lt;/h2&gt;
+&lt;p&gt;1.Banana Pi&lt;/p&gt;
+
+&lt;p&gt;2.Install ArchLinux(or other linux) &lt;/p&gt;
+
+&lt;p&gt;3.setting sshd_config&lt;/p&gt;
+
+&lt;p&gt;–&lt;/p&gt;
+
+&lt;h2 id=&quot;ddns&quot;&gt;1.DDNS&lt;/h2&gt;
+&lt;p&gt;1.apt-get update&lt;/p&gt;
+
+&lt;p&gt;2.install dig for ddns&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;apt-get install dnsutils
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;3.–&amp;gt;此处添加ddns python代码&lt;/p&gt;
+
+&lt;p&gt;4.add rc.local&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; vi /etc/rc.local
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;mount-device&quot;&gt;2.mount device&lt;/h2&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;diskutil&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unmountDisk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diskN&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+</description>
+        <pubDate>Mon, 15 Feb 2016 22:00:18 +0800</pubDate>
+        <link>http://19kka.github.com/linux,bananapi/2016/02/15/NAS-Server/</link>
+        <guid isPermaLink="true">http://19kka.github.com/linux,bananapi/2016/02/15/NAS-Server/</guid>
+      </item>
+    
+      <item>
         <title>Writing Images on MacOS</title>
         <description>&lt;h2 id=&quot;be-root-or-your-are-rootadmin&quot;&gt;1.Be root or your are root(admin)&lt;/h2&gt;
 

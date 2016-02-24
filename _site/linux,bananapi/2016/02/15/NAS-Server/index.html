@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>python tips &#8211; 19kka</title>
+    <title>Nas on linux(bananapi) &#8211; 19kka</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="关于python的一些实用技巧">
+    <meta name="description" content="bananapi">
     <meta name="author" content="19kka">
-    <meta name="keywords" content="python">
-    <link rel="canonical" href="http://19kka.github.com/python/2015/10/09/python-tips/">
+    <meta name="keywords" content="linux,bananapi">
+    <link rel="canonical" href="http://19kka.github.com/linux,bananapi/2016/02/15/NAS-Server/">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for 19kka" href="/feed.xml" />
 
     <!-- Custom CSS -->
@@ -26,9 +26,9 @@
     <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="python tips">
+    <meta property="og:title" content="Nas on linux(bananapi)">
     <meta property="og:description" content="enjoy your life">
-    <meta property="og:url" content="http://19kka.github.com/python/2015/10/09/python-tips/">
+    <meta property="og:url" content="http://19kka.github.com/linux,bananapi/2016/02/15/NAS-Server/">
     <meta property="og:site_name" content="19kka">
 
     <!-- Twitter Card -->
@@ -36,9 +36,9 @@
     
         <meta name="twitter:site" content="@fake_meat" />
     
-    <meta name="twitter:title" content="python tips" />
-    <meta name="twitter:description" content="关于python的一些实用技巧" />
-    <meta name="twitter:url" content="http://19kka.github.com/python/2015/10/09/python-tips/" />
+    <meta name="twitter:title" content="Nas on linux(bananapi)" />
+    <meta name="twitter:description" content="bananapi" />
+    <meta name="twitter:url" content="http://19kka.github.com/linux,bananapi/2016/02/15/NAS-Server/" />
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
@@ -85,8 +85,8 @@
 
 
 <div class="post-header mb2">
-  <h1>python tips</h1>
-  <span class="post-meta">Oct 9, 2015</span><br>
+  <h1>Nas on linux(bananapi)</h1>
+  <span class="post-meta">Feb 15, 2016</span><br>
   
   <span class="post-meta small">
   
@@ -96,15 +96,33 @@
 </div>
 
 <article class="post-content">
-  <p>汇总一些自己遇到的python的小技巧。</p>
+  <h2 id="ready">Ready</h2>
+<p>1.Banana Pi</p>
 
-<h3 id="pythonshell">python内嵌shell函数</h3>
-<p>使用  <a href="https://docs.python.org/2/library/subprocess.html">subpro module</a> 库</p>
+<p>2.Install ArchLinux(or other linux) </p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">call</span>
-	<span class="n">call</span><span class="p">([</span><span class="s">&quot;ls&quot;</span><span class="p">,</span><span class="s">&quot;-l&quot;</span><span class="p">])</span></code></pre></div>
+<p>3.setting sshd_config</p>
 
-<p>之后补上。</p>
+<p>–</p>
+
+<h2 id="ddns">1.DDNS</h2>
+<p>1.apt-get update</p>
+
+<p>2.install dig for ddns</p>
+
+<pre><code>apt-get install dnsutils
+</code></pre>
+
+<p>3.–&gt;此处添加ddns python代码</p>
+
+<p>4.add rc.local</p>
+
+<pre><code> vi /etc/rc.local
+</code></pre>
+
+<h2 id="mount-device">2.mount device</h2>
+
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">diskutil</span> <span class="n">unmountDisk</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">diskN</span></code></pre></div>
 
 
 </article>
@@ -117,7 +135,7 @@
   <div id="disqus_thread"></div>
   <script type="text/javascript">
     var disqus_shortname  = '19kka';
-    var disqus_identifier = '/python/2015/10/09/python-tips';
+    var disqus_identifier = '/linux,bananapi/2016/02/15/NAS-Server';
     var disqus_title      = '';
 
     (function() {
