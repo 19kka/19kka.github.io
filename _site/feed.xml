@@ -7,6 +7,110 @@
     <atom:link href="http://19kka.github.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Phabricator on Mac</title>
+        <description>&lt;h1 id=&quot;phabricator-on-mac&quot;&gt;Phabricator on Mac&lt;/h1&gt;
+&lt;p&gt;–
+本文简述了在Mac上安装Phabricator的基本步骤
+######引言
+Phabricator 是一个LAMP(Linux,Apache,MySQL,PHP) 应用。需要:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;一个Linux类系统  &lt;/li&gt;
+  &lt;li&gt;一些基本的系统管理员能力  &lt;/li&gt;
+  &lt;li&gt;Git  &lt;/li&gt;
+  &lt;li&gt;PHP,MySQL&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;section&quot;&gt;安装准备&lt;/h4&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Apache,nginx,或者其他的一个web服务器&lt;br /&gt;
+PHP:5.2以上&lt;br /&gt;
+MySQL:建议5.5以上&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;这些安装在本文中不涉及，自行Google
+###安装
+####创建文件夹以及安装依赖&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ mkdir ~/WWW/tools
+$ cd ~/WWW/tools
+$ git clone https://github.com/phacility/phabricator.git
+$ git clone https://github.com/phacility/libphutil.git
+$ git clone https://github.com/phacility/arcanist.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&quot;arcanist&quot;&gt;添加Arcanist到你的环境变量路径&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;vi &lt;strong&gt;~/.profile&lt;/strong&gt; or &lt;strong&gt;~/.bashrc&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;add &lt;strong&gt;export PATH=”$HOME/WWW/tools/arcanist/bin:$PATH”&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;save &lt;strong&gt;:wq&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;使配置生效 &lt;strong&gt;source ~/.profile*/&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;测试 &lt;strong&gt;arc help&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;phabricator&quot;&gt;配置Phabricator&lt;/h4&gt;
+
+&lt;h5 id=&quot;apache&quot;&gt;配置apache配置文件&lt;/h5&gt;
+
+&lt;pre&gt;&lt;code&gt; vi xxxxx/apache2/httpd.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;```json
+&amp;lt;VirtualHost *&amp;gt;
+    # Change this to the domain which points to your host.
+    ServerName phabricator.local.nfl.com   &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Change this to the path where you put &#39;phabricator&#39; when you checked it
+# out from GitHub when following the Installation Guide.
+#
+# Make sure you include &quot;/webroot&quot; at the end!
+DocumentRoot /Users/admin/WWW/tools/phabricator/webroot  
+
+RewriteEngine on
+RewriteRule ^/rsrc/(.*)     -                       [L,QSA]
+RewriteRule ^/favicon.ico   -                       [L,QSA]
+RewriteRule ^(.*)$          /index.php?__path__=$1  [B,L,QSA]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&amp;lt;/VirtualHost&amp;gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;allow-access-to-the-entire-www-directory&quot;&gt;Allow access to the entire WWW directory&lt;/h2&gt;
+&lt;p&gt;&amp;lt;Directory “/Users/admin/WWW”&amp;gt;
+    Options Indexes MultiViews FollowSymLinks
+    AllowOverride All
+    Order allow,deny
+    Allow from all
+&amp;lt;/Directory&amp;gt;
+ServerName localhost
+```&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;注意把DocumentRoot 修改为自己的路径 （我的是admin)&lt;/em&gt;  &lt;/p&gt;
+
+&lt;h5 id=&quot;section-1&quot;&gt;将域名解析到本机 :&lt;/h5&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;span style=&quot;background-color:AliceBlue &quot;&gt;127.0.0.1  phabricator.local.nfl.com&lt;/span&gt; 添加到hosts &lt;span style=&quot;background-color:AliceBlue &quot;&gt;vi /private/etc/hosts&lt;/span&gt;  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;之后重启 apache &lt;span style=&quot;background-color:AliceBlue &quot;&gt;$ sudo apachectl -k restart&lt;/span&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;进行最后设置&lt;/h3&gt;
+&lt;p&gt;用浏览器打开 &lt;a href=&quot;http://phabricator.local.nfl.com/&quot;&gt;phabricator.local.nfl.com&lt;/a&gt; 如果之前的操作都没有问题，这个网页会被打开。
+&lt;img src=&quot;../images/pha_01.png&quot; alt=&quot;image&quot; /&gt;
+嗯，是这样的图就对了。然后你需要做一些配置，解决它告诉你的issue（一般有20多个）。安装到此结束。&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://secure.phabricator.com/book/phabricator/article/installation_guide/&quot;&gt;https://secure.phabricator.com/book/phabricator/article/installation_guide/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://secure.phabricator.com/book/phabricator/article/arcanist_mac_os_x/&quot;&gt;https://secure.phabricator.com/book/phabricator/article/arcanist_mac_os_x/&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        <pubDate>Fri, 15 Apr 2016 22:00:18 +0800</pubDate>
+        <link>http://19kka.github.com/phabricator,mac,git/2016/04/15/Phabricator/</link>
+        <guid isPermaLink="true">http://19kka.github.com/phabricator,mac,git/2016/04/15/Phabricator/</guid>
+      </item>
+    
+      <item>
         <title>Nas on linux(bananapi)</title>
         <description>&lt;h2 id=&quot;ready&quot;&gt;Ready&lt;/h2&gt;
 &lt;p&gt;1.Banana Pi&lt;/p&gt;

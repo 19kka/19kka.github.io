@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Network Extension API &#8211; 19kka</title>
+    <title>Phabricator on Mac &#8211; 19kka</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Try to used Network Extension API iOS9">
+    <meta name="description" content="code review">
     <meta name="author" content="19kka">
-    <meta name="keywords" content="vpn, ios9">
-    <link rel="canonical" href="http://19kka.github.com/vpn/ios9/2015/11/04/Network-Extension-API/">
+    <meta name="keywords" content="phabricator,mac,git">
+    <link rel="canonical" href="http://19kka.github.com/phabricator,mac,git/2016/04/15/Phabricator/">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for 19kka" href="/feed.xml" />
 
     <!-- Custom CSS -->
@@ -26,9 +26,9 @@
     <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Network Extension API">
+    <meta property="og:title" content="Phabricator on Mac">
     <meta property="og:description" content="enjoy your life">
-    <meta property="og:url" content="http://19kka.github.com/vpn/ios9/2015/11/04/Network-Extension-API/">
+    <meta property="og:url" content="http://19kka.github.com/phabricator,mac,git/2016/04/15/Phabricator/">
     <meta property="og:site_name" content="19kka">
 
     <!-- Twitter Card -->
@@ -36,9 +36,9 @@
     
         <meta name="twitter:site" content="@fake_meat" />
     
-    <meta name="twitter:title" content="Network Extension API" />
-    <meta name="twitter:description" content="Try to used Network Extension API iOS9" />
-    <meta name="twitter:url" content="http://19kka.github.com/vpn/ios9/2015/11/04/Network-Extension-API/" />
+    <meta name="twitter:title" content="Phabricator on Mac" />
+    <meta name="twitter:description" content="code review" />
+    <meta name="twitter:url" content="http://19kka.github.com/phabricator,mac,git/2016/04/15/Phabricator/" />
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
@@ -85,8 +85,8 @@
 
 
 <div class="post-header mb2">
-  <h1>Network Extension API</h1>
-  <span class="post-meta">Nov 4, 2015</span><br>
+  <h1>Phabricator on Mac</h1>
+  <span class="post-meta">Apr 15, 2016</span><br>
   
   <span class="post-meta small">
   
@@ -96,13 +96,102 @@
 </div>
 
 <article class="post-content">
-  <p>我想做一个用来更加快捷的连接VPN，能支持sock v5。<br />
-进阶功能：
-流量过滤</p>
+  <h1 id="phabricator-on-mac">Phabricator on Mac</h1>
+<p>–
+本文简述了在Mac上安装Phabricator的基本步骤
+######引言
+Phabricator 是一个LAMP(Linux,Apache,MySQL,PHP) 应用。需要:</p>
 
-<p>I want to be a more efficient connection for VPN, support sock v5.
-Advanced features:
-Traffic Filtering</p>
+<ul>
+  <li>一个Linux类系统  </li>
+  <li>一些基本的系统管理员能力  </li>
+  <li>Git  </li>
+  <li>PHP,MySQL</li>
+</ul>
+
+<h4 id="section">安装准备</h4>
+<blockquote>
+  <p>Apache,nginx,或者其他的一个web服务器<br />
+PHP:5.2以上<br />
+MySQL:建议5.5以上</p>
+</blockquote>
+
+<p>这些安装在本文中不涉及，自行Google
+###安装
+####创建文件夹以及安装依赖</p>
+
+<pre><code>$ mkdir ~/WWW/tools
+$ cd ~/WWW/tools
+$ git clone https://github.com/phacility/phabricator.git
+$ git clone https://github.com/phacility/libphutil.git
+$ git clone https://github.com/phacility/arcanist.git
+</code></pre>
+
+<h4 id="arcanist">添加Arcanist到你的环境变量路径</h4>
+
+<ol>
+  <li>vi <strong>~/.profile</strong> or <strong>~/.bashrc</strong></li>
+  <li>add <strong>export PATH=”$HOME/WWW/tools/arcanist/bin:$PATH”</strong></li>
+  <li>save <strong>:wq</strong></li>
+  <li>使配置生效 <strong>source ~/.profile*/</strong></li>
+  <li>测试 <strong>arc help</strong></li>
+</ol>
+
+<h4 id="phabricator">配置Phabricator</h4>
+
+<h5 id="apache">配置apache配置文件</h5>
+
+<pre><code> vi xxxxx/apache2/httpd.conf
+</code></pre>
+
+<p>```json
+&lt;VirtualHost *&gt;
+    # Change this to the domain which points to your host.
+    ServerName phabricator.local.nfl.com   </p>
+
+<pre><code># Change this to the path where you put 'phabricator' when you checked it
+# out from GitHub when following the Installation Guide.
+#
+# Make sure you include "/webroot" at the end!
+DocumentRoot /Users/admin/WWW/tools/phabricator/webroot  
+
+RewriteEngine on
+RewriteRule ^/rsrc/(.*)     -                       [L,QSA]
+RewriteRule ^/favicon.ico   -                       [L,QSA]
+RewriteRule ^(.*)$          /index.php?__path__=$1  [B,L,QSA]
+</code></pre>
+<p>&lt;/VirtualHost&gt;</p>
+
+<h2 id="allow-access-to-the-entire-www-directory">Allow access to the entire WWW directory</h2>
+<p>&lt;Directory “/Users/admin/WWW”&gt;
+    Options Indexes MultiViews FollowSymLinks
+    AllowOverride All
+    Order allow,deny
+    Allow from all
+&lt;/Directory&gt;
+ServerName localhost
+```</p>
+
+<p><em>注意把DocumentRoot 修改为自己的路径 （我的是admin)</em>  </p>
+
+<h5 id="section-1">将域名解析到本机 :</h5>
+
+<ul>
+  <li><span style="background-color:AliceBlue ">127.0.0.1  phabricator.local.nfl.com</span> 添加到hosts <span style="background-color:AliceBlue ">vi /private/etc/hosts</span>  </li>
+</ul>
+
+<p>之后重启 apache <span style="background-color:AliceBlue ">$ sudo apachectl -k restart</span></p>
+
+<h3 id="section-2">进行最后设置</h3>
+<p>用浏览器打开 <a href="http://phabricator.local.nfl.com/">phabricator.local.nfl.com</a> 如果之前的操作都没有问题，这个网页会被打开。
+<img src="../images/pha_01.png" alt="image" />
+嗯，是这样的图就对了。然后你需要做一些配置，解决它告诉你的issue（一般有20多个）。安装到此结束。</p>
+
+<hr />
+<ol>
+  <li><a href="https://secure.phabricator.com/book/phabricator/article/installation_guide/">https://secure.phabricator.com/book/phabricator/article/installation_guide/</a></li>
+  <li><a href="https://secure.phabricator.com/book/phabricator/article/arcanist_mac_os_x/">https://secure.phabricator.com/book/phabricator/article/arcanist_mac_os_x/</a></li>
+</ol>
 
 </article>
 
@@ -114,7 +203,7 @@ Traffic Filtering</p>
   <div id="disqus_thread"></div>
   <script type="text/javascript">
     var disqus_shortname  = '19kka';
-    var disqus_identifier = '/vpn/ios9/2015/11/04/Network-Extension-API';
+    var disqus_identifier = '/phabricator,mac,git/2016/04/15/Phabricator';
     var disqus_title      = '';
 
     (function() {
