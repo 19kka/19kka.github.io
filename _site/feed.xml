@@ -96,7 +96,7 @@ ServerName localhost
 
 &lt;h3 id=&quot;section-2&quot;&gt;进行最后设置&lt;/h3&gt;
 &lt;p&gt;用浏览器打开 &lt;a href=&quot;http://phabricator.local.nfl.com/&quot;&gt;phabricator.local.nfl.com&lt;/a&gt; 如果之前的操作都没有问题，这个网页会被打开。
-&lt;img src=&quot;../images/pha_01.png&quot; alt=&quot;image&quot; /&gt;
+&lt;img src=&quot;https://raw.githubusercontent.com/19kka/19kka.github.io/master/images/pha_01.png&quot; alt=&quot;image&quot; /&gt;
 嗯，是这样的图就对了。然后你需要做一些配置，解决它告诉你的issue（一般有20多个）。安装到此结束。&lt;/p&gt;
 
 &lt;hr /&gt;

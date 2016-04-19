@@ -91,7 +91,7 @@ ServerName localhost
 
 ###进行最后设置
 用浏览器打开 [phabricator.local.nfl.com](http://phabricator.local.nfl.com/) 如果之前的操作都没有问题，这个网页会被打开。
-![image](../images/pha_01.png)
+![image](https://raw.githubusercontent.com/19kka/19kka.github.io/master/images/pha_01.png)
 嗯，是这样的图就对了。然后你需要做一些配置，解决它告诉你的issue（一般有20多个）。安装到此结束。
      
 ---
