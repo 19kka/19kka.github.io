@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="code review">
     <meta name="author" content="19kka">
-    <meta name="keywords" content="phabricator,mac,git">
+    <meta name="keywords" content="phabricator,Mac,Git">
     <link rel="canonical" href="http://19kka.github.com/phabricator,mac,git/2016/04/15/Phabricator/">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for 19kka" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?201604192030" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?201605311036" type="text/css">
 
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
@@ -82,8 +82,6 @@
         
 
 
-
-
 <div class="post-header mb2">
   <h1>Phabricator on Mac</h1>
   <span class="post-meta">Apr 15, 2016</span><br>
@@ -96,38 +94,36 @@
 </div>
 
 <article class="post-content">
-  <h1 id="phabricator-on-mac">Phabricator on Mac</h1>
-<p>–
-本文简述了在Mac上安装Phabricator的基本步骤
+  <h2 id="phabricator-on-mac">#Phabricator on Mac</h2>
+<p>本文简述了在Mac上安装Phabricator的基本步骤
 ######引言
 Phabricator 是一个LAMP(Linux,Apache,MySQL,PHP) 应用。需要:</p>
 
 <ul>
-  <li>一个Linux类系统  </li>
-  <li>一些基本的系统管理员能力  </li>
-  <li>Git  </li>
+  <li>一个Linux类系统</li>
+  <li>一些基本的系统管理员能力</li>
+  <li>Git</li>
   <li>PHP,MySQL</li>
 </ul>
 
-<h4 id="section">安装准备</h4>
-<blockquote>
-  <p>Apache,nginx,或者其他的一个web服务器<br />
-PHP:5.2以上<br />
-MySQL:建议5.5以上</p>
-</blockquote>
+<p>####安装准备
+&gt;Apache,nginx,或者其他的一个web服务器<br />
+&gt;PHP:5.2以上<br />
+&gt;MySQL:建议5.5以上</p>
 
 <p>这些安装在本文中不涉及，自行Google
 ###安装
 ####创建文件夹以及安装依赖</p>
 
-<pre><code>$ mkdir ~/WWW/tools
+<div class="highlighter-rouge"><pre class="highlight"><code>$ mkdir ~/WWW/tools
 $ cd ~/WWW/tools
 $ git clone https://github.com/phacility/phabricator.git
 $ git clone https://github.com/phacility/libphutil.git
 $ git clone https://github.com/phacility/arcanist.git
 </code></pre>
+</div>
 
-<h4 id="arcanist">添加Arcanist到你的环境变量路径</h4>
+<p>####添加Arcanist到你的环境变量路径</p>
 
 <ol>
   <li>vi <strong>~/.profile</strong> or <strong>~/.bashrc</strong></li>
@@ -137,53 +133,57 @@ $ git clone https://github.com/phacility/arcanist.git
   <li>测试 <strong>arc help</strong></li>
 </ol>
 
-<h4 id="phabricator">配置Phabricator</h4>
+<p>####配置Phabricator</p>
 
-<h5 id="apache">配置apache配置文件</h5>
+<p>#####配置apache配置文件</p>
 
-<pre><code> vi xxxxx/apache2/httpd.conf
+<div class="highlighter-rouge"><pre class="highlight"><code> vi xxxxx/apache2/httpd.conf
 </code></pre>
+</div>
 
-<p>```json
-&lt;VirtualHost *&gt;
-    # Change this to the domain which points to your host.
-    ServerName phabricator.local.nfl.com   </p>
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="err">&lt;VirtualHost</span><span class="w"> </span><span class="err">*&gt;</span><span class="w">
+    </span><span class="err">#</span><span class="w"> </span><span class="err">Change</span><span class="w"> </span><span class="err">this</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">domain</span><span class="w"> </span><span class="err">which</span><span class="w"> </span><span class="err">points</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">your</span><span class="w"> </span><span class="err">host.</span><span class="w">
+    </span><span class="err">ServerName</span><span class="w"> </span><span class="err">phabricator.local.nfl.com</span><span class="w">   
 
-<pre><code># Change this to the path where you put 'phabricator' when you checked it
-# out from GitHub when following the Installation Guide.
-#
-# Make sure you include "/webroot" at the end!
-DocumentRoot /Users/admin/WWW/tools/phabricator/webroot  
+    </span><span class="err">#</span><span class="w"> </span><span class="err">Change</span><span class="w"> </span><span class="err">this</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">path</span><span class="w"> </span><span class="err">where</span><span class="w"> </span><span class="err">you</span><span class="w"> </span><span class="err">put</span><span class="w"> </span><span class="err">'phabricator'</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">you</span><span class="w"> </span><span class="err">checked</span><span class="w"> </span><span class="err">it</span><span class="w">
+    </span><span class="err">#</span><span class="w"> </span><span class="err">out</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="err">GitHub</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">following</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">Installation</span><span class="w"> </span><span class="err">Guide.</span><span class="w">
+    </span><span class="err">#</span><span class="w">
+    </span><span class="err">#</span><span class="w"> </span><span class="err">Make</span><span class="w"> </span><span class="err">sure</span><span class="w"> </span><span class="err">you</span><span class="w"> </span><span class="err">include</span><span class="w"> </span><span class="s2">"/webroot"</span><span class="w"> </span><span class="err">at</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">end!</span><span class="w">
+    </span><span class="err">DocumentRoot</span><span class="w"> </span><span class="err">/Users/admin/WWW/tools/phabricator/webroot</span><span class="w">  
 
-RewriteEngine on
-RewriteRule ^/rsrc/(.*)     -                       [L,QSA]
-RewriteRule ^/favicon.ico   -                       [L,QSA]
-RewriteRule ^(.*)$          /index.php?__path__=$1  [B,L,QSA]
-</code></pre>
-<p>&lt;/VirtualHost&gt;</p>
+    </span><span class="err">RewriteEngine</span><span class="w"> </span><span class="err">on</span><span class="w">
+    </span><span class="err">RewriteRule</span><span class="w"> </span><span class="err">^/rsrc/(.*)</span><span class="w">     </span><span class="err">-</span><span class="w">                       </span><span class="p">[</span><span class="err">L</span><span class="p">,</span><span class="err">QSA</span><span class="p">]</span><span class="w">
+    </span><span class="err">RewriteRule</span><span class="w"> </span><span class="err">^/favicon.ico</span><span class="w">   </span><span class="err">-</span><span class="w">                       </span><span class="p">[</span><span class="err">L</span><span class="p">,</span><span class="err">QSA</span><span class="p">]</span><span class="w">
+    </span><span class="err">RewriteRule</span><span class="w"> </span><span class="err">^(.*)$</span><span class="w">          </span><span class="err">/index.php?__path__=$</span><span class="mi">1</span><span class="w">  </span><span class="p">[</span><span class="err">B</span><span class="p">,</span><span class="err">L</span><span class="p">,</span><span class="err">QSA</span><span class="p">]</span><span class="w">
+</span><span class="err">&lt;/VirtualHost&gt;</span><span class="w">
 
-<h2 id="allow-access-to-the-entire-www-directory">Allow access to the entire WWW directory</h2>
-<p>&lt;Directory “/Users/admin/WWW”&gt;
-    Options Indexes MultiViews FollowSymLinks
-    AllowOverride All
-    Order allow,deny
-    Allow from all
-&lt;/Directory&gt;
-ServerName localhost
-```</p>
 
-<p><em>注意把DocumentRoot 修改为自己的路径 （我的是admin)</em>  </p>
 
-<h5 id="section-1">将域名解析到本机 :</h5>
+
+
+</span><span class="err">##</span><span class="w"> </span><span class="err">Allow</span><span class="w"> </span><span class="err">access</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">entire</span><span class="w"> </span><span class="err">WWW</span><span class="w"> </span><span class="err">directory</span><span class="w">
+</span><span class="err">&lt;Directory</span><span class="w"> </span><span class="s2">"/Users/admin/WWW"</span><span class="err">&gt;</span><span class="w">
+    </span><span class="err">Options</span><span class="w"> </span><span class="err">Indexes</span><span class="w"> </span><span class="err">MultiViews</span><span class="w"> </span><span class="err">FollowSymLinks</span><span class="w">
+    </span><span class="err">AllowOverride</span><span class="w"> </span><span class="err">All</span><span class="w">
+    </span><span class="err">Order</span><span class="w"> </span><span class="err">allow,deny</span><span class="w">
+    </span><span class="err">Allow</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="err">all</span><span class="w">
+</span><span class="err">&lt;/Directory&gt;</span><span class="w">
+</span><span class="err">ServerName</span><span class="w"> </span><span class="err">localhost</span><span class="w">
+</span></code></pre>
+</div>
+
+<p><em>注意把DocumentRoot 修改为自己的路径 （我的是admin)</em></p>
+
+<p>#####将域名解析到本机 :</p>
 
 <ul>
-  <li><span style="background-color:AliceBlue ">127.0.0.1  phabricator.local.nfl.com</span> 添加到hosts <span style="background-color:AliceBlue ">vi /private/etc/hosts</span>  </li>
+  <li><span style="background-color:AliceBlue ">127.0.0.1  phabricator.local.nfl.com</span> 添加到hosts <span style="background-color:AliceBlue ">vi /private/etc/hosts</span></li>
 </ul>
 
 <p>之后重启 apache <span style="background-color:AliceBlue ">$ sudo apachectl -k restart</span></p>
 
-<h3 id="section-2">进行最后设置</h3>
-<p>用浏览器打开 <a href="http://phabricator.local.nfl.com/">phabricator.local.nfl.com</a> 如果之前的操作都没有问题，这个网页会被打开。
+<p>###进行最后设置
+用浏览器打开 <a href="http://phabricator.local.nfl.com/">phabricator.local.nfl.com</a> 如果之前的操作都没有问题，这个网页会被打开。
 <img src="https://raw.githubusercontent.com/19kka/19kka.github.io/master/images/pha_01.png" alt="image" />
 嗯，是这样的图就对了。然后你需要做一些配置，解决它告诉你的issue（一般有20多个）。安装到此结束。</p>
 

@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Nas on linux(bananapi) &#8211; 19kka</title>
+    <title>iOS Review CheckList &#8211; 19kka</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="bananapi">
+    <meta name="description" content="enjoy your life">
     <meta name="author" content="19kka">
-    <meta name="keywords" content="Linux,Bananapi">
-    <link rel="canonical" href="http://19kka.github.com/linux,bananapi/2016/02/15/NAS-Server/">
+    <meta name="keywords" content="iOS,Xcode,Review">
+    <link rel="canonical" href="http://19kka.github.com/ios,xcode,review/2016/05/26/ReviewTips/">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for 19kka" href="/feed.xml" />
 
     <!-- Custom CSS -->
@@ -26,9 +26,9 @@
     <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Nas on linux(bananapi)">
+    <meta property="og:title" content="iOS Review CheckList">
     <meta property="og:description" content="enjoy your life">
-    <meta property="og:url" content="http://19kka.github.com/linux,bananapi/2016/02/15/NAS-Server/">
+    <meta property="og:url" content="http://19kka.github.com/ios,xcode,review/2016/05/26/ReviewTips/">
     <meta property="og:site_name" content="19kka">
 
     <!-- Twitter Card -->
@@ -36,9 +36,9 @@
     
         <meta name="twitter:site" content="@fake_meat" />
     
-    <meta name="twitter:title" content="Nas on linux(bananapi)" />
-    <meta name="twitter:description" content="bananapi" />
-    <meta name="twitter:url" content="http://19kka.github.com/linux,bananapi/2016/02/15/NAS-Server/" />
+    <meta name="twitter:title" content="iOS Review CheckList" />
+    <meta name="twitter:description" content="enjoy your life" />
+    <meta name="twitter:url" content="http://19kka.github.com/ios,xcode,review/2016/05/26/ReviewTips/" />
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
@@ -83,8 +83,8 @@
 
 
 <div class="post-header mb2">
-  <h1>Nas on linux(bananapi)</h1>
-  <span class="post-meta">Feb 15, 2016</span><br>
+  <h1>iOS Review CheckList</h1>
+  <span class="post-meta">May 26, 2016</span><br>
   
   <span class="post-meta small">
   
@@ -94,36 +94,25 @@
 </div>
 
 <article class="post-content">
-  <p>##Ready
-1.Banana Pi</p>
+  <p>#iOS审核检查表</p>
 
-<p>2.Install ArchLinux(or other linux)</p>
+<p>由于本人多次在一些简单的审核问题上重复犯错，故在提交审核之前做一次检查。检查项目如下：</p>
 
-<p>3.setting sshd_config</p>
+<blockquote>
+  <p>检查你的 <strong>Bundle Identifier</strong></p>
 
-<p>–</p>
+  <p>检查你的 <strong>Produce ID</strong> 是否正确</p>
 
-<p>##1.DDNS
-1.apt-get update</p>
+  <p>检查内购是否顺利</p>
 
-<p>2.install dig for ddns</p>
+  <p>检查有关于审核的隐藏项目</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>apt-get install dnsutils
-</code></pre>
-</div>
+  <p>检查是否提供了可用的测试账号给审核员（建议给出所有的登录方式账号）</p>
 
-<p>3.–&gt;此处添加ddns python代码</p>
+  <p>检查项目的发布环境</p>
 
-<p>4.add rc.local</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code> vi /etc/rc.local
-</code></pre>
-</div>
-
-<p>##2.mount device</p>
-
-<figure class="highlight"><pre><code class="language-c" data-lang="c">	<span class="n">diskutil</span> <span class="n">unmountDisk</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">diskN</span></code></pre></figure>
-
+  <p>保证在购买界面没有引导购买项</p>
+</blockquote>
 
 </article>
 
@@ -135,7 +124,7 @@
   <div id="disqus_thread"></div>
   <script type="text/javascript">
     var disqus_shortname  = '19kka';
-    var disqus_identifier = '/linux,bananapi/2016/02/15/NAS-Server';
+    var disqus_identifier = '/ios,xcode,review/2016/05/26/ReviewTips';
     var disqus_title      = '';
 
     (function() {

@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="what is signaling|什么是信令">
     <meta name="author" content="19kka">
-    <meta name="keywords" content="webrtc,ios">
+    <meta name="keywords" content="WebRTC,iOS">
     <link rel="canonical" href="http://19kka.github.com/webrtc,ios/2015/11/16/WebRTC-in-the-real-world/">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for 19kka" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?201604192030" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?201605311036" type="text/css">
 
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
@@ -94,23 +94,23 @@
 </div>
 
 <article class="post-content">
-  <h4 id="httpwwwhtml5rockscomentutorialswebrtcinfrastructurehttpwwwhtml5rockscomentutorialswebrtcinfrastructure">原文地址<a href="http://www.html5rocks.com/en/tutorials/webrtc/infrastructure/">http://www.html5rocks.com/en/tutorials/webrtc/infrastructure/</a></h4>
+  <p>####原文地址<a href="http://www.html5rocks.com/en/tutorials/webrtc/infrastructure/">http://www.html5rocks.com/en/tutorials/webrtc/infrastructure/</a></p>
 
-<p>译者注释：  </p>
+<p>译者注释：</p>
 
 <ol>
-  <li>Signaling翻译的时候有时候写作 信令 有时候写作信号。  </li>
+  <li>Signaling翻译的时候有时候写作 信令 有时候写作信号。</li>
   <li>部分图片在墙内可能无法显示</li>
 </ol>
 
 <hr />
 
 <p>WebRTC允许P2P的连接。但是，
-WebRTC还是需要一些服务器:  </p>
+WebRTC还是需要一些服务器:</p>
 
 <ul>
   <li>为客户端配合交换元数据的连接：这个叫做信号(signaling)</li>
-  <li>为了对付网络地址转换(NATs)和防火墙  </li>
+  <li>为了对付网络地址转换(NATs)和防火墙</li>
 </ul>
 
 <p>本文中我们会告诉你如何去建立一个信令服务器，以及如何去处理在真实世界中的连接(real-world connectivity)使用STUN和TURN服务器出现的一些难以预料的情况。我们也解释WebRTC应用是如何使用服务器处理多方呼叫和相互配合(例如VoIP和PSTN 也称为电话)。</p>
@@ -119,25 +119,25 @@ WebRTC还是需要一些服务器:  </p>
 
 <hr />
 
-<h3 id="signaling">什么是信号（信令）（Signaling）</h3>
-<p>信令是用来协调连接的过程。WebRTC应用有序的建立一个呼叫，客户端需要交换一些信息： </p>
+<p>###什么是信号（信令）（Signaling）
+信令是用来协调连接的过程。WebRTC应用有序的建立一个呼叫，客户端需要交换一些信息：</p>
 
 <ul>
   <li>会话控制消息用来打开或者关闭连接</li>
   <li>错误消息</li>
   <li>多媒体元数据就像<b>多媒体数字信号编解码器(codec)和多媒体数字信号编解码器的设置</b>，带宽和多媒体类型。</li>
   <li>密钥数据，建立加密的连接</li>
-  <li>网络数据，比如主机外网的IP地址和端口  </li>
+  <li>网络数据，比如主机外网的IP地址和端口</li>
 </ul>
 
 <p>这个发信令的过程需要一条让客户端接收与发送消息的路径。这个结构在WebRTC的API中没有实现：你需要自己去建立。我们会下在下方描述一些建立信令服务器的方法。首先如何，然后如何，还有一些简单的来龙去脉。</p>
 
-<h3 id="webrtc">为什么发信令没有在WebRTC中定义？</h3>
+<p>###为什么发信令没有在WebRTC中定义？</p>
 
-<p>为了避免过多的冗余和最大限度的兼容已有的技术，信令方法和协议没有被规定在WebRTC的标准当中。这个处理方式被JESP写在<a href="http://tools.ietf.org/html/draft-ietf-rtcweb-jsep-03#section-1.1"> JavaScript Session Establishment Protocol</a>:  </p>
+<p>为了避免过多的冗余和最大限度的兼容已有的技术，信令方法和协议没有被规定在WebRTC的标准当中。这个处理方式被JESP写在<a href="http://tools.ietf.org/html/draft-ietf-rtcweb-jsep-03#section-1.1"> JavaScript Session Establishment Protocol</a>:</p>
 
 <blockquote>
-  <p>The thinking behind WebRTC call setup has been to fully specify and control the media plane, but to leave the signaling plane up to the application as much as possible. The rationale is that different applications may prefer to use different protocols, such as the existing SIP or Jingle call signaling protocols, or something custom to the particular application, perhaps for a novel use case. In this approach, the key information that needs to be exchanged is the multimedia session description, which specifies the necessary transport and media configuration information necessary to establish the media plane.  </p>
+  <p>The thinking behind WebRTC call setup has been to fully specify and control the media plane, but to leave the signaling plane up to the application as much as possible. The rationale is that different applications may prefer to use different protocols, such as the existing SIP or Jingle call signaling protocols, or something custom to the particular application, perhaps for a novel use case. In this approach, the key information that needs to be exchanged is the multimedia session description, which specifies the necessary transport and media configuration information necessary to establish the media plane.</p>
 </blockquote>
 
 <p>JSEP的结构也避免浏览器不得不去保存状态：那就是去搞一个信令状态机。这样可能会带来一个问题，举例来说，信令数据每次都会在一个页面刷新的时候丢失，相反信号状态可以保存在服务器上。</p>
@@ -164,16 +164,16 @@ a=mid:audio<br />
 a=rtcp-mux<br />
 a=crypto:1 AES_CM_128_HMAC_SHA1_80 inline:  9c1AHz27dZ9xPI91YNfSlI67/EMkjHHIHORiClQe<br />
 a=rtpmap:111 opus/48000/2<br />
-…  </p>
+…</p>
 </blockquote>
 
-<p>想要知道SDP的全部官方的解释？看这里<a href="http://datatracker.ietf.org/doc/draft-nandakumar-rtcweb-sdp/?include_text=1">IETF</a>的例子。  </p>
+<p>想要知道SDP的全部官方的解释？看这里<a href="http://datatracker.ietf.org/doc/draft-nandakumar-rtcweb-sdp/?include_text=1">IETF</a>的例子。</p>
 
 <p>记住WebRTC被设计在邀请或者回答设置本地或者远程的描述之前微调，<em>（感觉翻译的不太好，原文是这样的：Bear in mind that WebRTC is designed so that the offer or answer can be tweaked before being set as the local or remote description）</em>通过编辑SDP文本中的值。举例：perferAudioCodec()函数在apprtc.appspot.com能用于设置默认的编解码器和比特率。SDP用JavaScript操作起来有点痛苦，这里有些讨论关于未来WebRTC版本中是否需要用JSON替代，但是SDP也有点优点让人坚持使用。</p>
 
-<h3 id="rtcpeerconnection">RTCPeerConnection+信号：邀请，回答和申请者</h3>
-<p>RTCPeerConnection是用于创建节点的连接和通信，音频和视频的API。
-初始化这个过程RTCPeerConnection有两个任务： </p>
+<p>###RTCPeerConnection+信号：邀请，回答和申请者
+RTCPeerConnection是用于创建节点的连接和通信，音频和视频的API。
+初始化这个过程RTCPeerConnection有两个任务：</p>
 
 <ul>
   <li>确定本地媒体设备条件，比如分辨率、编码能力。这些是用于请求和回答的元数据。</li>
@@ -198,13 +198,13 @@ Alice和Eve同样也需要交换网络信息。使用ICE框架找到网络接口
 当Eve从Alice那获取到到候选人信息时，她就调用addIceCandidate()去添加候选人给远程节点描述(remote peer description)
 JSEP支持ICE候选人流动？，它允许呼叫者提供候选人的一些信息但并不用在线。也不用等待所有的候选人到达。</p>
 
-<h3 id="webrtc-1">为WebRTC的信令编程</h3>
-<p>下面完整总结了信令流程的<a href="http://www.w3.org/TR/webrtc/#simple-peer-to-peer-example">W3C</a>代码示例。这个代码假定一些信号机制，SignalingChannel。信令会在下面更详细的讨论。</p>
+<p>###为WebRTC的信令编程
+下面完整总结了信令流程的<a href="http://www.w3.org/TR/webrtc/#simple-peer-to-peer-example">W3C</a>代码示例。这个代码假定一些信号机制，SignalingChannel。信令会在下面更详细的讨论。</p>
 
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">signalingChannel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SignalingChannel</span><span class="p">();</span>
+<figure class="highlight"><pre><code class="language-js" data-lang="js">	<span class="kd">var</span> <span class="nx">signalingChannel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SignalingChannel</span><span class="p">();</span>
 <span class="kd">var</span> <span class="nx">configuration</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s1">&#39;iceServers&#39;</span><span class="o">:</span> <span class="p">[{</span>
-    <span class="s1">&#39;url&#39;</span><span class="o">:</span> <span class="s1">&#39;stun:stun.example.org&#39;</span>
+  <span class="s1">'iceServers'</span><span class="p">:</span> <span class="p">[{</span>
+    <span class="s1">'url'</span><span class="p">:</span> <span class="s1">'stun:stun.example.org'</span>
   <span class="p">}]</span>
 <span class="p">};</span>
 <span class="kd">var</span> <span class="nx">pc</span><span class="p">;</span>
@@ -218,11 +218,11 @@ JSEP支持ICE候选人流动？，它允许呼叫者提供候选人的一些信�
   <span class="nx">pc</span><span class="p">.</span><span class="nx">onicecandidate</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">evt</span><span class="p">.</span><span class="nx">candidate</span><span class="p">)</span>
       <span class="nx">signalingChannel</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
-        <span class="s1">&#39;candidate&#39;</span><span class="o">:</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">candidate</span>
+        <span class="s1">'candidate'</span><span class="p">:</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">candidate</span>
       <span class="p">}));</span>
   <span class="p">};</span>
 
-  <span class="c1">// let the &#39;negotiationneeded&#39; event trigger offer generation</span>
+  <span class="c1">// let the 'negotiationneeded' event trigger offer generation</span>
   <span class="nx">pc</span><span class="p">.</span><span class="nx">onnegotiationneeded</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
     <span class="nx">pc</span><span class="p">.</span><span class="nx">createOffer</span><span class="p">(</span><span class="nx">localDescCreated</span><span class="p">,</span> <span class="nx">logError</span><span class="p">);</span>
   <span class="p">}</span>
@@ -234,8 +234,8 @@ JSEP支持ICE候选人流动？，它允许呼叫者提供候选人的一些信�
 
   <span class="c1">// get a local stream, show it in a self-view and add it to be sent</span>
   <span class="nx">navigator</span><span class="p">.</span><span class="nx">getUserMedia</span><span class="p">({</span>
-    <span class="s1">&#39;audio&#39;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="s1">&#39;video&#39;</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="s1">'audio'</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="s1">'video'</span><span class="p">:</span> <span class="kc">true</span>
   <span class="p">},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">stream</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">selfView</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">URL</span><span class="p">.</span><span class="nx">createObjectURL</span><span class="p">(</span><span class="nx">stream</span><span class="p">);</span>
     <span class="nx">pc</span><span class="p">.</span><span class="nx">addStream</span><span class="p">(</span><span class="nx">stream</span><span class="p">);</span>
@@ -245,7 +245,7 @@ JSEP支持ICE候选人流动？，它允许呼叫者提供候选人的一些信�
 <span class="kd">function</span> <span class="nx">localDescCreated</span><span class="p">(</span><span class="nx">desc</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">pc</span><span class="p">.</span><span class="nx">setLocalDescription</span><span class="p">(</span><span class="nx">desc</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
     <span class="nx">signalingChannel</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
-      <span class="s1">&#39;sdp&#39;</span><span class="o">:</span> <span class="nx">pc</span><span class="p">.</span><span class="nx">localDescription</span>
+      <span class="s1">'sdp'</span><span class="p">:</span> <span class="nx">pc</span><span class="p">.</span><span class="nx">localDescription</span>
     <span class="p">}));</span>
   <span class="p">},</span> <span class="nx">logError</span><span class="p">);</span>
 <span class="p">}</span>
@@ -258,7 +258,7 @@ JSEP支持ICE候选人流动？，它允许呼叫者提供候选人的一些信�
   <span class="k">if</span> <span class="p">(</span><span class="nx">message</span><span class="p">.</span><span class="nx">sdp</span><span class="p">)</span>
     <span class="nx">pc</span><span class="p">.</span><span class="nx">setRemoteDescription</span><span class="p">(</span><span class="k">new</span> <span class="nx">RTCSessionDescription</span><span class="p">(</span><span class="nx">message</span><span class="p">.</span><span class="nx">sdp</span><span class="p">),</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
       <span class="c1">// if we received an offer, we need to answer</span>
-      <span class="k">if</span> <span class="p">(</span><span class="nx">pc</span><span class="p">.</span><span class="nx">remoteDescription</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s1">&#39;offer&#39;</span><span class="p">)</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">pc</span><span class="p">.</span><span class="nx">remoteDescription</span><span class="p">.</span><span class="nx">type</span> <span class="o">==</span> <span class="s1">'offer'</span><span class="p">)</span>
         <span class="nx">pc</span><span class="p">.</span><span class="nx">createAnswer</span><span class="p">(</span><span class="nx">localDescCreated</span><span class="p">,</span> <span class="nx">logError</span><span class="p">);</span>
     <span class="p">},</span> <span class="nx">logError</span><span class="p">);</span>
   <span class="k">else</span>
@@ -266,13 +266,13 @@ JSEP支持ICE候选人流动？，它允许呼叫者提供候选人的一些信�
 <span class="p">};</span>
 
 <span class="kd">function</span> <span class="nx">logError</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;: &#39;</span> <span class="o">+</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+  <span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s1">': '</span> <span class="o">+</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
 
 <p>想了解的过程可以参考<a href="http://simpl.info/rtcpeerconnection/">simpl.info/pc</a></p>
 
-<h3 id="section">发现小伙伴</h3>
-<p>这句话的意思是，如何找到对方。</p>
+<p>###发现小伙伴
+这句话的意思是，如何找到对方。</p>
 
 <p>用于电话呼叫，我们有电话号码和目录。对于网络视频聊天和短信，我们需要的身份和状态管理系统，并为用户发起会话的手段。实现WebRTC的应用程序需要一种方式，为客户发信号给对方自己要启动或加入呼叫。</p>
 

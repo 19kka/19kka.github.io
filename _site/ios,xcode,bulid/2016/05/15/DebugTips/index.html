@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Nas on linux(bananapi) &#8211; 19kka</title>
+    <title>iOS Bulid Tips &#8211; 19kka</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="bananapi">
+    <meta name="description" content="enjoy your life">
     <meta name="author" content="19kka">
-    <meta name="keywords" content="Linux,Bananapi">
-    <link rel="canonical" href="http://19kka.github.com/linux,bananapi/2016/02/15/NAS-Server/">
+    <meta name="keywords" content="iOS,Xcode,Bulid">
+    <link rel="canonical" href="http://19kka.github.com/ios,xcode,bulid/2016/05/15/DebugTips/">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for 19kka" href="/feed.xml" />
 
     <!-- Custom CSS -->
@@ -26,9 +26,9 @@
     <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Nas on linux(bananapi)">
+    <meta property="og:title" content="iOS Bulid Tips">
     <meta property="og:description" content="enjoy your life">
-    <meta property="og:url" content="http://19kka.github.com/linux,bananapi/2016/02/15/NAS-Server/">
+    <meta property="og:url" content="http://19kka.github.com/ios,xcode,bulid/2016/05/15/DebugTips/">
     <meta property="og:site_name" content="19kka">
 
     <!-- Twitter Card -->
@@ -36,9 +36,9 @@
     
         <meta name="twitter:site" content="@fake_meat" />
     
-    <meta name="twitter:title" content="Nas on linux(bananapi)" />
-    <meta name="twitter:description" content="bananapi" />
-    <meta name="twitter:url" content="http://19kka.github.com/linux,bananapi/2016/02/15/NAS-Server/" />
+    <meta name="twitter:title" content="iOS Bulid Tips" />
+    <meta name="twitter:description" content="enjoy your life" />
+    <meta name="twitter:url" content="http://19kka.github.com/ios,xcode,bulid/2016/05/15/DebugTips/" />
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
@@ -83,8 +83,8 @@
 
 
 <div class="post-header mb2">
-  <h1>Nas on linux(bananapi)</h1>
-  <span class="post-meta">Feb 15, 2016</span><br>
+  <h1>iOS Bulid Tips</h1>
+  <span class="post-meta">May 15, 2016</span><br>
   
   <span class="post-meta small">
   
@@ -94,35 +94,53 @@
 </div>
 
 <article class="post-content">
-  <p>##Ready
-1.Banana Pi</p>
+  <h2 id="ios-bulid-tips">#iOS Bulid Tips</h2>
+<p>汇总了一些编译碰到的问题</p>
 
-<p>2.Install ArchLinux(or other linux)</p>
+<h2 id="framework-error">###Framework Error</h2>
 
-<p>3.setting sshd_config</p>
+<pre><code class="language-cmake">CodeSign /Users/xx/Library/Developer/Xcode/DerivedData//xx//xx/xx/x/x/x/x/x/xxx/x/xxxx.app/Frameworks/xxxx.framework
+    cd //xx//xx/xx/x/x/x/x/x/xxx/x/x
+    export CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/codesign_allocate
+    export PATH="/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    
+Signing Identity:     "iPhone Developer: xxxxxxxxx"
 
-<p>–</p>
+    /usr/bin/codesign --force --sign 0B9F657BF598KJDSHFJF*^&amp;FDSKFD229CB0 --preserve-metadata=identifier,entitlements --timestamp=none /Users/xxxxx/Library/Developer/Xcode/DerivedData/xxxxxemo-ffgsdfgsdgejrsdfgvi/Build/Products/Debug-iphoneos/rightAVDemo.app/Frameworks/xxxxxx.framework
 
-<p>##1.DDNS
-1.apt-get update</p>
+/Users/xxx/Library/Developer/Xcode/DerivedData/xxxx-xxxxxdfssdfsdf/Build/Products/Debug-iphoneos/xxxxxx.app/Frameworks/xxxxxxx.framework: bundle format unrecognized, invalid, or unsuitable
+Command /usr/bin/codesign failed with exit code 1
 
-<p>2.install dig for ddns</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>apt-get install dnsutils
 </code></pre>
-</div>
 
-<p>3.–&gt;此处添加ddns python代码</p>
+<p>#####Try to Remove:<br />
+<strong>General -&gt; Embedded Binaries : xxx.Framework</strong></p>
 
-<p>4.add rc.local</p>
+<p>–
+###Pods Error
+<code class="highlighter-rouge">
+diff: /../Podfile.lock: No such file or directory 
+diff: /Manifest.lock: No such file or directory error: 
+The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
+</code></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code> vi /etc/rc.local
-</code></pre>
-</div>
+<p>#####Add User-Defined Setting</p>
 
-<p>##2.mount device</p>
+<p>Key:PODS_ROOT
+Value:${SRCROOT}/Pods</p>
 
-<figure class="highlight"><pre><code class="language-c" data-lang="c">	<span class="n">diskutil</span> <span class="n">unmountDisk</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">diskN</span></code></pre></figure>
+<p>–
+###Pods Bulid Error
+####xxxxx.h header not found</p>
+
+<p>1
+&gt;<br />
+-Use the <code class="highlighter-rouge">$(inherited)</code> flag, or <br />
+-Remove the build settings from the target.</p>
+
+<p>2.
+&gt;
+Pods/Target Support Files/Pods/Pods.debug.xcconfig Set to None</p>
 
 
 </article>
@@ -135,7 +153,7 @@
   <div id="disqus_thread"></div>
   <script type="text/javascript">
     var disqus_shortname  = '19kka';
-    var disqus_identifier = '/linux,bananapi/2016/02/15/NAS-Server';
+    var disqus_identifier = '/ios,xcode,bulid/2016/05/15/DebugTips';
     var disqus_title      = '';
 
     (function() {

@@ -7,39 +7,120 @@
     <atom:link href="http://19kka.github.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
-        <title>Phabricator on Mac</title>
-        <description>&lt;h1 id=&quot;phabricator-on-mac&quot;&gt;Phabricator on Mac&lt;/h1&gt;
+        <title>iOS Review CheckList</title>
+        <description>&lt;p&gt;#iOS审核检查表&lt;/p&gt;
+
+&lt;p&gt;由于本人多次在一些简单的审核问题上重复犯错，故在提交审核之前做一次检查。检查项目如下：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;检查你的 &lt;strong&gt;Bundle Identifier&lt;/strong&gt;&lt;/p&gt;
+
+  &lt;p&gt;检查你的 &lt;strong&gt;Produce ID&lt;/strong&gt; 是否正确&lt;/p&gt;
+
+  &lt;p&gt;检查内购是否顺利&lt;/p&gt;
+
+  &lt;p&gt;检查有关于审核的隐藏项目&lt;/p&gt;
+
+  &lt;p&gt;检查是否提供了可用的测试账号给审核员（建议给出所有的登录方式账号）&lt;/p&gt;
+
+  &lt;p&gt;检查项目的发布环境&lt;/p&gt;
+
+  &lt;p&gt;保证在购买界面没有引导购买项&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Thu, 26 May 2016 22:03:18 +0800</pubDate>
+        <link>http://19kka.github.com/ios,xcode,review/2016/05/26/ReviewTips/</link>
+        <guid isPermaLink="true">http://19kka.github.com/ios,xcode,review/2016/05/26/ReviewTips/</guid>
+      </item>
+    
+      <item>
+        <title>iOS Bulid Tips</title>
+        <description>&lt;h2 id=&quot;ios-bulid-tips&quot;&gt;#iOS Bulid Tips&lt;/h2&gt;
+&lt;p&gt;汇总了一些编译碰到的问题&lt;/p&gt;
+
+&lt;h2 id=&quot;framework-error&quot;&gt;###Framework Error&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-cmake&quot;&gt;CodeSign /Users/xx/Library/Developer/Xcode/DerivedData//xx//xx/xx/x/x/x/x/x/xxx/x/xxxx.app/Frameworks/xxxx.framework
+    cd //xx//xx/xx/x/x/x/x/x/xxx/x/x
+    export CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/codesign_allocate
+    export PATH=&quot;/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin&quot;
+    
+Signing Identity:     &quot;iPhone Developer: xxxxxxxxx&quot;
+
+    /usr/bin/codesign --force --sign 0B9F657BF598KJDSHFJF*^&amp;amp;FDSKFD229CB0 --preserve-metadata=identifier,entitlements --timestamp=none /Users/xxxxx/Library/Developer/Xcode/DerivedData/xxxxxemo-ffgsdfgsdgejrsdfgvi/Build/Products/Debug-iphoneos/rightAVDemo.app/Frameworks/xxxxxx.framework
+
+/Users/xxx/Library/Developer/Xcode/DerivedData/xxxx-xxxxxdfssdfsdf/Build/Products/Debug-iphoneos/xxxxxx.app/Frameworks/xxxxxxx.framework: bundle format unrecognized, invalid, or unsuitable
+Command /usr/bin/codesign failed with exit code 1
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;#####Try to Remove:&lt;br /&gt;
+&lt;strong&gt;General -&amp;gt; Embedded Binaries : xxx.Framework&lt;/strong&gt;&lt;/p&gt;
+
 &lt;p&gt;–
-本文简述了在Mac上安装Phabricator的基本步骤
+###Pods Error
+&lt;code class=&quot;highlighter-rouge&quot;&gt;
+diff: /../Podfile.lock: No such file or directory 
+diff: /Manifest.lock: No such file or directory error: 
+The sandbox is not in sync with the Podfile.lock. Run &#39;pod install&#39; or update your CocoaPods installation.
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;#####Add User-Defined Setting&lt;/p&gt;
+
+&lt;p&gt;Key:PODS_ROOT
+Value:${SRCROOT}/Pods&lt;/p&gt;
+
+&lt;p&gt;–
+###Pods Bulid Error
+####xxxxx.h header not found&lt;/p&gt;
+
+&lt;p&gt;1
+&amp;gt;&lt;br /&gt;
+-Use the &lt;code class=&quot;highlighter-rouge&quot;&gt;$(inherited)&lt;/code&gt; flag, or &lt;br /&gt;
+-Remove the build settings from the target.&lt;/p&gt;
+
+&lt;p&gt;2.
+&amp;gt;
+Pods/Target Support Files/Pods/Pods.debug.xcconfig Set to None&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 15 May 2016 22:03:18 +0800</pubDate>
+        <link>http://19kka.github.com/ios,xcode,bulid/2016/05/15/DebugTips/</link>
+        <guid isPermaLink="true">http://19kka.github.com/ios,xcode,bulid/2016/05/15/DebugTips/</guid>
+      </item>
+    
+      <item>
+        <title>Phabricator on Mac</title>
+        <description>&lt;h2 id=&quot;phabricator-on-mac&quot;&gt;#Phabricator on Mac&lt;/h2&gt;
+&lt;p&gt;本文简述了在Mac上安装Phabricator的基本步骤
 ######引言
 Phabricator 是一个LAMP(Linux,Apache,MySQL,PHP) 应用。需要:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;一个Linux类系统  &lt;/li&gt;
-  &lt;li&gt;一些基本的系统管理员能力  &lt;/li&gt;
-  &lt;li&gt;Git  &lt;/li&gt;
+  &lt;li&gt;一个Linux类系统&lt;/li&gt;
+  &lt;li&gt;一些基本的系统管理员能力&lt;/li&gt;
+  &lt;li&gt;Git&lt;/li&gt;
   &lt;li&gt;PHP,MySQL&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;section&quot;&gt;安装准备&lt;/h4&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;Apache,nginx,或者其他的一个web服务器&lt;br /&gt;
-PHP:5.2以上&lt;br /&gt;
-MySQL:建议5.5以上&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;####安装准备
+&amp;gt;Apache,nginx,或者其他的一个web服务器&lt;br /&gt;
+&amp;gt;PHP:5.2以上&lt;br /&gt;
+&amp;gt;MySQL:建议5.5以上&lt;/p&gt;
 
 &lt;p&gt;这些安装在本文中不涉及，自行Google
 ###安装
 ####创建文件夹以及安装依赖&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;$ mkdir ~/WWW/tools
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ mkdir ~/WWW/tools
 $ cd ~/WWW/tools
 $ git clone https://github.com/phacility/phabricator.git
 $ git clone https://github.com/phacility/libphutil.git
 $ git clone https://github.com/phacility/arcanist.git
 &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-&lt;h4 id=&quot;arcanist&quot;&gt;添加Arcanist到你的环境变量路径&lt;/h4&gt;
+&lt;p&gt;####添加Arcanist到你的环境变量路径&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;vi &lt;strong&gt;~/.profile&lt;/strong&gt; or &lt;strong&gt;~/.bashrc&lt;/strong&gt;&lt;/li&gt;
@@ -49,53 +130,57 @@ $ git clone https://github.com/phacility/arcanist.git
   &lt;li&gt;测试 &lt;strong&gt;arc help&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;phabricator&quot;&gt;配置Phabricator&lt;/h4&gt;
+&lt;p&gt;####配置Phabricator&lt;/p&gt;
 
-&lt;h5 id=&quot;apache&quot;&gt;配置apache配置文件&lt;/h5&gt;
+&lt;p&gt;#####配置apache配置文件&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt; vi xxxxx/apache2/httpd.conf
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; vi xxxxx/apache2/httpd.conf
 &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-&lt;p&gt;```json
-&amp;lt;VirtualHost *&amp;gt;
-    # Change this to the domain which points to your host.
-    ServerName phabricator.local.nfl.com   &lt;/p&gt;
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;&amp;lt;VirtualHost&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;*&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;Change&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;the&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;domain&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;which&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;your&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;host.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;ServerName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;phabricator.local.nfl.com&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   
 
-&lt;pre&gt;&lt;code&gt;# Change this to the path where you put &#39;phabricator&#39; when you checked it
-# out from GitHub when following the Installation Guide.
-#
-# Make sure you include &quot;/webroot&quot; at the end!
-DocumentRoot /Users/admin/WWW/tools/phabricator/webroot  
+    &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;Change&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;the&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;where&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;you&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&#39;phabricator&#39;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;you&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;checked&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;GitHub&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;following&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;the&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;Installation&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;Guide.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;Make&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;sure&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;you&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/webroot&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;at&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;the&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;end!&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;DocumentRoot&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;/Users/admin/WWW/tools/phabricator/webroot&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  
 
-RewriteEngine on
-RewriteRule ^/rsrc/(.*)     -                       [L,QSA]
-RewriteRule ^/favicon.ico   -                       [L,QSA]
-RewriteRule ^(.*)$          /index.php?__path__=$1  [B,L,QSA]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&amp;lt;/VirtualHost&amp;gt;&lt;/p&gt;
+    &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;RewriteEngine&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;RewriteRule&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;^/rsrc/(.*)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;     &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;                       &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;QSA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;RewriteRule&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;^/favicon.ico&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;                       &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;QSA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;RewriteRule&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;^(.*)$&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;          &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;/index.php?__path__=$&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;L&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;QSA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;lt;/VirtualHost&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 
-&lt;h2 id=&quot;allow-access-to-the-entire-www-directory&quot;&gt;Allow access to the entire WWW directory&lt;/h2&gt;
-&lt;p&gt;&amp;lt;Directory “/Users/admin/WWW”&amp;gt;
-    Options Indexes MultiViews FollowSymLinks
-    AllowOverride All
-    Order allow,deny
-    Allow from all
-&amp;lt;/Directory&amp;gt;
-ServerName localhost
-```&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;注意把DocumentRoot 修改为自己的路径 （我的是admin)&lt;/em&gt;  &lt;/p&gt;
 
-&lt;h5 id=&quot;section-1&quot;&gt;将域名解析到本机 :&lt;/h5&gt;
+
+
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;##&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;Allow&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;access&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;the&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;entire&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;WWW&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;directory&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;lt;Directory&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/Users/admin/WWW&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;Options&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;Indexes&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;MultiViews&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;FollowSymLinks&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;AllowOverride&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;All&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;Order&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;allow,deny&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;Allow&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;lt;/Directory&amp;gt;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;ServerName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;localhost&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;注意把DocumentRoot 修改为自己的路径 （我的是admin)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;#####将域名解析到本机 :&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;span style=&quot;background-color:AliceBlue &quot;&gt;127.0.0.1  phabricator.local.nfl.com&lt;/span&gt; 添加到hosts &lt;span style=&quot;background-color:AliceBlue &quot;&gt;vi /private/etc/hosts&lt;/span&gt;  &lt;/li&gt;
+  &lt;li&gt;&lt;span style=&quot;background-color:AliceBlue &quot;&gt;127.0.0.1  phabricator.local.nfl.com&lt;/span&gt; 添加到hosts &lt;span style=&quot;background-color:AliceBlue &quot;&gt;vi /private/etc/hosts&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;之后重启 apache &lt;span style=&quot;background-color:AliceBlue &quot;&gt;$ sudo apachectl -k restart&lt;/span&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;section-2&quot;&gt;进行最后设置&lt;/h3&gt;
-&lt;p&gt;用浏览器打开 &lt;a href=&quot;http://phabricator.local.nfl.com/&quot;&gt;phabricator.local.nfl.com&lt;/a&gt; 如果之前的操作都没有问题，这个网页会被打开。
+&lt;p&gt;###进行最后设置
+用浏览器打开 &lt;a href=&quot;http://phabricator.local.nfl.com/&quot;&gt;phabricator.local.nfl.com&lt;/a&gt; 如果之前的操作都没有问题，这个网页会被打开。
 &lt;img src=&quot;https://raw.githubusercontent.com/19kka/19kka.github.io/master/images/pha_01.png&quot; alt=&quot;image&quot; /&gt;
 嗯，是这样的图就对了。然后你需要做一些配置，解决它告诉你的issue（一般有20多个）。安装到此结束。&lt;/p&gt;
 
@@ -112,33 +197,35 @@ ServerName localhost
     
       <item>
         <title>Nas on linux(bananapi)</title>
-        <description>&lt;h2 id=&quot;ready&quot;&gt;Ready&lt;/h2&gt;
-&lt;p&gt;1.Banana Pi&lt;/p&gt;
+        <description>&lt;p&gt;##Ready
+1.Banana Pi&lt;/p&gt;
 
-&lt;p&gt;2.Install ArchLinux(or other linux) &lt;/p&gt;
+&lt;p&gt;2.Install ArchLinux(or other linux)&lt;/p&gt;
 
 &lt;p&gt;3.setting sshd_config&lt;/p&gt;
 
 &lt;p&gt;–&lt;/p&gt;
 
-&lt;h2 id=&quot;ddns&quot;&gt;1.DDNS&lt;/h2&gt;
-&lt;p&gt;1.apt-get update&lt;/p&gt;
+&lt;p&gt;##1.DDNS
+1.apt-get update&lt;/p&gt;
 
 &lt;p&gt;2.install dig for ddns&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;apt-get install dnsutils
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt-get install dnsutils
 &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;3.–&amp;gt;此处添加ddns python代码&lt;/p&gt;
 
 &lt;p&gt;4.add rc.local&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt; vi /etc/rc.local
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; vi /etc/rc.local
 &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-&lt;h2 id=&quot;mount-device&quot;&gt;2.mount device&lt;/h2&gt;
+&lt;p&gt;##2.mount device&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;diskutil&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unmountDisk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diskN&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;	&lt;span class=&quot;n&quot;&gt;diskutil&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unmountDisk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diskN&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 </description>
         <pubDate>Mon, 15 Feb 2016 22:00:18 +0800</pubDate>
@@ -148,16 +235,17 @@ ServerName localhost
     
       <item>
         <title>Writing Images on MacOS</title>
-        <description>&lt;h2 id=&quot;be-root-or-your-are-rootadmin&quot;&gt;1.Be root or your are root(admin)&lt;/h2&gt;
+        <description>&lt;p&gt;##1.Be root or your are root(admin)&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;su
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;su
 &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-&lt;h2 id=&quot;unmount-disk&quot;&gt;2.unmount Disk&lt;/h2&gt;
+&lt;p&gt;##2.unmount Disk&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;diskutil&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;	&lt;span class=&quot;n&quot;&gt;diskutil&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;h4 id=&quot;find-your-disk-then-unmount-it&quot;&gt;find your disk then unmount it&lt;/h4&gt;
+&lt;p&gt;####find your disk then unmount it&lt;/p&gt;
 
 &lt;p&gt;looks like 
 /dev/disk0
@@ -166,15 +254,16 @@ ServerName localhost
 &lt;p&gt;/dev/disk1
 ……..XXX…XXX&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;n&quot;&gt;diskutil&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unmountDisk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diskN&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;	&lt;span class=&quot;n&quot;&gt;diskutil&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unmountDisk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diskN&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;you will see:
 xxxxxx diskN was successful&lt;/p&gt;
 
-&lt;h2 id=&quot;use-the-dd&quot;&gt;3.Use the ‘dd’&lt;/h2&gt;
+&lt;p&gt;##3.Use the ‘dd’&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;sudo dd if=xxx.iso of=/dev/sdX bs=4096
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo dd if=xxx.iso of=/dev/sdX bs=4096
 &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 </description>
         <pubDate>Mon, 15 Feb 2016 22:00:18 +0800</pubDate>
@@ -184,23 +273,23 @@ xxxxxx diskN was successful&lt;/p&gt;
     
       <item>
         <title>在真实的世界的WebRTC (一)（译）</title>
-        <description>&lt;h4 id=&quot;httpwwwhtml5rockscomentutorialswebrtcinfrastructurehttpwwwhtml5rockscomentutorialswebrtcinfrastructure&quot;&gt;原文地址&lt;a href=&quot;http://www.html5rocks.com/en/tutorials/webrtc/infrastructure/&quot;&gt;http://www.html5rocks.com/en/tutorials/webrtc/infrastructure/&lt;/a&gt;&lt;/h4&gt;
+        <description>&lt;p&gt;####原文地址&lt;a href=&quot;http://www.html5rocks.com/en/tutorials/webrtc/infrastructure/&quot;&gt;http://www.html5rocks.com/en/tutorials/webrtc/infrastructure/&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;译者注释：  &lt;/p&gt;
+&lt;p&gt;译者注释：&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;Signaling翻译的时候有时候写作 信令 有时候写作信号。  &lt;/li&gt;
+  &lt;li&gt;Signaling翻译的时候有时候写作 信令 有时候写作信号。&lt;/li&gt;
   &lt;li&gt;部分图片在墙内可能无法显示&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;hr /&gt;
 
 &lt;p&gt;WebRTC允许P2P的连接。但是，
-WebRTC还是需要一些服务器:  &lt;/p&gt;
+WebRTC还是需要一些服务器:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;为客户端配合交换元数据的连接：这个叫做信号(signaling)&lt;/li&gt;
-  &lt;li&gt;为了对付网络地址转换(NATs)和防火墙  &lt;/li&gt;
+  &lt;li&gt;为了对付网络地址转换(NATs)和防火墙&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;本文中我们会告诉你如何去建立一个信令服务器，以及如何去处理在真实世界中的连接(real-world connectivity)使用STUN和TURN服务器出现的一些难以预料的情况。我们也解释WebRTC应用是如何使用服务器处理多方呼叫和相互配合(例如VoIP和PSTN 也称为电话)。&lt;/p&gt;
@@ -209,25 +298,25 @@ WebRTC还是需要一些服务器:  &lt;/p&gt;
 
 &lt;hr /&gt;
 
-&lt;h3 id=&quot;signaling&quot;&gt;什么是信号（信令）（Signaling）&lt;/h3&gt;
-&lt;p&gt;信令是用来协调连接的过程。WebRTC应用有序的建立一个呼叫，客户端需要交换一些信息： &lt;/p&gt;
+&lt;p&gt;###什么是信号（信令）（Signaling）
+信令是用来协调连接的过程。WebRTC应用有序的建立一个呼叫，客户端需要交换一些信息：&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;会话控制消息用来打开或者关闭连接&lt;/li&gt;
   &lt;li&gt;错误消息&lt;/li&gt;
   &lt;li&gt;多媒体元数据就像&lt;b&gt;多媒体数字信号编解码器(codec)和多媒体数字信号编解码器的设置&lt;/b&gt;，带宽和多媒体类型。&lt;/li&gt;
   &lt;li&gt;密钥数据，建立加密的连接&lt;/li&gt;
-  &lt;li&gt;网络数据，比如主机外网的IP地址和端口  &lt;/li&gt;
+  &lt;li&gt;网络数据，比如主机外网的IP地址和端口&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;这个发信令的过程需要一条让客户端接收与发送消息的路径。这个结构在WebRTC的API中没有实现：你需要自己去建立。我们会下在下方描述一些建立信令服务器的方法。首先如何，然后如何，还有一些简单的来龙去脉。&lt;/p&gt;
 
-&lt;h3 id=&quot;webrtc&quot;&gt;为什么发信令没有在WebRTC中定义？&lt;/h3&gt;
+&lt;p&gt;###为什么发信令没有在WebRTC中定义？&lt;/p&gt;
 
-&lt;p&gt;为了避免过多的冗余和最大限度的兼容已有的技术，信令方法和协议没有被规定在WebRTC的标准当中。这个处理方式被JESP写在&lt;a href=&quot;http://tools.ietf.org/html/draft-ietf-rtcweb-jsep-03#section-1.1&quot;&gt; JavaScript Session Establishment Protocol&lt;/a&gt;:  &lt;/p&gt;
+&lt;p&gt;为了避免过多的冗余和最大限度的兼容已有的技术，信令方法和协议没有被规定在WebRTC的标准当中。这个处理方式被JESP写在&lt;a href=&quot;http://tools.ietf.org/html/draft-ietf-rtcweb-jsep-03#section-1.1&quot;&gt; JavaScript Session Establishment Protocol&lt;/a&gt;:&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;The thinking behind WebRTC call setup has been to fully specify and control the media plane, but to leave the signaling plane up to the application as much as possible. The rationale is that different applications may prefer to use different protocols, such as the existing SIP or Jingle call signaling protocols, or something custom to the particular application, perhaps for a novel use case. In this approach, the key information that needs to be exchanged is the multimedia session description, which specifies the necessary transport and media configuration information necessary to establish the media plane.  &lt;/p&gt;
+  &lt;p&gt;The thinking behind WebRTC call setup has been to fully specify and control the media plane, but to leave the signaling plane up to the application as much as possible. The rationale is that different applications may prefer to use different protocols, such as the existing SIP or Jingle call signaling protocols, or something custom to the particular application, perhaps for a novel use case. In this approach, the key information that needs to be exchanged is the multimedia session description, which specifies the necessary transport and media configuration information necessary to establish the media plane.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;JSEP的结构也避免浏览器不得不去保存状态：那就是去搞一个信令状态机。这样可能会带来一个问题，举例来说，信令数据每次都会在一个页面刷新的时候丢失，相反信号状态可以保存在服务器上。&lt;/p&gt;
@@ -254,16 +343,16 @@ a=mid:audio&lt;br /&gt;
 a=rtcp-mux&lt;br /&gt;
 a=crypto:1 AES_CM_128_HMAC_SHA1_80 inline:  9c1AHz27dZ9xPI91YNfSlI67/EMkjHHIHORiClQe&lt;br /&gt;
 a=rtpmap:111 opus/48000/2&lt;br /&gt;
-…  &lt;/p&gt;
+…&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;想要知道SDP的全部官方的解释？看这里&lt;a href=&quot;http://datatracker.ietf.org/doc/draft-nandakumar-rtcweb-sdp/?include_text=1&quot;&gt;IETF&lt;/a&gt;的例子。  &lt;/p&gt;
+&lt;p&gt;想要知道SDP的全部官方的解释？看这里&lt;a href=&quot;http://datatracker.ietf.org/doc/draft-nandakumar-rtcweb-sdp/?include_text=1&quot;&gt;IETF&lt;/a&gt;的例子。&lt;/p&gt;
 
 &lt;p&gt;记住WebRTC被设计在邀请或者回答设置本地或者远程的描述之前微调，&lt;em&gt;（感觉翻译的不太好，原文是这样的：Bear in mind that WebRTC is designed so that the offer or answer can be tweaked before being set as the local or remote description）&lt;/em&gt;通过编辑SDP文本中的值。举例：perferAudioCodec()函数在apprtc.appspot.com能用于设置默认的编解码器和比特率。SDP用JavaScript操作起来有点痛苦，这里有些讨论关于未来WebRTC版本中是否需要用JSON替代，但是SDP也有点优点让人坚持使用。&lt;/p&gt;
 
-&lt;h3 id=&quot;rtcpeerconnection&quot;&gt;RTCPeerConnection+信号：邀请，回答和申请者&lt;/h3&gt;
-&lt;p&gt;RTCPeerConnection是用于创建节点的连接和通信，音频和视频的API。
-初始化这个过程RTCPeerConnection有两个任务： &lt;/p&gt;
+&lt;p&gt;###RTCPeerConnection+信号：邀请，回答和申请者
+RTCPeerConnection是用于创建节点的连接和通信，音频和视频的API。
+初始化这个过程RTCPeerConnection有两个任务：&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;确定本地媒体设备条件，比如分辨率、编码能力。这些是用于请求和回答的元数据。&lt;/li&gt;
@@ -288,13 +377,13 @@ Alice和Eve同样也需要交换网络信息。使用ICE框架找到网络接口
 当Eve从Alice那获取到到候选人信息时，她就调用addIceCandidate()去添加候选人给远程节点描述(remote peer description)
 JSEP支持ICE候选人流动？，它允许呼叫者提供候选人的一些信息但并不用在线。也不用等待所有的候选人到达。&lt;/p&gt;
 
-&lt;h3 id=&quot;webrtc-1&quot;&gt;为WebRTC的信令编程&lt;/h3&gt;
-&lt;p&gt;下面完整总结了信令流程的&lt;a href=&quot;http://www.w3.org/TR/webrtc/#simple-peer-to-peer-example&quot;&gt;W3C&lt;/a&gt;代码示例。这个代码假定一些信号机制，SignalingChannel。信令会在下面更详细的讨论。&lt;/p&gt;
+&lt;p&gt;###为WebRTC的信令编程
+下面完整总结了信令流程的&lt;a href=&quot;http://www.w3.org/TR/webrtc/#simple-peer-to-peer-example&quot;&gt;W3C&lt;/a&gt;代码示例。这个代码假定一些信号机制，SignalingChannel。信令会在下面更详细的讨论。&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;signalingChannel&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SignalingChannel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;	&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;signalingChannel&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;SignalingChannel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
 &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;configuration&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;s1&quot;&gt;&amp;#39;iceServers&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[{&lt;/span&gt;
-    &lt;span class=&quot;s1&quot;&gt;&amp;#39;url&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;stun:stun.example.org&amp;#39;&lt;/span&gt;
+  &lt;span class=&quot;s1&quot;&gt;&#39;iceServers&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[{&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;&#39;url&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;stun:stun.example.org&#39;&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;}]&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
 &lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -308,11 +397,11 @@ JSEP支持ICE候选人流动？，它允许呼叫者提供候选人的一些信�
   &lt;span class=&quot;nx&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onicecandidate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;evt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;evt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;candidate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
       &lt;span class=&quot;nx&quot;&gt;signalingChannel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;stringify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-        &lt;span class=&quot;s1&quot;&gt;&amp;#39;candidate&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;evt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;candidate&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&#39;candidate&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;evt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;candidate&lt;/span&gt;
       &lt;span class=&quot;p&quot;&gt;}));&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
 
-  &lt;span class=&quot;c1&quot;&gt;// let the &amp;#39;negotiationneeded&amp;#39; event trigger offer generation&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;// let the &#39;negotiationneeded&#39; event trigger offer generation&lt;/span&gt;
   &lt;span class=&quot;nx&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;onnegotiationneeded&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;nx&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createOffer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;localDescCreated&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;logError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
@@ -324,8 +413,8 @@ JSEP支持ICE候选人流动？，它允许呼叫者提供候选人的一些信�
 
   &lt;span class=&quot;c1&quot;&gt;// get a local stream, show it in a self-view and add it to be sent&lt;/span&gt;
   &lt;span class=&quot;nx&quot;&gt;navigator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getUserMedia&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-    &lt;span class=&quot;s1&quot;&gt;&amp;#39;audio&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;s1&quot;&gt;&amp;#39;video&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;&#39;audio&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;s1&quot;&gt;&#39;video&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;stream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;nx&quot;&gt;selfView&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;src&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;URL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createObjectURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;stream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
     &lt;span class=&quot;nx&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;addStream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;stream&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
@@ -335,7 +424,7 @@ JSEP支持ICE候选人流动？，它允许呼叫者提供候选人的一些信�
 &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;localDescCreated&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;desc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;nx&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setLocalDescription&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;desc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;nx&quot;&gt;signalingChannel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;stringify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
-      &lt;span class=&quot;s1&quot;&gt;&amp;#39;sdp&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;localDescription&lt;/span&gt;
+      &lt;span class=&quot;s1&quot;&gt;&#39;sdp&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;localDescription&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;}));&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;logError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
@@ -348,7 +437,7 @@ JSEP支持ICE候选人流动？，它允许呼叫者提供候选人的一些信�
   &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sdp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
     &lt;span class=&quot;nx&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setRemoteDescription&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;RTCSessionDescription&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;sdp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
       &lt;span class=&quot;c1&quot;&gt;// if we received an offer, we need to answer&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;remoteDescription&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;offer&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;remoteDescription&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;offer&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
         &lt;span class=&quot;nx&quot;&gt;pc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createAnswer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;localDescCreated&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;logError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
     &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;logError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
@@ -356,13 +445,13 @@ JSEP支持ICE候选人流动？，它允许呼叫者提供候选人的一些信�
 &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
 
 &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;logError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;: &amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  &lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&#39;: &#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;想了解的过程可以参考&lt;a href=&quot;http://simpl.info/rtcpeerconnection/&quot;&gt;simpl.info/pc&lt;/a&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;section&quot;&gt;发现小伙伴&lt;/h3&gt;
-&lt;p&gt;这句话的意思是，如何找到对方。&lt;/p&gt;
+&lt;p&gt;###发现小伙伴
+这句话的意思是，如何找到对方。&lt;/p&gt;
 
 &lt;p&gt;用于电话呼叫，我们有电话号码和目录。对于网络视频聊天和短信，我们需要的身份和状态管理系统，并为用户发起会话的手段。实现WebRTC的应用程序需要一种方式，为客户发信号给对方自己要启动或加入呼叫。&lt;/p&gt;
 
@@ -391,8 +480,8 @@ Traffic Filtering&lt;/p&gt;
     
       <item>
         <title>Network Extension 01 iOS9</title>
-        <description>&lt;h3 id=&quot;network-extension-api&quot;&gt;开始学习使用Network Extension API&lt;/h3&gt;
-&lt;p&gt;身在墙内，平时折腾手动着VPN。iOS9推出了这个新的API，听说可以开启全局的Sock代理，透明代理等等。好奇心的作用下翻了圈Google，很多推友已经着手开始行动了。&lt;br /&gt;
+        <description>&lt;p&gt;###开始学习使用Network Extension API
+身在墙内，平时折腾手动着VPN。iOS9推出了这个新的API，听说可以开启全局的Sock代理，透明代理等等。好奇心的作用下翻了圈Google，很多推友已经着手开始行动了。&lt;br /&gt;
 这里先推荐一个推，最近好像快推出他的应用了。&lt;a href=&quot;https://twitter.com/Blankwonder&quot;&gt;@Blankwonder&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;参考了WWDC2015的&lt;a href=&quot;https://developer.apple.com/videos/play/wwdc2015-717/&quot;&gt;视频&lt;/a&gt;,其实还是一知半解，所以在Xcode的Documentation and API Reference 中下载了SimpleTunnel的Demo，但是由于The NEProvider family of APIs require entitlement 所以发送了邮件给networkextension@apple.com。&lt;br /&gt;
@@ -407,79 +496,81 @@ Traffic Filtering&lt;/p&gt;
         <title>Using protocol buffers in socket(Python)</title>
         <description>&lt;p&gt;I’m tring to write an application with protocol buffers to send data on socket connecet.I encountered some problems , this is my summary:&lt;/p&gt;
 
-&lt;h3 id=&quot;pre-preparation&quot;&gt;Pre preparation&lt;/h3&gt;
+&lt;p&gt;###Pre preparation&lt;/p&gt;
 
-&lt;h5 id=&quot;download-google-protocol-buffers&quot;&gt;1.download Google protocol buffers.&lt;/h5&gt;
+&lt;p&gt;#####1.download Google protocol buffers.&lt;/p&gt;
 
 &lt;p&gt;look at this &lt;a href=&quot;https://developers.google.com/protocol-buffers/&quot;&gt;https://developers.google.com/protocol-buffers/&lt;/a&gt;&lt;/p&gt;
 
-&lt;h5 id=&quot;buliding-google-protocol-bufferspython&quot;&gt;2.Buliding Google protocol buffers(Python).&lt;/h5&gt;
-&lt;p&gt;if you see ‘…no module name google.protobuf..’ do this in Terminal: &lt;/p&gt;
+&lt;p&gt;#####2.Buliding Google protocol buffers(Python). 
+  if you see ‘…no module name google.protobuf..’ do this in Terminal:&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;(sudo)pip install protobuf
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(sudo)pip install protobuf
 &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-&lt;h5 id=&quot;to-understanding-structhttpsdocspythonorg2librarystructhtml&quot;&gt;3.To understanding &lt;a href=&quot;https://docs.python.org/2/library/struct.html&quot;&gt;struct&lt;/a&gt;&lt;/h5&gt;
+&lt;p&gt;#####3.To understanding &lt;a href=&quot;https://docs.python.org/2/library/struct.html&quot;&gt;struct&lt;/a&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;main-body&quot;&gt;Main body&lt;/h3&gt;
+&lt;p&gt;###Main body&lt;/p&gt;
 
-&lt;h4 id=&quot;client&quot;&gt;Client&lt;/h4&gt;
+&lt;p&gt;####Client&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;edu_pb2&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;	&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;edu_pb2&lt;/span&gt;
 	&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
 	&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
 	&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;
 	&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;edu_pb2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Eline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;
 	&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
 	&lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16777216&lt;/span&gt;
 	&lt;span class=&quot;n&quot;&gt;protobuf_data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SerializeToString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;#Serialize&lt;/span&gt;
 	&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1001&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;packed_len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;struct&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;LL&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;protobuf_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;ls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;-l&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-	&lt;span class=&quot;c&quot;&gt;# str2 = struct.unpack(&amp;#39;LL&amp;#39;, packed_len)&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;packed_len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;struct&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;LL&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;protobuf_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ls&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;-l&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+	&lt;span class=&quot;c&quot;&gt;# str2 = struct.unpack(&#39;LL&#39;, packed_len)&lt;/span&gt;
 	&lt;span class=&quot;c&quot;&gt;# print str2 #(1000,-16777216)&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sendall&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;packed_len&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;protobuf_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+	&lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sendall&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;packed_len&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;protobuf_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;hr /&gt;
 
-&lt;pre&gt;&lt;code&gt;struct.pack(&#39;LL&#39;,type,len(protobuf_data))
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;struct.pack(&#39;LL&#39;,type,len(protobuf_data))
 &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;‘LL’ means two long types,more types looks &lt;a href=&quot;https://docs.python.org/2/library/struct.html&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;server&quot;&gt;Server&lt;/h3&gt;
-&lt;p&gt;first in server i def a funcation name socket_read_n&lt;/p&gt;
+&lt;p&gt;###Server
+first in server i def a funcation name socket_read_n&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;socket_read_n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;sd&quot;&gt;&amp;quot;&amp;quot;&amp;quot; Read exactly n bytes from the socket.&lt;/span&gt;
-&lt;span class=&quot;sd&quot;&gt;        Raise RuntimeError if the connection closed before&lt;/span&gt;
-&lt;span class=&quot;sd&quot;&gt;        n bytes were read.&lt;/span&gt;
-&lt;span class=&quot;sd&quot;&gt;    &amp;quot;&amp;quot;&amp;quot;&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;	&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;socket_read_n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot; Read exactly n bytes from the socket.
+        Raise RuntimeError if the connection closed before
+        n bytes were read.
+    &quot;&quot;&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;&#39;&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;recv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;raise&lt;/span&gt; &lt;span class=&quot;ne&quot;&gt;RuntimeError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;unexpected connection close&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&#39;&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;raise&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;RuntimeError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;unexpected connection close&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;then .&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;len_buf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;socket_read_n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;struct&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unpack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&amp;gt;LL&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len_buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;msg_len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;struct&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unpack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&amp;gt;LL&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len_buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;len_buf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;socket_read_n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;struct&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unpack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;&amp;gt;LL&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len_buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;msg_len&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;struct&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unpack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&#39;&amp;gt;LL&#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;len_buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
             &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;#1001&lt;/span&gt;
             &lt;span class=&quot;n&quot;&gt;msg_buf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;socket_read_n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;msg_len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
             &lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;edu_pb2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ELine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
             &lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ParseFromString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg_buf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;msg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;enjoy it!&lt;/p&gt;
 
 &lt;p&gt;Reference:&lt;br /&gt;
-&lt;a href=&quot;http://stackoverflow.com/questions/2038083/how-to-use-python-and-googles-protocol-buffers-to-deserialize-data-sent-over-tc&quot;&gt;http://stackoverflow.com/questions/2038083/how-to-use-python-and-googles-protocol-buffers-to-deserialize-data-sent-over-tc&lt;/a&gt;  &lt;/p&gt;
+&lt;a href=&quot;http://stackoverflow.com/questions/2038083/how-to-use-python-and-googles-protocol-buffers-to-deserialize-data-sent-over-tc&quot;&gt;http://stackoverflow.com/questions/2038083/how-to-use-python-and-googles-protocol-buffers-to-deserialize-data-sent-over-tc&lt;/a&gt;&lt;/p&gt;
 
 </description>
         <pubDate>Tue, 13 Oct 2015 18:00:18 +0800</pubDate>
@@ -491,11 +582,11 @@ Traffic Filtering&lt;/p&gt;
         <title>python tips</title>
         <description>&lt;p&gt;汇总一些自己遇到的python的小技巧。&lt;/p&gt;
 
-&lt;h3 id=&quot;pythonshell&quot;&gt;python内嵌shell函数&lt;/h3&gt;
-&lt;p&gt;使用  &lt;a href=&quot;https://docs.python.org/2/library/subprocess.html&quot;&gt;subpro module&lt;/a&gt; 库&lt;/p&gt;
+&lt;p&gt;###python内嵌shell函数
+使用  &lt;a href=&quot;https://docs.python.org/2/library/subprocess.html&quot;&gt;subpro module&lt;/a&gt; 库&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;subprocess&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;ls&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;-l&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;	&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;subprocess&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ls&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;-l&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;之后补上。&lt;/p&gt;
 
@@ -503,162 +594,6 @@ Traffic Filtering&lt;/p&gt;
         <pubDate>Fri, 09 Oct 2015 17:00:18 +0800</pubDate>
         <link>http://19kka.github.com/python/2015/10/09/python-tips/</link>
         <guid isPermaLink="true">http://19kka.github.com/python/2015/10/09/python-tips/</guid>
-      </item>
-    
-      <item>
-        <title>build protobuf on Mac</title>
-        <description>&lt;p&gt;十一之前编译了protobuf给iOS用，但是网上的教程良莠不齐，这次做一个总结，也给自己一个记录。前面部分是可以方便的编译完然后立刻使用，后面部分是详细的叙述。&lt;/p&gt;
-
-&lt;h3 id=&quot;section&quot;&gt;前提准备&lt;/h3&gt;
-
-&lt;p&gt;1 一个针对sh脚本 地址在这里&lt;em&gt;&lt;a href=&quot;https://gist.github.com/BennettSmith/9487468ae3375d0db0cc&quot;&gt;https://gist.github.com/BennettSmith/9487468ae3375d0db0cc&lt;/a&gt;&lt;/em&gt;
-&lt;em&gt;推荐使用这个脚本，因为如果你赶时间，这个会让你很方便。&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;2.一个过墙的命令行代理（最好有）&lt;/p&gt;
-
-&lt;h3 id=&quot;section-1&quot;&gt;编译&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;$ cd build-protobuf
-$ sudo ./build-protobuf.sh 可以看到这个脚本中还有从github/google/protobuf/release中下载源码，所以整个过程需要一些时间。
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;成功之后会.a文件会在 当前目录的生成一个目录 protobuf-2.x.x
-现在的版本号为2.6.1。一共有3个文件夹,目录树如下。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;.
-├── bin
-├── include
-│   └── google
-└── lib
-    ├── libprotobuf-lite.a
-    ├── libprotobuf-lite.la
-    ├── libprotobuf.a
-    ├── libprotobuf.la
-    ├── libprotoc.a
-    ├── libprotoc.la
-    └── pkgconfig
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&quot;section-2&quot;&gt;使用&lt;/h3&gt;
-&lt;ol&gt;
-  &lt;li&gt;在Header Search Paths 处添加 /usr/local/include&lt;/li&gt;
-  &lt;li&gt;libprotobuf.a拖入Xcode &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;然后没问题就可以运行了。&lt;/p&gt;
-
-&lt;p&gt;感谢脚本的作者。&lt;/p&gt;
-
-&lt;h3 id=&quot;section-3&quot;&gt;可能碰到的问题&lt;/h3&gt;
-
-&lt;p&gt;之后补上。&lt;/p&gt;
-
-</description>
-        <pubDate>Thu, 08 Oct 2015 17:32:18 +0800</pubDate>
-        <link>http://19kka.github.com/protobuf/2015/10/08/build-protobuf/</link>
-        <guid isPermaLink="true">http://19kka.github.com/protobuf/2015/10/08/build-protobuf/</guid>
-      </item>
-    
-      <item>
-        <title>tsocks on Mac</title>
-        <description>&lt;p&gt;这几天折腾了一下关于Mac下的应用代理，写下这篇blog用来总结。&lt;/p&gt;
-
-&lt;p&gt;由于一些原因，国内访问国外一些网站有问题，有些应用提供了代理的设置，但是大多数是没有的。所以我们需要一些工具，使之可以正常使用。&lt;/p&gt;
-
-&lt;h3 id=&quot;section&quot;&gt;前提工具准备&lt;/h3&gt;
-&lt;p&gt;1.在Mac下有一个方便的下载安装工具，类似于Ubuntu的apt-get 叫做&lt;a href=&quot;brew.sh&quot;&gt;Brew&lt;/a&gt;,下载方式他的官网有很详细的介绍。&lt;br /&gt;
-2.一台提供sock代理的服务器&lt;/p&gt;
-
-&lt;h3 id=&quot;tsocks&quot;&gt;安装tsocks&lt;/h3&gt;
-&lt;p&gt;一般我们使用brew进行安装时，brew install＋应用名。但是由于brew于一些三方作者的关系，我们需要手动创建formual。&lt;em&gt;这里是&lt;a href=&quot;https://github.com/Homebrew/homebrew/issues/11870&quot;&gt;原因&lt;/a&gt;&lt;/em&gt;  &lt;/p&gt;
-
-&lt;p&gt;首先&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;vi /usr/local/Library/Formula/tsocks.rb
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;内容如下  &lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;a name=&quot;True-1&quot;&gt;&lt;/a&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;formula&amp;#39;&lt;/span&gt;
-&lt;a name=&quot;True-2&quot;&gt;&lt;/a&gt;
-&lt;a name=&quot;True-3&quot;&gt;&lt;/a&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Tsocks&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Formula&lt;/span&gt;
-&lt;a name=&quot;True-4&quot;&gt;&lt;/a&gt;
-&lt;a name=&quot;True-5&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;c1&quot;&gt;# The original is http://tsocks.sourceforge.net/&lt;/span&gt;
-&lt;a name=&quot;True-6&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;c1&quot;&gt;# This GitHub repo is a maintained fork with OSX support&lt;/span&gt;
-&lt;a name=&quot;True-7&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;n&quot;&gt;homepage&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;http://github.com/pc/tsocks&amp;#39;&lt;/span&gt;
-&lt;a name=&quot;True-8&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;n&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;https://github.com/pc/tsocks.git&amp;#39;&lt;/span&gt;
-&lt;a name=&quot;True-9&quot;&gt;&lt;/a&gt;
-&lt;a name=&quot;True-10&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;n&quot;&gt;depends_on&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;autoconf&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:build&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;MacOS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;xcode_version&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to_f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
-&lt;a name=&quot;True-11&quot;&gt;&lt;/a&gt;
-&lt;a name=&quot;True-12&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;install&lt;/span&gt;
-&lt;a name=&quot;True-13&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;autoconf&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;-v&amp;quot;&lt;/span&gt;
-&lt;a name=&quot;True-14&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;./configure&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;--prefix=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;prefix&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;--disable-debug&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;--disable-dependency-tracking&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;--with-conf=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config_file&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
-&lt;a name=&quot;True-15&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;n&quot;&gt;inreplace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;tsocks&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;change_make_var!&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;LIBDIR&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;a name=&quot;True-16&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;make&amp;quot;&lt;/span&gt;
-&lt;a name=&quot;True-17&quot;&gt;&lt;/a&gt;   &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;make install&amp;quot;&lt;/span&gt;
-&lt;a name=&quot;True-18&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;n&quot;&gt;etc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;tsocks.conf.simple.example&amp;quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;tsocks.conf&amp;quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;unless&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;config_file&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exist?&lt;/span&gt;
-&lt;a name=&quot;True-19&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;a name=&quot;True-20&quot;&gt;&lt;/a&gt;
-&lt;a name=&quot;True-21&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test&lt;/span&gt;
-&lt;a name=&quot;True-22&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Your current public ip is:&amp;#39;&lt;/span&gt;
-&lt;a name=&quot;True-23&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;n&quot;&gt;ohai&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`curl -sS ifconfig.me 2&amp;gt;&amp;amp;1`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chomp&lt;/span&gt;
-&lt;a name=&quot;True-24&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;If your correctly configured &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config_file&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;, this should show the ip you have trough the proxy&amp;quot;&lt;/span&gt;
-&lt;a name=&quot;True-25&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Your ip through the proxy is:&amp;#39;&lt;/span&gt;
-&lt;a name=&quot;True-26&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;n&quot;&gt;ohai&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`tsocks curl -sS ifconfig.me 2&amp;gt;&amp;amp;1`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chomp&lt;/span&gt;
-&lt;a name=&quot;True-27&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;a name=&quot;True-28&quot;&gt;&lt;/a&gt;
-&lt;a name=&quot;True-29&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;config_file&lt;/span&gt;
-&lt;a name=&quot;True-30&quot;&gt;&lt;/a&gt;    &lt;span class=&quot;n&quot;&gt;etc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;tsocks.conf&amp;#39;&lt;/span&gt;
-&lt;a name=&quot;True-31&quot;&gt;&lt;/a&gt;  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;a name=&quot;True-32&quot;&gt;&lt;/a&gt;&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;之后输入  &lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;brew install --HEAD tsocks
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;下载安装可能需要等待很久，需要耐心等待下。&lt;/p&gt;
-
-&lt;p&gt;如果安装的时候提示  &lt;code&gt;configure:error:cannot run C compiled programs&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;尝试使用&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;xcode-select --install
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;一切顺利我们就开始使用啦。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;vi /usr/local/etc/tsocks.conf 
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&quot;tsocks-1&quot;&gt;配置tsocks&lt;/h3&gt;
-
-&lt;p&gt;server = proxy.xxx.com #your proxy domain or IP address  &lt;/p&gt;
-
-&lt;p&gt;server_type = 5   #to use socks V5  &lt;/p&gt;
-
-&lt;p&gt;server_port = 1080 #the port of your porxy  &lt;/p&gt;
-
-&lt;p&gt;添加到配置中,查看是否生效&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;tsocks wget www.google.com
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;如果走的是sock5服务器，那么说明tsocks已经生效了，我们可以使用&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;tsocks open -a &#39;Safari&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;打开任何应用，或者:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;tsocks git push
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;使用命令行。enjoy it!&lt;/p&gt;
-
-</description>
-        <pubDate>Mon, 28 Sep 2015 20:32:18 +0800</pubDate>
-        <link>http://19kka.github.com/proxy/2015/09/28/my-tsocks/</link>
-        <guid isPermaLink="true">http://19kka.github.com/proxy/2015/09/28/my-tsocks/</guid>
       </item>
     
   </channel>
