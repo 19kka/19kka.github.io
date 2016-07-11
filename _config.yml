@@ -51,9 +51,11 @@ share_hackernews: false
 
 # Build settings
 markdown:     kramdown
+gems: [jekyll-paginate]
 redcarpet:
   extensions: ['smart', 'tables', 'with_toc_data']
 permalink:    pretty
 paginate:     10
 sass:
   compressed: true
+
