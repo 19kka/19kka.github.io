@@ -1,9 +1,9 @@
 ---
 layout:     post
-title:      生活随记
+title:      life -
 date:       2016-05-26 14:03:18
 summary:    16年半年生活 
-categories: Life
+categories: life
 ---
 
 #博客也是陆陆续续更新
