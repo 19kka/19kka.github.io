@@ -7,6 +7,23 @@
     <atom:link href="http://19kka.github.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>生活随记</title>
+        <description>&lt;p&gt;#博客也是陆陆续续更新&lt;/p&gt;
+
+&lt;p&gt;生活总在继续，很多时候总觉得自己做的不够好。&lt;/p&gt;
+
+&lt;p&gt;程序员可能刚刚入门，有了学习许多语言的能力。看看ROR，又看看react native。觉得自己学历不高想读在职，想把英语好好学学。一件事都没能坚持下来，一头冲进去，却又放弃。这是这半年我觉得我做的最糟糕的地方。&lt;/p&gt;
+
+&lt;p&gt;工作平平，也只能算是比一般人做的好一些吧。&lt;/p&gt;
+
+&lt;p&gt;做的远远还不够。&lt;/p&gt;
+</description>
+        <pubDate>Thu, 26 May 2016 22:03:18 +0800</pubDate>
+        <link>http://19kka.github.com/life/2016/05/26/life-half-year/</link>
+        <guid isPermaLink="true">http://19kka.github.com/life/2016/05/26/life-half-year/</guid>
+      </item>
+    
+      <item>
         <title>iOS Review CheckList</title>
         <description>&lt;p&gt;#iOS审核检查表&lt;/p&gt;
 
@@ -576,24 +593,6 @@ first in server i def a funcation name socket_read_n&lt;/p&gt;
         <pubDate>Tue, 13 Oct 2015 18:00:18 +0800</pubDate>
         <link>http://19kka.github.com/protobuf/python/2015/10/13/using-protocol-buffers/</link>
         <guid isPermaLink="true">http://19kka.github.com/protobuf/python/2015/10/13/using-protocol-buffers/</guid>
-      </item>
-    
-      <item>
-        <title>python tips</title>
-        <description>&lt;p&gt;汇总一些自己遇到的python的小技巧。&lt;/p&gt;
-
-&lt;p&gt;###python内嵌shell函数
-使用  &lt;a href=&quot;https://docs.python.org/2/library/subprocess.html&quot;&gt;subpro module&lt;/a&gt; 库&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;	&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;subprocess&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;call&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ls&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;-l&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;之后补上。&lt;/p&gt;
-
-</description>
-        <pubDate>Fri, 09 Oct 2015 17:00:18 +0800</pubDate>
-        <link>http://19kka.github.com/python/2015/10/09/python-tips/</link>
-        <guid isPermaLink="true">http://19kka.github.com/python/2015/10/09/python-tips/</guid>
       </item>
     
   </channel>
