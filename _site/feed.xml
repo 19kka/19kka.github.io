@@ -7,6 +7,266 @@
     <atom:link href="http://19kka.github.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>SOCKS5 RFC1928</title>
+        <description>&lt;h1 id=&quot;socks-protocol-version-5&quot;&gt;SOCKS Protocol Version 5&lt;/h1&gt;
+
+&lt;p&gt;前面部分备忘&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Network Working Group                                           M. Leech
+Request for Comments: 1928                    Bell-Northern Research Ltd
+Category: Standards Track                                       M. Ganis
+                                         International Business Machines
+                                                                  Y. Lee
+                                                  NEC Systems Laboratory
+                                                                R. Kuris
+                                                       Unify Corporation
+                                                               D. Koblas
+                                                  Independent Consultant
+                                                                L. Jones
+                                                 Hewlett-Packard Company
+                                                              March 1996
+
+
+                        SOCKS Protocol Version 5
+
+Status of this Memo
+
+   This document specifies an Internet standards track protocol for the
+   Internet community, and requests discussion and suggestions for
+   improvements.  Please refer to the current edition of the &quot;Internet
+   Official Protocol Standards&quot; (STD 1) for the standardization state
+   and status of this protocol.  Distribution of this memo is unlimited.
+
+Acknowledgments
+
+   This memo describes a protocol that is an evolution of the previous
+   version of the protocol, version 4 [1]. This new protocol stems from
+   active discussions and prototype implementations.  The key
+   contributors are: Marcus Leech: Bell-Northern Research, David Koblas:
+   Independent Consultant, Ying-Da Lee: NEC Systems Laboratory, LaMont
+   Jones: Hewlett-Packard Company, Ron Kuris: Unify Corporation, Matt
+   Ganis: International Business Machines.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;防火墙的使用，有效的隔离了机构的内部网络和外部网络，这种类型的Internet架构变得越来越流行了。这种防火墙系统大都充当着网络之间的应用层网关的角色，通常提供经过控制的Telnet、FTP和SMTP访问。为了推动全球信息的交流，更多的新的应用层协议的推出，这就有必要提供一个总的架构使这些协议能够更明显和更安全的穿过防火墙，也有必要在实际上为它们穿过防火墙时提供一个更强的认证机制。这需要基于客户机-服务器机制在不同组织网络之间实现，而这种联系必须得到控制并且有安全认证。&lt;/p&gt;
+
+&lt;p&gt;在此所描述的协议框架是为了让使用TCP和UDP的客户/服务器应用程序更方便地使用网络防火墙所提供的服务所设计的。这个协议从概念上来讲是介于应用层和传输层之间的“中介层”，因而不提供如发ICMP信息之类的网络层网关服务。&lt;/p&gt;
+
+&lt;h3 id=&quot;existing-practice&quot;&gt;Existing practice&lt;/h3&gt;
+&lt;p&gt;-略&lt;/p&gt;
+
+&lt;h3 id=&quot;procedure-for-tcp-based-clients&quot;&gt;Procedure for TCP-based clients&lt;/h3&gt;
+
+&lt;p&gt;当一个基于TCP的客户端想要去建立一个只有通过防火墙才能到达的目标的连接时（例如从开始准备到完成）， 必须打开一个TCP连接到对方的SOCKS服务器的SOCKS端口上。这个SOCKS服务默认在1080端口上，如果这个连接请求成功，客户端就需要协商用哪个加密方法、哪些可用，然后发送转发请求。SOCKS服务器检查这个请求根据结果建立连接或拒绝。&lt;/p&gt;
+
+&lt;p&gt;除非特别注明，在数据包图标里的长度都是十进制的。如果需要给定一个字节值，用X’hh’表示该字节的值。如果用到单词’Variable’,表示长度可变。&lt;/p&gt;
+
+&lt;p&gt;客户端连到服务器后，然后就发送请求来协商版本和认证方法：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;VAR&lt;/th&gt;
+      &lt;th&gt;NMETHODS&lt;/th&gt;
+      &lt;th&gt;METHODS&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1 to 255&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;VAR 字段 在这个协议版本中写 X’05’，NMETHODS 中选择一个METHODS中的方法（填写序号）&lt;/p&gt;
+
+&lt;p&gt;服务器从METHODS给出的方法中选出一个，发送选择报文&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;VAR&lt;/th&gt;
+      &lt;th&gt;METHOD&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;如果选择的METHOD的值是X’FF’ ，则表示客户端列出的方法是没有可以背接受的，客户端就必须关闭连接。&lt;/p&gt;
+
+&lt;p&gt;现在定义的METHOD的值有：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;X’00’ 无验证&lt;/li&gt;
+  &lt;li&gt;X’01’ 通用安全服务应用程序接口（GSSAPI）&lt;/li&gt;
+  &lt;li&gt;X’02’ 用户名密码&lt;/li&gt;
+  &lt;li&gt;X’03’ to X’7F’ IANA分配&lt;/li&gt;
+  &lt;li&gt;X’80’ to X’FE’ 私人保留&lt;/li&gt;
+  &lt;li&gt;X’FF’ 无可接受方法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;之后客户端和服务端对于进入方法细节进行 二次协商（sub-negotiation）。二次协商的描述在独立的文档中。
+开发者希望得到新的METHOD支持需要和IANA联系。当前已分配的METHOD号参考文档。如果想顺利的执行则必须支持GSSAPI和支持用户名/密码（USERAE/PASSWORD）认证方法。&lt;/p&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;需求&lt;/h3&gt;
+
+&lt;p&gt;一旦方法选择子商议结束，客户机就发送请求细节。如果商议方法包括了完整性检查的目的或机密性封装，则请求必然被封在方法选择的封装中。&lt;/p&gt;
+
+&lt;p&gt;SOCKS请求如下表所示：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;VER&lt;/th&gt;
+      &lt;th&gt;CMD&lt;/th&gt;
+      &lt;th&gt;RSV&lt;/th&gt;
+      &lt;th&gt;ATYP&lt;/th&gt;
+      &lt;th&gt;DST.ADDR&lt;/th&gt;
+      &lt;th&gt;DST.PORT&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;X’00’&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;Variable&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;VER    protocol version: X’05’&lt;/li&gt;
+  &lt;li&gt;CMD
+    &lt;ul&gt;
+      &lt;li&gt;CONNECT X’01’&lt;/li&gt;
+      &lt;li&gt;BIND X’02’&lt;/li&gt;
+      &lt;li&gt;UDP ASSOCIATE X’03’&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;RSV    RESERVED&lt;/li&gt;
+  &lt;li&gt;ATYP   address type of following address
+    &lt;ul&gt;
+      &lt;li&gt;IP V4 address: X’01’&lt;/li&gt;
+      &lt;li&gt;DOMAINNAME: X’03’&lt;/li&gt;
+      &lt;li&gt;IP V6 address: X’04’&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;DST.ADDR       desired destination address&lt;/li&gt;
+  &lt;li&gt;DST.PORT desired destination port in network octet
+ order&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;SOCKS服务器会评估基于源和目标地址的请求，然后返回一条或几条消息作为合适的请求类型。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;地址&lt;/h3&gt;
+&lt;p&gt;在地址域(DST.ADDR，BND.ADDR)中，ATYP域详细说明了包含在该域内部的地址类型：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;X’01’ 该地址是IPv4地址，长4个八位组。&lt;/li&gt;
+  &lt;li&gt;X’03’ 该地址包含一个完全的域名。第一个八位组包含了后面名称的八位组的数目，没有中止的空八位组。&lt;/li&gt;
+  &lt;li&gt;X’04’ 该地址是IPv6地址，长16个八位组。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;回应&lt;/h3&gt;
+
+&lt;p&gt;到SOCKS服务器的连接一经建立，客户机即发送SOCKS请求信息，并且完成认证商议。服务器评估请求，返回一个回应如下表所示：&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;VER&lt;/th&gt;
+      &lt;th&gt;REP&lt;/th&gt;
+      &lt;th&gt;RSV&lt;/th&gt;
+      &lt;th&gt;ATYP&lt;/th&gt;
+      &lt;th&gt;BND.ADDR&lt;/th&gt;
+      &lt;th&gt;BND.PORT&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;X’00’&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;Variable&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;VER    protocol version: X’05’&lt;/li&gt;
+  &lt;li&gt;REP    Reply field:
+    &lt;ul&gt;
+      &lt;li&gt;X’00’ succeeded
+ 	-  X’01’ general SOCKS server failure
+ 	-  X’02’ connection not allowed by ruleset
+ 	-  X’03’ Network unreachable
+ 	-  X’04’ Host unreachable&lt;/li&gt;
+      &lt;li&gt;X’05’ Connection refused&lt;/li&gt;
+      &lt;li&gt;X’06’ TTL expired&lt;/li&gt;
+      &lt;li&gt;X’07’ Command not supported&lt;/li&gt;
+      &lt;li&gt;X’08’ Address type not supported&lt;/li&gt;
+      &lt;li&gt;X’09’ to X’FF’ unassigned&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;RSV    RESERVED&lt;/li&gt;
+  &lt;li&gt;ATYP   address type of following address
+    &lt;ul&gt;
+      &lt;li&gt;IP V4 address: X’01’&lt;/li&gt;
+      &lt;li&gt;DOMAINNAME: X’03’&lt;/li&gt;
+      &lt;li&gt;IP V6 address: X’04’&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;BND.ADDR       server bound address&lt;/li&gt;
+  &lt;li&gt;BND.PORT       server bound port in network octet order&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;标志RESERVED(RSV)的地方必须设置为X’00’。&lt;/p&gt;
+
+&lt;p&gt;如果被选中的方法包括有认证目的封装，完整性和/或机密性的检查，则回应就被封装在方法选择的封装套中。&lt;/p&gt;
+
+&lt;h4 id=&quot;section-3&quot;&gt;连接&lt;/h4&gt;
+
+&lt;p&gt;在CONNECT的回应中，BND.PORT包括了服务器分配的连接到目标主机的端口号，同时BND.ADDR包含了关联的IP地址。此处所提供的BND.ADDR通常情况不同于客户机连接到SOCKS服务器所用的IP地址，因为这些服务器提供的经常都是多址的(muti-homed)。都期望SOCKS主机能使用DST.ADDR和DST.PORT，连接请求评估中的客户端源地址和端口。&lt;/p&gt;
+
+&lt;h4 id=&quot;section-4&quot;&gt;绑定&lt;/h4&gt;
+
+&lt;p&gt;BIND请求被用在那些需要客户机接受到服务器连接的协议中。FTP就是一个众所周知的例子，它通过使用命令和状态报告建立最基本的客户机-服务器连接，按照需要使用服务器-客户端连接来传输数据。(例如：ls,get,put)都期望在使用应用协议的客户端在使用CONNECT建立首次连接之后仅仅使用BIND请求建立第二次连接。都期望SOCKS主机在评估BIND请求时能够使用ST.ADDR和DST.PORT。&lt;/p&gt;
+
+&lt;p&gt;有两次应答都是在BIND操作期间从SOCKS服务器发送到客户端的。第一次是发送在服务器创建和绑定一个新的socket之后。BIND.PORT域包含了SOCKS主机分配和侦听一个接入连接的端口号。BND.ADDR域包含了关联的IP地址。&lt;/p&gt;
+
+&lt;p&gt;客户端具有代表性的是使用这些信息来通报应用程序连接到指定地址的服务器。第二次应答只是发生在预期的接入连接成功或者失败之后。在第二次应答中，BND.PORT和BND.ADDR域包含了欲连接主机的地址和端口号。&lt;/p&gt;
+
+&lt;h4 id=&quot;udp-associate&quot;&gt;UDP ASSOCIATE&lt;/h4&gt;
+&lt;p&gt;-略&lt;/p&gt;
+
+&lt;h3 id=&quot;procedure-for-udp-based-clients&quot;&gt;Procedure for UDP-based clients&lt;/h3&gt;
+&lt;p&gt;-略&lt;/p&gt;
+
+&lt;h4 id=&quot;references&quot;&gt;References:&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.ietf.org/rfc/rfc1928.txt&quot;&gt;https://www.ietf.org/rfc/rfc1928.txt&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 22 Jul 2016 22:03:18 +0800</pubDate>
+        <link>http://19kka.github.com/rfc/2016/07/22/SOCKS5-RFC1928/</link>
+        <guid isPermaLink="true">http://19kka.github.com/rfc/2016/07/22/SOCKS5-RFC1928/</guid>
+      </item>
+    
+      <item>
         <title>ssh-copy-id</title>
         <description>&lt;p&gt;###ssh-copy-id&lt;/p&gt;
 
@@ -528,20 +788,6 @@ Traffic Filtering&lt;/p&gt;
         <pubDate>Wed, 04 Nov 2015 17:32:18 +0800</pubDate>
         <link>http://19kka.github.com/vpn/ios9/2015/11/04/Network-Extension-API/</link>
         <guid isPermaLink="true">http://19kka.github.com/vpn/ios9/2015/11/04/Network-Extension-API/</guid>
-      </item>
-    
-      <item>
-        <title>Network Extension 01 iOS9</title>
-        <description>&lt;p&gt;###开始学习使用Network Extension API
-身在墙内，平时折腾手动着VPN。iOS9推出了这个新的API，听说可以开启全局的Sock代理，透明代理等等。好奇心的作用下翻了圈Google，很多推友已经着手开始行动了。&lt;br /&gt;
-这里先推荐一个推，最近好像快推出他的应用了。&lt;a href=&quot;https://twitter.com/Blankwonder&quot;&gt;@Blankwonder&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;参考了WWDC2015的&lt;a href=&quot;https://developer.apple.com/videos/play/wwdc2015-717/&quot;&gt;视频&lt;/a&gt;,其实还是一知半解，所以在Xcode的Documentation and API Reference 中下载了SimpleTunnel的Demo，但是由于The NEProvider family of APIs require entitlement 所以发送了邮件给networkextension@apple.com。&lt;br /&gt;
-等待中。。&lt;/p&gt;
-</description>
-        <pubDate>Thu, 22 Oct 2015 18:00:18 +0800</pubDate>
-        <link>http://19kka.github.com/ios/ios9/vpn/2015/10/22/network-extension-01/</link>
-        <guid isPermaLink="true">http://19kka.github.com/ios/ios9/vpn/2015/10/22/network-extension-01/</guid>
       </item>
     
   </channel>
