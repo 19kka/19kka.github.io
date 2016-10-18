@@ -7,6 +7,22 @@
     <atom:link href="http://19kka.github.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Shellsort</title>
+        <description>&lt;h1 id=&quot;shellsort&quot;&gt;Shellsort&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://zh.wikipedia.org/wiki/File:Sorting_shellsort_anim.gif&quot; alt=&quot;img&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;references&quot;&gt;References:&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Shellsort&quot;&gt;https://en.wikipedia.org/wiki/Shellsort&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://zh.wikipedia.org/wiki/希尔排序&quot;&gt;https://zh.wikipedia.org/wiki/希尔排序&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 17 Oct 2016 21:04:28 +0800</pubDate>
+        <link>http://19kka.github.com/algorithm/2016/10/17/Shellsort/</link>
+        <guid isPermaLink="true">http://19kka.github.com/algorithm/2016/10/17/Shellsort/</guid>
+      </item>
+    
+      <item>
         <title>SOCKS5 RFC1928</title>
         <description>&lt;h1 id=&quot;socks-protocol-version-5&quot;&gt;SOCKS Protocol Version 5&lt;/h1&gt;
 
@@ -773,21 +789,6 @@ JSEP支持ICE候选人流动？，它允许呼叫者提供候选人的一些信�
         <pubDate>Mon, 16 Nov 2015 17:20:18 +0800</pubDate>
         <link>http://19kka.github.com/webrtc,ios/2015/11/16/WebRTC-in-the-real-world/</link>
         <guid isPermaLink="true">http://19kka.github.com/webrtc,ios/2015/11/16/WebRTC-in-the-real-world/</guid>
-      </item>
-    
-      <item>
-        <title>Network Extension API</title>
-        <description>&lt;p&gt;我想做一个用来更加快捷的连接VPN，能支持sock v5。&lt;br /&gt;
-进阶功能：
-流量过滤&lt;/p&gt;
-
-&lt;p&gt;I want to be a more efficient connection for VPN, support sock v5.
-Advanced features:
-Traffic Filtering&lt;/p&gt;
-</description>
-        <pubDate>Wed, 04 Nov 2015 17:32:18 +0800</pubDate>
-        <link>http://19kka.github.com/vpn/ios9/2015/11/04/Network-Extension-API/</link>
-        <guid isPermaLink="true">http://19kka.github.com/vpn/ios9/2015/11/04/Network-Extension-API/</guid>
       </item>
     
   </channel>
