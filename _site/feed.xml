@@ -7,6 +7,197 @@
     <atom:link href="http://19kka.github.com/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>SS Panel</title>
+        <description>&lt;h3 id=&quot;section&quot;&gt;准备以及环境&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Vultr Centos 6 64&lt;br /&gt;
+&lt;a href=&quot;https://www.vultr.com/docs/one-click-lamp&quot;&gt;Vultr One-Click LAMP&lt;/a&gt;&lt;br /&gt;
+Git 2.8.2&lt;br /&gt;
+php 5.6及以上&lt;br /&gt;
+redis 3.2&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;LAMP安装后首先确保站点可访问.&lt;/p&gt;
+
+&lt;h2 id=&quot;ss-panel&quot;&gt;前端 ss-panel&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/orvice/ss-panel&quot;&gt;https://github.com/orvice/ss-panel&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ git clone https://github.com/orvice/ss-panel.git&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;将 &lt;code class=&quot;highlighter-rouge&quot;&gt;/public&lt;/code&gt; 放入站点更目录
+附上我的目录:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-C&quot;&gt;[root@vultr bin]# tree -L 1 /home/wwwroot/ss-panel/
+/home/wwwroot/ss-panel/
+├── app
+├── bootstrap
+├── build.xml
+├── composer.json
+├── composer.lock
+├── composer.phar
+├── config
+├── db.sql
+├── db-testing.sql
+├── install.sh
+├── LICENSE
+├── phpunit.xml
+├── public
+├── README.md
+├── resources
+├── run.sh
+├── sql
+├── storage
+├── tests
+├── update.sh
+├── vendor
+└── xcat
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;修改下&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vi /etc/nginx/conf.d/default.conf&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#修改根目录
+root         /home/wwwroot/ss-panel/public;
+
+#重写URL
+location / {
+	try_files $uri $uri/ /index.php$is_args$args;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ service nginx reload&lt;/code&gt; 重载下配置。&lt;/p&gt;
+
+&lt;p&gt;在 ss-panel 目录执行：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ curl -sS https://getcomposer.org/installer | php
+$ php composer.phar  install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;section-1&quot;&gt;导入数据库:&lt;/h4&gt;
+
+&lt;p&gt;db.sql&lt;/p&gt;
+
+&lt;h4 id=&quot;section-2&quot;&gt;修改配置:&lt;/h4&gt;
+
+&lt;p&gt;cp .env.example .env&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# database 数据库配置
+db_driver = &#39;mysql&#39;  
+db_host = &#39;localhost&#39;  
+db_database = &#39;ss-panel&#39;  
+db_username = &#39;test&#39;  
+db_password = &#39;password&#39;  
+db_charset = &#39;utf8&#39;  
+db_collation = &#39;utf8_general_ci&#39;  
+db_prefix = &#39;&#39;  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;添加权限:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;chmod -R 777 storage&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;自行修改数据库名以及用户密码（mysql 添加用户 倒入sql等)&lt;/p&gt;
+
+&lt;p&gt;添加管理员:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;php xcat createAdmin&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;现在可以进入网页查看了 前端部署完成.&lt;/p&gt;
+
+&lt;h2 id=&quot;shadowsocks-manyuser&quot;&gt;后端 shadowsocks manyuser等&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ git clone -b manyuser https://github.com/mengskysama/shadowsocks-rm.git&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;安装依赖包先:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ pip install cymysql&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;如果没有pip
+&amp;gt;yum install python-pip&lt;/p&gt;
+
+&lt;p&gt;配置 &lt;code class=&quot;highlighter-rouge&quot;&gt;shadowsocks-rm/shadowsocks/config.py&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;MYSQL_HOST = &#39;localhost&#39;  
+MYSQL_PORT = 3306  
+MYSQL_USER = &#39;test&#39;  
+MYSQL_PASS = &#39;password&#39;  
+MYSQL_DB = &#39;sspanel&#39; 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;python shadowsocks/servers.py&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;没有错误就是成功开启了。&lt;/p&gt;
+
+&lt;p&gt;如果连接有问题 查看下iptables 放行iptables端口
+&lt;code class=&quot;highlighter-rouge&quot;&gt;
+$ iptables -I INPUT -p tcp -m tcp --dport 你的端口 -j ACCEPT
+$ iptables-save
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;redis&quot;&gt;安装Redis&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wget http://download.redis.io/releases/redis-3.2.3.tar.gz
+tar -zxvf redis-3.2.3.tar.gz
+cd redis-3.2.3
+make &amp;amp;&amp;amp; make install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;遇到问题可自行搜索。&lt;/p&gt;
+
+&lt;h3 id=&quot;shadowsocks-go-mu&quot;&gt;安装shadowsocks go mu&lt;/h3&gt;
+
+&lt;h5 id=&quot;go&quot;&gt;安装go环境&lt;/h5&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wget -c http://storage.googleapis.com/golang/go1.6.2.linux-amd64.tar.gz
+tar -C /usr/local -xzf go1.6.2.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=~/.go
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;ss-go-mu&quot;&gt;安装 SS GO MU&lt;/h5&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;go get github.com/orvice/shadowsocks-go
+cd ~/.go/src/github.com/orvice/shadowsocks-go/mu
+go get
+go build
+cp example.conf ~/.go/bin/config.conf
+cd ~/.go/bin/
+./mu -debug
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;ss-go-mu--ss-panel&quot;&gt;连接 ss go mu 服务端和前端 ss-panel&lt;/h5&gt;
+
+&lt;p&gt;将 muKey 设置下 比如xxx&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vim /home/wwwroot/sspanel/.env&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;将[webapi 中的 url 改成你的地址或者ip，key改成刚刚在.env 文件中设置的值xxx&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vim ~/.go/bin/config.conf&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;默认redis 没有密码 我们可以注释掉pass&lt;/p&gt;
+
+&lt;h4 id=&quot;references&quot;&gt;References:&lt;/h4&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://prinzeugen.net/build-shadowsocks-sharing-site-with-ss-panel/&quot;&gt;https://prinzeugen.net/build-shadowsocks-sharing-site-with-ss-panel/&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://medium.com/@aixiewen/架设前端网站ss-panel后端-shadowsocks-manyuser-go-mu-ssr及多节点vps服务配置及锐速与finalspeed-b8dca210b5a7#.hfvxn4i6c&quot;&gt;https://medium.com/@aixiewen/架设前端网站ss-panel后端-shadowsocks-manyuser-go-mu-ssr及多节点vps服务配置及锐速与finalspeed-b8dca210b5a7#.hfvxn4i6c&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://mechanus.io/yi-ge-xin-shou-xiang-de-ss-panel-bu-shu-jiao-cheng/&quot;&gt;https://mechanus.io/yi-ge-xin-shou-xiang-de-ss-panel-bu-shu-jiao-cheng/&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 02 Dec 2016 20:11:38 +0800</pubDate>
+        <link>http://19kka.github.com/gfw/2016/12/02/ss-panel/</link>
+        <guid isPermaLink="true">http://19kka.github.com/gfw/2016/12/02/ss-panel/</guid>
+      </item>
+    
+      <item>
         <title>SimpleTunnel Debug</title>
         <description>&lt;h6 id=&quot;network-extensioniosapi&quot;&gt;前言: 由于国内网络情况日益严峻，希望多学习些计算机网络的知识。Network Extension提供了在iOS平台上较为完善的网络代理API，特此学习记录。如有错误，欢迎讨论大家指正。&lt;/h6&gt;
 
@@ -870,44 +1061,6 @@ $ git clone https://github.com/phacility/arcanist.git
         <pubDate>Mon, 15 Feb 2016 22:00:18 +0800</pubDate>
         <link>http://19kka.github.com/linux,bananapi/2016/02/15/NAS-Server/</link>
         <guid isPermaLink="true">http://19kka.github.com/linux,bananapi/2016/02/15/NAS-Server/</guid>
-      </item>
-    
-      <item>
-        <title>Writing Images on MacOS</title>
-        <description>&lt;p&gt;##1.Be root or your are root(admin)&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;su
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;##2.unmount Disk&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;	&lt;span class=&quot;n&quot;&gt;diskutil&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;####find your disk then unmount it&lt;/p&gt;
-
-&lt;p&gt;looks like 
-/dev/disk0
-………..TYPE NAME…&lt;/p&gt;
-
-&lt;p&gt;/dev/disk1
-……..XXX…XXX&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;	&lt;span class=&quot;n&quot;&gt;diskutil&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unmountDisk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dev&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diskN&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;you will see:
-xxxxxx diskN was successful&lt;/p&gt;
-
-&lt;p&gt;##3.Use the ‘dd’&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo dd if=xxx.iso of=/dev/sdX bs=4096
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-</description>
-        <pubDate>Mon, 15 Feb 2016 22:00:18 +0800</pubDate>
-        <link>http://19kka.github.com/linux/2016/02/15/DD-Img-on-mac/</link>
-        <guid isPermaLink="true">http://19kka.github.com/linux/2016/02/15/DD-Img-on-mac/</guid>
       </item>
     
   </channel>
