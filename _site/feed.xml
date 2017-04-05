@@ -2,13 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>19kka</title>
-    <description>enjoy your life</description>
-    <link>http://19kka.github.com/</link>
-    <atom:link href="http://19kka.github.com/feed.xml" rel="self" type="application/rss+xml" />
+    <description>sdf</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Wed, 05 Apr 2017 11:06:06 +0800</pubDate>
+    <lastBuildDate>Wed, 05 Apr 2017 11:06:06 +0800</lastBuildDate>
+    <generator>Jekyll v3.4.3</generator>
     
       <item>
         <title>SS Panel</title>
-        <description>&lt;h3 id=&quot;section&quot;&gt;准备以及环境&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;准备以及环境&quot;&gt;准备以及环境&lt;/h3&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;&lt;a href=&quot;http://www.vultr.com/?ref=6898517&quot;&gt;Vultr 注册推荐链接&lt;/a&gt; Centos 6 64&lt;br /&gt;
@@ -20,7 +23,7 @@ redis 3.2&lt;/p&gt;
 
 &lt;p&gt;LAMP安装后首先确保站点可访问.&lt;/p&gt;
 
-&lt;h2 id=&quot;ss-panel&quot;&gt;前端 ss-panel&lt;/h2&gt;
+&lt;h2 id=&quot;前端-ss-panel&quot;&gt;前端 ss-panel&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/orvice/ss-panel&quot;&gt;https://github.com/orvice/ss-panel&lt;/a&gt;&lt;/p&gt;
 
@@ -77,23 +80,23 @@ $ php composer.phar  install
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h4 id=&quot;section-1&quot;&gt;导入数据库:&lt;/h4&gt;
+&lt;h4 id=&quot;导入数据库&quot;&gt;导入数据库:&lt;/h4&gt;
 
 &lt;p&gt;db.sql&lt;/p&gt;
 
-&lt;h4 id=&quot;section-2&quot;&gt;修改配置:&lt;/h4&gt;
+&lt;h4 id=&quot;修改配置&quot;&gt;修改配置:&lt;/h4&gt;
 
 &lt;p&gt;cp .env.example .env&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# database 数据库配置
-db_driver = &#39;mysql&#39;  
-db_host = &#39;localhost&#39;  
-db_database = &#39;ss-panel&#39;  
-db_username = &#39;test&#39;  
-db_password = &#39;password&#39;  
-db_charset = &#39;utf8&#39;  
-db_collation = &#39;utf8_general_ci&#39;  
-db_prefix = &#39;&#39;  
+db_driver = 'mysql'  
+db_host = 'localhost'  
+db_database = 'ss-panel'  
+db_username = 'test'  
+db_password = 'password'  
+db_charset = 'utf8'  
+db_collation = 'utf8_general_ci'  
+db_prefix = ''  
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -109,7 +112,7 @@ db_prefix = &#39;&#39;
 
 &lt;p&gt;现在可以进入网页查看了 前端部署完成.&lt;/p&gt;
 
-&lt;h2 id=&quot;shadowsocks-manyuser&quot;&gt;后端 shadowsocks manyuser等&lt;/h2&gt;
+&lt;h2 id=&quot;后端-shadowsocks-manyuser等&quot;&gt;后端 shadowsocks manyuser等&lt;/h2&gt;
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ git clone -b manyuser https://github.com/mengskysama/shadowsocks-rm.git&lt;/code&gt;&lt;/p&gt;
 
@@ -117,16 +120,18 @@ db_prefix = &#39;&#39;
 
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$ pip install cymysql&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;如果没有pip
-&amp;gt;yum install python-pip&lt;/p&gt;
+&lt;p&gt;如果没有pip&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;yum install python-pip&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;p&gt;配置 &lt;code class=&quot;highlighter-rouge&quot;&gt;shadowsocks-rm/shadowsocks/config.py&lt;/code&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;MYSQL_HOST = &#39;localhost&#39;  
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;MYSQL_HOST = 'localhost'  
 MYSQL_PORT = 3306  
-MYSQL_USER = &#39;test&#39;  
-MYSQL_PASS = &#39;password&#39;  
-MYSQL_DB = &#39;sspanel&#39; 
+MYSQL_USER = 'test'  
+MYSQL_PASS = 'password'  
+MYSQL_DB = 'sspanel' 
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
@@ -134,13 +139,13 @@ MYSQL_DB = &#39;sspanel&#39;
 
 &lt;p&gt;没有错误就是成功开启了。&lt;/p&gt;
 
-&lt;p&gt;如果连接有问题 查看下iptables 放行iptables端口
-&lt;code class=&quot;highlighter-rouge&quot;&gt;
-$ iptables -I INPUT -p tcp -m tcp --dport 你的端口 -j ACCEPT
+&lt;p&gt;如果连接有问题 查看下iptables 放行iptables端口&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ iptables -I INPUT -p tcp -m tcp --dport 你的端口 -j ACCEPT
 $ iptables-save
-&lt;/code&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
-&lt;h3 id=&quot;redis&quot;&gt;安装Redis&lt;/h3&gt;
+&lt;h3 id=&quot;安装redis&quot;&gt;安装Redis&lt;/h3&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wget http://download.redis.io/releases/redis-3.2.3.tar.gz
 tar -zxvf redis-3.2.3.tar.gz
@@ -151,9 +156,9 @@ make &amp;amp;&amp;amp; make install
 
 &lt;p&gt;遇到问题可自行搜索。&lt;/p&gt;
 
-&lt;h3 id=&quot;shadowsocks-go-mu&quot;&gt;安装shadowsocks go mu&lt;/h3&gt;
+&lt;h3 id=&quot;安装shadowsocks-go-mu&quot;&gt;安装shadowsocks go mu&lt;/h3&gt;
 
-&lt;h5 id=&quot;go&quot;&gt;安装go环境&lt;/h5&gt;
+&lt;h5 id=&quot;安装go环境&quot;&gt;安装go环境&lt;/h5&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;wget -c http://storage.googleapis.com/golang/go1.6.2.linux-amd64.tar.gz
 tar -C /usr/local -xzf go1.6.2.linux-amd64.tar.gz
@@ -162,7 +167,7 @@ export GOPATH=~/.go
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h5 id=&quot;ss-go-mu&quot;&gt;安装 SS GO MU&lt;/h5&gt;
+&lt;h5 id=&quot;安装-ss-go-mu&quot;&gt;安装 SS GO MU&lt;/h5&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;go get github.com/orvice/shadowsocks-go
 cd ~/.go/src/github.com/orvice/shadowsocks-go/mu
@@ -174,7 +179,7 @@ cd ~/.go/bin/
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h5 id=&quot;ss-go-mu--ss-panel&quot;&gt;连接 ss go mu 服务端和前端 ss-panel&lt;/h5&gt;
+&lt;h5 id=&quot;连接-ss-go-mu-服务端和前端-ss-panel&quot;&gt;连接 ss go mu 服务端和前端 ss-panel&lt;/h5&gt;
 
 &lt;p&gt;将 muKey 设置下 比如xxx&lt;/p&gt;
 
@@ -193,15 +198,19 @@ cd ~/.go/bin/
 &lt;a href=&quot;https://mechanus.io/yi-ge-xin-shou-xiang-de-ss-panel-bu-shu-jiao-cheng/&quot;&gt;https://mechanus.io/yi-ge-xin-shou-xiang-de-ss-panel-bu-shu-jiao-cheng/&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Fri, 02 Dec 2016 20:11:38 +0800</pubDate>
-        <link>http://19kka.github.com/gfw/2016/12/02/ss-panel/</link>
-        <guid isPermaLink="true">http://19kka.github.com/gfw/2016/12/02/ss-panel/</guid>
+        <link>http://localhost:4000/gfw/2016/12/02/ss-panel.html</link>
+        <guid isPermaLink="true">http://localhost:4000/gfw/2016/12/02/ss-panel.html</guid>
+        
+        
+        <category>GFW</category>
+        
       </item>
     
       <item>
         <title>SimpleTunnel Debug</title>
-        <description>&lt;h6 id=&quot;network-extensioniosapi&quot;&gt;前言: 由于国内网络情况日益严峻，希望多学习些计算机网络的知识。Network Extension提供了在iOS平台上较为完善的网络代理API，特此学习记录。如有错误，欢迎讨论大家指正。&lt;/h6&gt;
+        <description>&lt;h6 id=&quot;前言-由于国内网络情况日益严峻希望多学习些计算机网络的知识network-extension提供了在ios平台上较为完善的网络代理api特此学习记录如有错误欢迎讨论大家指正&quot;&gt;前言: 由于国内网络情况日益严峻，希望多学习些计算机网络的知识。Network Extension提供了在iOS平台上较为完善的网络代理API，特此学习记录。如有错误，欢迎讨论大家指正。&lt;/h6&gt;
 
-&lt;h4 id=&quot;section&quot;&gt;编译之前的准备工作如下：&lt;/h4&gt;
+&lt;h4 id=&quot;编译之前的准备工作如下&quot;&gt;编译之前的准备工作如下：&lt;/h4&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;Apple 开发者账号&lt;br /&gt;
@@ -229,18 +238,18 @@ Network Extension API 权限&lt;br /&gt;
 &lt;p&gt;客户端 配置 Server Address 地址为 &lt;em&gt;192.168.1.1:7888&lt;/em&gt;(地址根据你运行tunnel_server的机器为准)&lt;br /&gt;
 先看看服务端这里的情况。&lt;/p&gt;
 
-&lt;h2 id=&quot;tunnelserver&quot;&gt;tunnel_server&lt;/h2&gt;
+&lt;h2 id=&quot;tunnel_server&quot;&gt;tunnel_server&lt;/h2&gt;
 
-&lt;h4 id=&quot;section-1&quot;&gt;0:运行服务&lt;/h4&gt;
+&lt;h4 id=&quot;0运行服务&quot;&gt;0:运行服务&lt;/h4&gt;
 
 &lt;p&gt;Edit Schemes -&amp;gt;Arguments Passed On Launch-&amp;gt; +&lt;/p&gt;
 
-&lt;p&gt;添加2个参数 1.端口 2.配置文件 
+&lt;p&gt;添加2个参数 1.端口 2.配置文件
 &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo tunnel_server &amp;lt;port&amp;gt; &amp;lt;path-to-config-plist&amp;gt;&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;将工程中的config.plist 放到Products 的Debug目录即可&lt;/p&gt;
 
-&lt;h4 id=&quot;section-2&quot;&gt;1.监听端口:&lt;/h4&gt;
+&lt;h4 id=&quot;1监听端口&quot;&gt;1.监听端口:&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-objective-c&quot;&gt;/// Start the network service.
 	class func startListeningOnPort(_ port: Int32) -&amp;gt; NetService {
@@ -258,7 +267,7 @@ Network Extension API 权限&lt;br /&gt;
 	}
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h4 id=&quot;section-3&quot;&gt;2.处理新连接&lt;/h4&gt;
+&lt;h4 id=&quot;2处理新连接&quot;&gt;2.处理新连接&lt;/h4&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-objective-c&quot;&gt;/// Handle the &quot;new connection&quot; event.
 	func netService(_ sender: NetService, didAcceptConnectionWith inputStream: InputStream, outputStream: OutputStream) {
@@ -268,9 +277,9 @@ Network Extension API 权限&lt;br /&gt;
 	}
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h4 id=&quot;section-4&quot;&gt;3.处理输入输出流&lt;/h4&gt;
+&lt;h4 id=&quot;3处理输入输出流&quot;&gt;3.处理输入输出流&lt;/h4&gt;
 
-&lt;h5 id=&quot;runloop&quot;&gt;3.1 流配置委托并加入到RunLoop&lt;/h5&gt;
+&lt;h5 id=&quot;31-流配置委托并加入到runloop&quot;&gt;3.1 流配置委托并加入到RunLoop&lt;/h5&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-objective-c&quot;&gt;init(newReadStream: InputStream, newWriteStream: OutputStream) {
 		super.init()
@@ -286,7 +295,7 @@ Network Extension API 权限&lt;br /&gt;
 	}
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h5 id=&quot;section-5&quot;&gt;3.2 处理委托&lt;/h5&gt;
+&lt;h5 id=&quot;32-处理委托&quot;&gt;3.2 处理委托&lt;/h5&gt;
 
 &lt;pre&gt;&lt;code class=&quot;language-objective-c&quot;&gt;/// Handle a stream event.
     func stream(_ aStream: Stream, handle eventCode: Stream.Event) {
@@ -314,8 +323,14 @@ Network Extension API 权限&lt;br /&gt;
 &lt;p&gt;Null&lt;/p&gt;
 </description>
         <pubDate>Thu, 17 Nov 2016 20:11:38 +0800</pubDate>
-        <link>http://19kka.github.com/ios/network/2016/11/17/SimpleTunnel-Debug/</link>
-        <guid isPermaLink="true">http://19kka.github.com/ios/network/2016/11/17/SimpleTunnel-Debug/</guid>
+        <link>http://localhost:4000/ios/network/2016/11/17/SimpleTunnel-Debug.html</link>
+        <guid isPermaLink="true">http://localhost:4000/ios/network/2016/11/17/SimpleTunnel-Debug.html</guid>
+        
+        
+        <category>iOS</category>
+        
+        <category>Network</category>
+        
       </item>
     
       <item>
@@ -372,12 +387,12 @@ Network Extension API 权限&lt;br /&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;h5 id=&quot;section&quot;&gt;插入排序分析&lt;/h5&gt;
+&lt;h5 id=&quot;插入排序分析&quot;&gt;插入排序分析&lt;/h5&gt;
 &lt;p&gt;观察发现其实每次对已经排序的队列也要一一对比。比如 在 4 位置的32 需要比较 64 51 34 8 。但是 64 51 34 本身已经排序过了。&lt;/p&gt;
 
 &lt;p&gt;嵌套循环每一个都必须花费N次迭代，因此插入排序复杂度为O(&lt;script type=&quot;math/tex&quot;&gt;N^2&lt;/script&gt;)。&lt;/p&gt;
 
-&lt;h2 id=&quot;section-1&quot;&gt;希尔排序&lt;/h2&gt;
+&lt;h2 id=&quot;希尔排序&quot;&gt;希尔排序&lt;/h2&gt;
 
 &lt;p&gt;名字源于发明者，具体可以在参考链接中查看。这里直接主题了。&lt;/p&gt;
 
@@ -506,7 +521,7 @@ int main(int argc, char *argv[]){
 }
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h4 id=&quot;section-2&quot;&gt;希尔排序最坏情况分析&lt;/h4&gt;
+&lt;h4 id=&quot;希尔排序最坏情况分析&quot;&gt;希尔排序最坏情况分析&lt;/h4&gt;
 
 &lt;p&gt;希尔排序运行时间或者说效率十分依赖增量序列的选择。什么时候排序效果最差，举个例子，如果我们选择了一个N是2的幂。这样除了最后一个增量是1之外都是偶数（例如增量 8 4 2 1 ）。且 我们的数组为偶数位 N/2 是最大的数，奇数位为最小的数（例如 [1,9,2,10,3,11,4,12]）。那么前几次排序后，输入队列一直保持不变。&lt;/p&gt;
 
@@ -520,8 +535,12 @@ int main(int argc, char *argv[]){
 &lt;a href=&quot;https://zh.wikipedia.org/wiki/希尔排序&quot;&gt;https://zh.wikipedia.org/wiki/希尔排序&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 17 Oct 2016 21:04:28 +0800</pubDate>
-        <link>http://19kka.github.com/algorithm/2016/10/17/Shellsort/</link>
-        <guid isPermaLink="true">http://19kka.github.com/algorithm/2016/10/17/Shellsort/</guid>
+        <link>http://localhost:4000/algorithm/2016/10/17/Shellsort.html</link>
+        <guid isPermaLink="true">http://localhost:4000/algorithm/2016/10/17/Shellsort.html</guid>
+        
+        
+        <category>Algorithm</category>
+        
       </item>
     
       <item>
@@ -636,7 +655,7 @@ Acknowledgments
 &lt;p&gt;之后客户端和服务端对于进入方法细节进行 二次协商（sub-negotiation）。二次协商的描述在独立的文档中。
 开发者希望得到新的METHOD支持需要和IANA联系。当前已分配的METHOD号参考文档。如果想顺利的执行则必须支持GSSAPI和支持用户名/密码（USERAE/PASSWORD）认证方法。&lt;/p&gt;
 
-&lt;h3 id=&quot;section&quot;&gt;需求&lt;/h3&gt;
+&lt;h3 id=&quot;需求&quot;&gt;需求&lt;/h3&gt;
 
 &lt;p&gt;一旦方法选择子商议结束，客户机就发送请求细节。如果商议方法包括了完整性检查的目的或机密性封装，则请求必然被封在方法选择的封装中。&lt;/p&gt;
 
@@ -689,7 +708,7 @@ Acknowledgments
 
 &lt;p&gt;SOCKS服务器会评估基于源和目标地址的请求，然后返回一条或几条消息作为合适的请求类型。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-1&quot;&gt;地址&lt;/h3&gt;
+&lt;h3 id=&quot;地址&quot;&gt;地址&lt;/h3&gt;
 &lt;p&gt;在地址域(DST.ADDR，BND.ADDR)中，ATYP域详细说明了包含在该域内部的地址类型：&lt;/p&gt;
 
 &lt;ul&gt;
@@ -698,7 +717,7 @@ Acknowledgments
   &lt;li&gt;X’04’ 该地址是IPv6地址，长16个八位组。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;section-2&quot;&gt;回应&lt;/h3&gt;
+&lt;h3 id=&quot;回应&quot;&gt;回应&lt;/h3&gt;
 
 &lt;p&gt;到SOCKS服务器的连接一经建立，客户机即发送SOCKS请求信息，并且完成认证商议。服务器评估请求，返回一个回应如下表所示：&lt;/p&gt;
 
@@ -757,11 +776,11 @@ Acknowledgments
 
 &lt;p&gt;如果被选中的方法包括有认证目的封装，完整性和/或机密性的检查，则回应就被封装在方法选择的封装套中。&lt;/p&gt;
 
-&lt;h4 id=&quot;section-3&quot;&gt;连接&lt;/h4&gt;
+&lt;h4 id=&quot;连接&quot;&gt;连接&lt;/h4&gt;
 
 &lt;p&gt;在CONNECT的回应中，BND.PORT包括了服务器分配的连接到目标主机的端口号，同时BND.ADDR包含了关联的IP地址。此处所提供的BND.ADDR通常情况不同于客户机连接到SOCKS服务器所用的IP地址，因为这些服务器提供的经常都是多址的(muti-homed)。都期望SOCKS主机能使用DST.ADDR和DST.PORT，连接请求评估中的客户端源地址和端口。&lt;/p&gt;
 
-&lt;h4 id=&quot;section-4&quot;&gt;绑定&lt;/h4&gt;
+&lt;h4 id=&quot;绑定&quot;&gt;绑定&lt;/h4&gt;
 
 &lt;p&gt;BIND请求被用在那些需要客户机接受到服务器连接的协议中。FTP就是一个众所周知的例子，它通过使用命令和状态报告建立最基本的客户机-服务器连接，按照需要使用服务器-客户端连接来传输数据。(例如：ls,get,put)都期望在使用应用协议的客户端在使用CONNECT建立首次连接之后仅仅使用BIND请求建立第二次连接。都期望SOCKS主机在评估BIND请求时能够使用ST.ADDR和DST.PORT。&lt;/p&gt;
 
@@ -780,8 +799,12 @@ Acknowledgments
 &lt;p&gt;&lt;a href=&quot;https://www.ietf.org/rfc/rfc1928.txt&quot;&gt;https://www.ietf.org/rfc/rfc1928.txt&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Fri, 22 Jul 2016 22:03:18 +0800</pubDate>
-        <link>http://19kka.github.com/rfc/2016/07/22/SOCKS5-RFC1928/</link>
-        <guid isPermaLink="true">http://19kka.github.com/rfc/2016/07/22/SOCKS5-RFC1928/</guid>
+        <link>http://localhost:4000/rfc/2016/07/22/SOCKS5-RFC1928.html</link>
+        <guid isPermaLink="true">http://localhost:4000/rfc/2016/07/22/SOCKS5-RFC1928.html</guid>
+        
+        
+        <category>RFC</category>
+        
       </item>
     
       <item>
@@ -815,8 +838,12 @@ ssh-copy-id [-i filename] [user@]machine&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://www.freebsd.org/cgi/man.cgi?query=ssh-add&amp;amp;sektion=1&quot;&gt;ssh-add from freebsd&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Thu, 26 May 2016 22:03:18 +0800</pubDate>
-        <link>http://19kka.github.com/liunx/2016/05/26/ssh-copy-id/</link>
-        <guid isPermaLink="true">http://19kka.github.com/liunx/2016/05/26/ssh-copy-id/</guid>
+        <link>http://localhost:4000/liunx/2016/05/26/ssh-copy-id.html</link>
+        <guid isPermaLink="true">http://localhost:4000/liunx/2016/05/26/ssh-copy-id.html</guid>
+        
+        
+        <category>Liunx</category>
+        
       </item>
     
       <item>
@@ -832,8 +859,12 @@ ssh-copy-id [-i filename] [user@]machine&lt;/p&gt;
 &lt;p&gt;做的远远还不够。&lt;/p&gt;
 </description>
         <pubDate>Thu, 26 May 2016 22:03:18 +0800</pubDate>
-        <link>http://19kka.github.com/life/2016/05/26/life-half-year/</link>
-        <guid isPermaLink="true">http://19kka.github.com/life/2016/05/26/life-half-year/</guid>
+        <link>http://localhost:4000/life/2016/05/26/life-half-year.html</link>
+        <guid isPermaLink="true">http://localhost:4000/life/2016/05/26/life-half-year.html</guid>
+        
+        
+        <category>life</category>
+        
       </item>
     
       <item>
@@ -859,8 +890,12 @@ ssh-copy-id [-i filename] [user@]machine&lt;/p&gt;
 &lt;/blockquote&gt;
 </description>
         <pubDate>Thu, 26 May 2016 22:03:18 +0800</pubDate>
-        <link>http://19kka.github.com/ios,xcode,review/2016/05/26/ReviewTips/</link>
-        <guid isPermaLink="true">http://19kka.github.com/ios,xcode,review/2016/05/26/ReviewTips/</guid>
+        <link>http://localhost:4000/ios,xcode,review/2016/05/26/ReviewTips.html</link>
+        <guid isPermaLink="true">http://localhost:4000/ios,xcode,review/2016/05/26/ReviewTips.html</guid>
+        
+        
+        <category>iOS,Xcode,Review</category>
+        
       </item>
     
       <item>
@@ -870,12 +905,12 @@ ssh-copy-id [-i filename] [user@]machine&lt;/p&gt;
 
 &lt;h2 id=&quot;framework-error&quot;&gt;###Framework Error&lt;/h2&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-cmake&quot;&gt;CodeSign /Users/xx/Library/Developer/Xcode/DerivedData//xx//xx/xx/x/x/x/x/x/xxx/x/xxxx.app/Frameworks/xxxx.framework
+&lt;div class=&quot;language-cmake highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;CodeSign /Users/xx/Library/Developer/Xcode/DerivedData//xx//xx/xx/x/x/x/x/x/xxx/x/xxxx.app/Frameworks/xxxx.framework
     cd //xx//xx/xx/x/x/x/x/x/xxx/x/x
     export CODESIGN_ALLOCATE=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/codesign_allocate
-    export PATH=&quot;/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin&quot;
+    export PATH=&lt;span class=&quot;s2&quot;&gt;&quot;/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin&quot;&lt;/span&gt;
     
-Signing Identity:     &quot;iPhone Developer: xxxxxxxxx&quot;
+Signing Identity:     &lt;span class=&quot;s2&quot;&gt;&quot;iPhone Developer: xxxxxxxxx&quot;&lt;/span&gt;
 
     /usr/bin/codesign --force --sign 0B9F657BF598KJDSHFJF*^&amp;amp;FDSKFD229CB0 --preserve-metadata=identifier,entitlements --timestamp=none /Users/xxxxx/Library/Developer/Xcode/DerivedData/xxxxxemo-ffgsdfgsdgejrsdfgvi/Build/Products/Debug-iphoneos/rightAVDemo.app/Frameworks/xxxxxx.framework
 
@@ -883,17 +918,18 @@ Signing Identity:     &quot;iPhone Developer: xxxxxxxxx&quot;
 Command /usr/bin/codesign failed with exit code 1
 
 &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;#####Try to Remove:&lt;br /&gt;
 &lt;strong&gt;General -&amp;gt; Embedded Binaries : xxx.Framework&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;–
-###Pods Error
-&lt;code class=&quot;highlighter-rouge&quot;&gt;
-diff: /../Podfile.lock: No such file or directory 
+###Pods Error&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;diff: /../Podfile.lock: No such file or directory 
 diff: /Manifest.lock: No such file or directory error: 
-The sandbox is not in sync with the Podfile.lock. Run &#39;pod install&#39; or update your CocoaPods installation.
-&lt;/code&gt;&lt;/p&gt;
+The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;p&gt;#####Add User-Defined Setting&lt;/p&gt;
 
@@ -904,19 +940,27 @@ Value:${SRCROOT}/Pods&lt;/p&gt;
 ###Pods Bulid Error
 ####xxxxx.h header not found&lt;/p&gt;
 
-&lt;p&gt;1
-&amp;gt;&lt;br /&gt;
--Use the &lt;code class=&quot;highlighter-rouge&quot;&gt;$(inherited)&lt;/code&gt; flag, or &lt;br /&gt;
--Remove the build settings from the target.&lt;/p&gt;
+&lt;p&gt;1&lt;/p&gt;
+&lt;blockquote&gt;
 
-&lt;p&gt;2.
-&amp;gt;
-Pods/Target Support Files/Pods/Pods.debug.xcconfig Set to None&lt;/p&gt;
+  &lt;p&gt;-Use the &lt;code class=&quot;highlighter-rouge&quot;&gt;$(inherited)&lt;/code&gt; flag, or &lt;br /&gt;
+-Remove the build settings from the target.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;2.&lt;/p&gt;
+&lt;blockquote&gt;
+
+  &lt;p&gt;Pods/Target Support Files/Pods/Pods.debug.xcconfig Set to None&lt;/p&gt;
+&lt;/blockquote&gt;
 
 </description>
         <pubDate>Sun, 15 May 2016 22:03:18 +0800</pubDate>
-        <link>http://19kka.github.com/ios,xcode,bulid/2016/05/15/DebugTips/</link>
-        <guid isPermaLink="true">http://19kka.github.com/ios,xcode,bulid/2016/05/15/DebugTips/</guid>
+        <link>http://localhost:4000/ios,xcode,bulid/2016/05/15/DebugTips.html</link>
+        <guid isPermaLink="true">http://localhost:4000/ios,xcode,bulid/2016/05/15/DebugTips.html</guid>
+        
+        
+        <category>iOS,Xcode,Bulid</category>
+        
       </item>
     
       <item>
@@ -933,10 +977,12 @@ Phabricator 是一个LAMP(Linux,Apache,MySQL,PHP) 应用。需要:&lt;/p&gt;
   &lt;li&gt;PHP,MySQL&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;####安装准备
-&amp;gt;Apache,nginx,或者其他的一个web服务器&lt;br /&gt;
-&amp;gt;PHP:5.2以上&lt;br /&gt;
-&amp;gt;MySQL:建议5.5以上&lt;/p&gt;
+&lt;p&gt;####安装准备&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Apache,nginx,或者其他的一个web服务器&lt;br /&gt;
+PHP:5.2以上&lt;br /&gt;
+MySQL:建议5.5以上&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;p&gt;这些安装在本文中不涉及，自行Google
 ###安装
@@ -972,7 +1018,7 @@ $ git clone https://github.com/phacility/arcanist.git
     &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;Change&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;the&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;domain&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;which&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;points&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;your&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;host.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
     &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;ServerName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;phabricator.local.nfl.com&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;   
 
-    &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;Change&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;the&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;where&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;you&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&#39;phabricator&#39;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;you&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;checked&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;Change&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;the&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;where&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;you&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;'phabricator'&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;you&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;checked&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;it&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
     &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;GitHub&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;following&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;the&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;Installation&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;Guide.&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
     &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
     &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;Make&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;sure&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;you&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/webroot&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;at&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;the&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;end!&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
@@ -1021,8 +1067,12 @@ $ git clone https://github.com/phacility/arcanist.git
 &lt;/ol&gt;
 </description>
         <pubDate>Fri, 15 Apr 2016 22:00:18 +0800</pubDate>
-        <link>http://19kka.github.com/phabricator,mac,git/2016/04/15/Phabricator/</link>
-        <guid isPermaLink="true">http://19kka.github.com/phabricator,mac,git/2016/04/15/Phabricator/</guid>
+        <link>http://localhost:4000/phabricator,mac,git/2016/04/15/Phabricator.html</link>
+        <guid isPermaLink="true">http://localhost:4000/phabricator,mac,git/2016/04/15/Phabricator.html</guid>
+        
+        
+        <category>phabricator,Mac,Git</category>
+        
       </item>
     
       <item>
@@ -1059,8 +1109,12 @@ $ git clone https://github.com/phacility/arcanist.git
 
 </description>
         <pubDate>Mon, 15 Feb 2016 22:00:18 +0800</pubDate>
-        <link>http://19kka.github.com/linux,bananapi/2016/02/15/NAS-Server/</link>
-        <guid isPermaLink="true">http://19kka.github.com/linux,bananapi/2016/02/15/NAS-Server/</guid>
+        <link>http://localhost:4000/linux,bananapi/2016/02/15/NAS-Server.html</link>
+        <guid isPermaLink="true">http://localhost:4000/linux,bananapi/2016/02/15/NAS-Server.html</guid>
+        
+        
+        <category>Linux,Bananapi</category>
+        
       </item>
     
   </channel>

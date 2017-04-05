@@ -1,61 +1,25 @@
 # Site settings
-title:       19kka
-email:       matcha.19kka@gmail.com
-author:      19kka
-description: "enjoy your life"
-baseurl:     ""
-url:         "http://19kka.github.com"
-date_format: "%b %-d, %Y"
+title: 19kka
+description: "sdf"
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://19kka.github.io" # the base hostname & protocol for your site
 
-# Google services
-google_analytics:
-google_verification:
+author:
+  fullname: fan yang
+  googleplus: https://www.google.com/+MotaquillahMaddane
+  github: 19kka
+  twitter: 
+  disqus: 19kka
 
-# Optional features
-animated:             false
-show_related_posts:   false
-show_post_footers:    false
-show_social_icons:    false
-ajaxify_contact_form: true
+# google_analytics: 'UA-XXXXXXXX-X'
 
-# Disqus post comments
-# (leave blank to disable Disqus)
-disqus_shortname: 19kka
+# Syntax highlighting
+highlightstyle: ''
+styles: [agate, androidstudio, arta, asceti, atelier-cave.dark, atelier-cave.light, atelier-dune.dark, atelier-dune.light, atelier-estuary.dark, atelier-estuary.light, atelier-forest.dark, atelier-forest.light, atelier-heath.dark, atelier-heath.light, atelier-lakeside.dark, atelier-lakeside.light, atelier-plateau.dark, atelier-plateau.light, atelier-savanna.dark, atelier-savanna.light, atelier-seaside.dark, atelier-seaside.light, atelier-sulphurpool.dark, atelier-sulphurpool.light, brown_paper, codepen-embed, color-brewer, dark, darkula, default, docco, far, foundation, github, github-gist, googlecode, grayscale, hopscotch, hybrid, idea, ir_black, kimbie.dark, kimbie.light, magula, mono-blue, monokai, monokai_sublime, obsidian, paraiso.dark, paraiso.light, pojoaque, railscast, rainbow, school_book, solarized_dark, solarized_light, styles_list.txt, sunburst, tomorrow, tomorrow-night-blue, tomorrow-night-bright, tomorrow-night, tomorrow-night-eightie, v, xcode, zenburn]
 
-# Social icons
-github_username: 19kka
-bitbucket_username:
-stackoverflow_id:
-twitter_username: fake_meat
-google_plus_id:
-linkedin_username:
-angellist_username:
-medium_id:
-bitcoin_url:
-paypal_url:
-flattr_button:
-
-# Post sharing icons
-show_sharing_icons: false
-share_text: 'Share this post!'
-# Change to 'true' to enable individual icons
-share_facebook: false
-share_twitter: false
-share_googleplus: false
-share_linkedin: false
-share_digg: false
-share_tumblr: false
-share_reddit: false
-share_stumbleupon: false
-share_hackernews: false
+# Handling Reading
+exclude: ["README.md", "README.html"]
 
 # Build settings
-markdown:     kramdown
-gems: [jekyll-paginate]
-redcarpet:
-  extensions: ['smart', 'tables', 'with_toc_data']
-permalink:    pretty
-paginate:     10
-sass:
-  compressed: true
-
+highlighter: null
+markdown: kramdown

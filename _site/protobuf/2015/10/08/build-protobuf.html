@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title> build protobuf on Mac —  &raquo;  19kka</title>
+<meta name="description" content="sdf">
+<meta name="keywords" content="">
+<link rel="canonical" href="http://localhost:4000/protobuf/2015/10/08/build-protobuf.html">
+        
+
+
+
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="build protobuf on Mac" />
+<meta name="twitter:description" content="sdf" />
+<meta name="twitter:image" content="http://localhost:4000" />
+
+<!-- Google plus -->
+<meta name="author" content="https://www.google.com/+MotaquillahMaddane">
+<link rel="author" href="https://www.google.com/+MotaquillahMaddane">
+
+<!-- Open Graph -->
+<meta property="og:locale" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="build protobuf on Mac">
+<meta property="og:description" content="sdf">
+<meta property="og:url" content="http://localhost:4000/protobuf/2015/10/08/build-protobuf.html">
+<meta property="og:site_name" content="19kka">
+
+        <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/assets/vendor/normalize-css/normalize.css">
+<link rel="stylesheet" href="/css/main.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/styles/solarized_dark.css">
+
+<link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.css">
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <header class="header">
+    <div class="navigation">
+        <a href="/" class="logo">19kka</a>
+
+        <ul class="menu">
+            <li class="menu__entry"><a href="/about">About</a></li>
+            <li class="menu__entry"><a href="/">Blog</a></li>
+        </ul>
+    </div>
+
+    <ul class="social-links">
+        
+            <a href="https://github.com/19kka" class="social-links__entry" target="_blank">
+                <i class="fa fa-github"></i>
+            </a>
+        
+
+        
+    </ul>
+</header>
+
+            <h1 class="page-title post-title">
+    <div class="page-title__text post-title__text">build protobuf on Mac</div>
+    <div class="page-title__subtitle post-title__subtitle"></div>
+</h1>
+
+<div class="content">
+    <p>十一之前编译了protobuf给iOS用，但是网上的教程良莠不齐，这次做一个总结，也给自己一个记录。前面部分是可以方便的编译完然后立刻使用，后面部分是详细的叙述。</p>
+
+<p>###前提准备</p>
+
+<p>1 一个针对sh脚本 地址在这里<em><a href="https://gist.github.com/BennettSmith/9487468ae3375d0db0cc">https://gist.github.com/BennettSmith/9487468ae3375d0db0cc</a></em>
+<em>推荐使用这个脚本，因为如果你赶时间，这个会让你很方便。</em></p>
+
+<p>2.一个过墙的命令行代理（最好有）</p>
+
+<p>###编译
+	$ cd build-protobuf
+	$ sudo ./build-protobuf.sh
+可以看到这个脚本中还有从github/google/protobuf/release中下载源码，所以整个过程需要一些时间。</p>
+
+<p>成功之后会.a文件会在 当前目录的生成一个目录 protobuf-2.x.x
+现在的版本号为2.6.1。一共有3个文件夹,目录树如下。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>.
+├── bin
+├── include
+│   └── google
+└── lib
+    ├── libprotobuf-lite.a
+    ├── libprotobuf-lite.la
+    ├── libprotobuf.a
+    ├── libprotobuf.la
+    ├── libprotoc.a
+    ├── libprotoc.la
+    └── pkgconfig
+</code></pre>
+</div>
+
+<p>###使用</p>
+<ol>
+  <li>在Header Search Paths 处添加 /usr/local/include</li>
+  <li>libprotobuf.a拖入Xcode</li>
+</ol>
+
+<p>然后没问题就可以运行了。</p>
+
+<p>感谢脚本的作者。</p>
+
+<p>###可能碰到的问题</p>
+
+<p>之后补上。</p>
+
+
+</div>
+
+
+
+<div class="about">
+    <div class="about__devider">*****</div>
+    <div class="about__text">
+        Written by <strong>  fan yang </strong>
+        on <strong>08 October 2015</strong>
+    </div>
+</div>
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = '19kka';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+        </div>
+
+        <script src="/assets/vendor/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+        
+    </body>
+</html>

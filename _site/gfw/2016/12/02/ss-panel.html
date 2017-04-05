@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title> SS Panel —  &raquo;  19kka</title>
+<meta name="description" content="sdf">
+<meta name="keywords" content="">
+<link rel="canonical" href="http://localhost:4000/gfw/2016/12/02/ss-panel.html">
+        
+
+
+
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="SS Panel" />
+<meta name="twitter:description" content="sdf" />
+<meta name="twitter:image" content="http://localhost:4000" />
+
+<!-- Google plus -->
+<meta name="author" content="https://www.google.com/+MotaquillahMaddane">
+<link rel="author" href="https://www.google.com/+MotaquillahMaddane">
+
+<!-- Open Graph -->
+<meta property="og:locale" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SS Panel">
+<meta property="og:description" content="sdf">
+<meta property="og:url" content="http://localhost:4000/gfw/2016/12/02/ss-panel.html">
+<meta property="og:site_name" content="19kka">
+
+        <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/assets/vendor/normalize-css/normalize.css">
+<link rel="stylesheet" href="/css/main.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/styles/solarized_dark.css">
+
+<link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.css">
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <header class="header">
+    <div class="navigation">
+        <a href="/" class="logo">19kka</a>
+
+        <ul class="menu">
+            <li class="menu__entry"><a href="/about">About</a></li>
+            <li class="menu__entry"><a href="/">Blog</a></li>
+        </ul>
+    </div>
+
+    <ul class="social-links">
+        
+            <a href="https://github.com/19kka" class="social-links__entry" target="_blank">
+                <i class="fa fa-github"></i>
+            </a>
+        
+
+        
+    </ul>
+</header>
+
+            <h1 class="page-title post-title">
+    <div class="page-title__text post-title__text">SS Panel</div>
+    <div class="page-title__subtitle post-title__subtitle"></div>
+</h1>
+
+<div class="content">
+    <h3 id="准备以及环境">准备以及环境</h3>
+
+<blockquote>
+  <p><a href="http://www.vultr.com/?ref=6898517">Vultr 注册推荐链接</a> Centos 6 64<br />
+<a href="https://www.vultr.com/docs/one-click-lamp">Vultr One-Click LAMP</a><br />
+Git 2.8.2<br />
+php 5.6及以上<br />
+redis 3.2</p>
+</blockquote>
+
+<p>LAMP安装后首先确保站点可访问.</p>
+
+<h2 id="前端-ss-panel">前端 ss-panel</h2>
+
+<p><a href="https://github.com/orvice/ss-panel">https://github.com/orvice/ss-panel</a></p>
+
+<p><code class="highlighter-rouge">$ git clone https://github.com/orvice/ss-panel.git</code></p>
+
+<p>将 <code class="highlighter-rouge">/public</code> 放入站点更目录
+附上我的目录:</p>
+
+<pre><code class="language-C">[root@vultr bin]# tree -L 1 /home/wwwroot/ss-panel/
+/home/wwwroot/ss-panel/
+├── app
+├── bootstrap
+├── build.xml
+├── composer.json
+├── composer.lock
+├── composer.phar
+├── config
+├── db.sql
+├── db-testing.sql
+├── install.sh
+├── LICENSE
+├── phpunit.xml
+├── public
+├── README.md
+├── resources
+├── run.sh
+├── sql
+├── storage
+├── tests
+├── update.sh
+├── vendor
+└── xcat
+</code></pre>
+
+<p>修改下</p>
+
+<p><code class="highlighter-rouge">vi /etc/nginx/conf.d/default.conf</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#修改根目录
+root         /home/wwwroot/ss-panel/public;
+
+#重写URL
+location / {
+	try_files $uri $uri/ /index.php$is_args$args;
+}
+</code></pre>
+</div>
+<p><code class="highlighter-rouge">$ service nginx reload</code> 重载下配置。</p>
+
+<p>在 ss-panel 目录执行：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ curl -sS https://getcomposer.org/installer | php
+$ php composer.phar  install
+</code></pre>
+</div>
+
+<h4 id="导入数据库">导入数据库:</h4>
+
+<p>db.sql</p>
+
+<h4 id="修改配置">修改配置:</h4>
+
+<p>cp .env.example .env</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># database 数据库配置
+db_driver = 'mysql'  
+db_host = 'localhost'  
+db_database = 'ss-panel'  
+db_username = 'test'  
+db_password = 'password'  
+db_charset = 'utf8'  
+db_collation = 'utf8_general_ci'  
+db_prefix = ''  
+</code></pre>
+</div>
+
+<p>添加权限:</p>
+
+<p><code class="highlighter-rouge">chmod -R 777 storage</code></p>
+
+<p>自行修改数据库名以及用户密码（mysql 添加用户 倒入sql等)</p>
+
+<p>添加管理员:</p>
+
+<p><code class="highlighter-rouge">php xcat createAdmin</code></p>
+
+<p>现在可以进入网页查看了 前端部署完成.</p>
+
+<h2 id="后端-shadowsocks-manyuser等">后端 shadowsocks manyuser等</h2>
+
+<p><code class="highlighter-rouge">$ git clone -b manyuser https://github.com/mengskysama/shadowsocks-rm.git</code></p>
+
+<p>安装依赖包先:</p>
+
+<p><code class="highlighter-rouge">$ pip install cymysql</code></p>
+
+<p>如果没有pip</p>
+<blockquote>
+  <p>yum install python-pip</p>
+</blockquote>
+
+<p>配置 <code class="highlighter-rouge">shadowsocks-rm/shadowsocks/config.py</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>MYSQL_HOST = 'localhost'  
+MYSQL_PORT = 3306  
+MYSQL_USER = 'test'  
+MYSQL_PASS = 'password'  
+MYSQL_DB = 'sspanel' 
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">python shadowsocks/servers.py</code></p>
+
+<p>没有错误就是成功开启了。</p>
+
+<p>如果连接有问题 查看下iptables 放行iptables端口</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>$ iptables -I INPUT -p tcp -m tcp --dport 你的端口 -j ACCEPT
+$ iptables-save
+</code></pre>
+</div>
+
+<h3 id="安装redis">安装Redis</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>wget http://download.redis.io/releases/redis-3.2.3.tar.gz
+tar -zxvf redis-3.2.3.tar.gz
+cd redis-3.2.3
+make &amp;&amp; make install
+</code></pre>
+</div>
+
+<p>遇到问题可自行搜索。</p>
+
+<h3 id="安装shadowsocks-go-mu">安装shadowsocks go mu</h3>
+
+<h5 id="安装go环境">安装go环境</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>wget -c http://storage.googleapis.com/golang/go1.6.2.linux-amd64.tar.gz
+tar -C /usr/local -xzf go1.6.2.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=~/.go
+</code></pre>
+</div>
+
+<h5 id="安装-ss-go-mu">安装 SS GO MU</h5>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>go get github.com/orvice/shadowsocks-go
+cd ~/.go/src/github.com/orvice/shadowsocks-go/mu
+go get
+go build
+cp example.conf ~/.go/bin/config.conf
+cd ~/.go/bin/
+./mu -debug
+</code></pre>
+</div>
+
+<h5 id="连接-ss-go-mu-服务端和前端-ss-panel">连接 ss go mu 服务端和前端 ss-panel</h5>
+
+<p>将 muKey 设置下 比如xxx</p>
+
+<p><code class="highlighter-rouge">vim /home/wwwroot/sspanel/.env</code></p>
+
+<p>将[webapi 中的 url 改成你的地址或者ip，key改成刚刚在.env 文件中设置的值xxx</p>
+
+<p><code class="highlighter-rouge">vim ~/.go/bin/config.conf</code></p>
+
+<p>默认redis 没有密码 我们可以注释掉pass</p>
+
+<h4 id="references">References:</h4>
+
+<p><a href="https://prinzeugen.net/build-shadowsocks-sharing-site-with-ss-panel/">https://prinzeugen.net/build-shadowsocks-sharing-site-with-ss-panel/</a><br />
+<a href="https://medium.com/@aixiewen/架设前端网站ss-panel后端-shadowsocks-manyuser-go-mu-ssr及多节点vps服务配置及锐速与finalspeed-b8dca210b5a7#.hfvxn4i6c">https://medium.com/@aixiewen/架设前端网站ss-panel后端-shadowsocks-manyuser-go-mu-ssr及多节点vps服务配置及锐速与finalspeed-b8dca210b5a7#.hfvxn4i6c</a><br />
+<a href="https://mechanus.io/yi-ge-xin-shou-xiang-de-ss-panel-bu-shu-jiao-cheng/">https://mechanus.io/yi-ge-xin-shou-xiang-de-ss-panel-bu-shu-jiao-cheng/</a></p>
+
+</div>
+
+
+
+<div class="about">
+    <div class="about__devider">*****</div>
+    <div class="about__text">
+        Written by <strong>  fan yang </strong>
+        on <strong>02 December 2016</strong>
+    </div>
+</div>
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = '19kka';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+        </div>
+
+        <script src="/assets/vendor/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+        
+    </body>
+</html>

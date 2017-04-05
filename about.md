@@ -1,15 +1,8 @@
 ---
 layout: page
-title: About 19kka
+title: About
+subtitle: ing
 permalink: /about/
 ---
 
-
-Work in Hangzhou.
-
-
-
-####Thanks to the following:
-
-* Twitter([@fake_meat](https://twitter.com/fake_meat)).
-
+NULL

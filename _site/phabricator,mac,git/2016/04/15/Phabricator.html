@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title> Phabricator on Mac —  &raquo;  19kka</title>
+<meta name="description" content="sdf">
+<meta name="keywords" content="">
+<link rel="canonical" href="http://localhost:4000/phabricator,mac,git/2016/04/15/Phabricator.html">
+        
+
+
+
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Phabricator on Mac" />
+<meta name="twitter:description" content="sdf" />
+<meta name="twitter:image" content="http://localhost:4000" />
+
+<!-- Google plus -->
+<meta name="author" content="https://www.google.com/+MotaquillahMaddane">
+<link rel="author" href="https://www.google.com/+MotaquillahMaddane">
+
+<!-- Open Graph -->
+<meta property="og:locale" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Phabricator on Mac">
+<meta property="og:description" content="sdf">
+<meta property="og:url" content="http://localhost:4000/phabricator,mac,git/2016/04/15/Phabricator.html">
+<meta property="og:site_name" content="19kka">
+
+        <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/assets/vendor/normalize-css/normalize.css">
+<link rel="stylesheet" href="/css/main.css">
+
+  <link rel="stylesheet" href="/assets/vendor/highlight/styles/solarized_dark.css">
+
+<link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.css">
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <header class="header">
+    <div class="navigation">
+        <a href="/" class="logo">19kka</a>
+
+        <ul class="menu">
+            <li class="menu__entry"><a href="/about">About</a></li>
+            <li class="menu__entry"><a href="/">Blog</a></li>
+        </ul>
+    </div>
+
+    <ul class="social-links">
+        
+            <a href="https://github.com/19kka" class="social-links__entry" target="_blank">
+                <i class="fa fa-github"></i>
+            </a>
+        
+
+        
+    </ul>
+</header>
+
+            <h1 class="page-title post-title">
+    <div class="page-title__text post-title__text">Phabricator on Mac</div>
+    <div class="page-title__subtitle post-title__subtitle"></div>
+</h1>
+
+<div class="content">
+    <h2 id="phabricator-on-mac">#Phabricator on Mac</h2>
+<p>本文简述了在Mac上安装Phabricator的基本步骤
+######引言
+Phabricator 是一个LAMP(Linux,Apache,MySQL,PHP) 应用。需要:</p>
+
+<ul>
+  <li>一个Linux类系统</li>
+  <li>一些基本的系统管理员能力</li>
+  <li>Git</li>
+  <li>PHP,MySQL</li>
+</ul>
+
+<p>####安装准备</p>
+<blockquote>
+  <p>Apache,nginx,或者其他的一个web服务器<br />
+PHP:5.2以上<br />
+MySQL:建议5.5以上</p>
+</blockquote>
+
+<p>这些安装在本文中不涉及，自行Google
+###安装
+####创建文件夹以及安装依赖</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ mkdir ~/WWW/tools
+$ cd ~/WWW/tools
+$ git clone https://github.com/phacility/phabricator.git
+$ git clone https://github.com/phacility/libphutil.git
+$ git clone https://github.com/phacility/arcanist.git
+</code></pre>
+</div>
+
+<p>####添加Arcanist到你的环境变量路径</p>
+
+<ol>
+  <li>vi <strong>~/.profile</strong> or <strong>~/.bashrc</strong></li>
+  <li>add <strong>export PATH=”$HOME/WWW/tools/arcanist/bin:$PATH”</strong></li>
+  <li>save <strong>:wq</strong></li>
+  <li>使配置生效 <strong>source ~/.profile*/</strong></li>
+  <li>测试 <strong>arc help</strong></li>
+</ol>
+
+<p>####配置Phabricator</p>
+
+<p>#####配置apache配置文件</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code> vi xxxxx/apache2/httpd.conf
+</code></pre>
+</div>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="err">&lt;VirtualHost</span><span class="w"> </span><span class="err">*&gt;</span><span class="w">
+    </span><span class="err">#</span><span class="w"> </span><span class="err">Change</span><span class="w"> </span><span class="err">this</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">domain</span><span class="w"> </span><span class="err">which</span><span class="w"> </span><span class="err">points</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">your</span><span class="w"> </span><span class="err">host.</span><span class="w">
+    </span><span class="err">ServerName</span><span class="w"> </span><span class="err">phabricator.local.nfl.com</span><span class="w">   
+
+    </span><span class="err">#</span><span class="w"> </span><span class="err">Change</span><span class="w"> </span><span class="err">this</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">path</span><span class="w"> </span><span class="err">where</span><span class="w"> </span><span class="err">you</span><span class="w"> </span><span class="err">put</span><span class="w"> </span><span class="err">'phabricator'</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">you</span><span class="w"> </span><span class="err">checked</span><span class="w"> </span><span class="err">it</span><span class="w">
+    </span><span class="err">#</span><span class="w"> </span><span class="err">out</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="err">GitHub</span><span class="w"> </span><span class="err">when</span><span class="w"> </span><span class="err">following</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">Installation</span><span class="w"> </span><span class="err">Guide.</span><span class="w">
+    </span><span class="err">#</span><span class="w">
+    </span><span class="err">#</span><span class="w"> </span><span class="err">Make</span><span class="w"> </span><span class="err">sure</span><span class="w"> </span><span class="err">you</span><span class="w"> </span><span class="err">include</span><span class="w"> </span><span class="s2">"/webroot"</span><span class="w"> </span><span class="err">at</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">end!</span><span class="w">
+    </span><span class="err">DocumentRoot</span><span class="w"> </span><span class="err">/Users/admin/WWW/tools/phabricator/webroot</span><span class="w">  
+
+    </span><span class="err">RewriteEngine</span><span class="w"> </span><span class="err">on</span><span class="w">
+    </span><span class="err">RewriteRule</span><span class="w"> </span><span class="err">^/rsrc/(.*)</span><span class="w">     </span><span class="err">-</span><span class="w">                       </span><span class="p">[</span><span class="err">L</span><span class="p">,</span><span class="err">QSA</span><span class="p">]</span><span class="w">
+    </span><span class="err">RewriteRule</span><span class="w"> </span><span class="err">^/favicon.ico</span><span class="w">   </span><span class="err">-</span><span class="w">                       </span><span class="p">[</span><span class="err">L</span><span class="p">,</span><span class="err">QSA</span><span class="p">]</span><span class="w">
+    </span><span class="err">RewriteRule</span><span class="w"> </span><span class="err">^(.*)$</span><span class="w">          </span><span class="err">/index.php?__path__=$</span><span class="mi">1</span><span class="w">  </span><span class="p">[</span><span class="err">B</span><span class="p">,</span><span class="err">L</span><span class="p">,</span><span class="err">QSA</span><span class="p">]</span><span class="w">
+</span><span class="err">&lt;/VirtualHost&gt;</span><span class="w">
+
+
+
+
+
+</span><span class="err">##</span><span class="w"> </span><span class="err">Allow</span><span class="w"> </span><span class="err">access</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">the</span><span class="w"> </span><span class="err">entire</span><span class="w"> </span><span class="err">WWW</span><span class="w"> </span><span class="err">directory</span><span class="w">
+</span><span class="err">&lt;Directory</span><span class="w"> </span><span class="s2">"/Users/admin/WWW"</span><span class="err">&gt;</span><span class="w">
+    </span><span class="err">Options</span><span class="w"> </span><span class="err">Indexes</span><span class="w"> </span><span class="err">MultiViews</span><span class="w"> </span><span class="err">FollowSymLinks</span><span class="w">
+    </span><span class="err">AllowOverride</span><span class="w"> </span><span class="err">All</span><span class="w">
+    </span><span class="err">Order</span><span class="w"> </span><span class="err">allow,deny</span><span class="w">
+    </span><span class="err">Allow</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="err">all</span><span class="w">
+</span><span class="err">&lt;/Directory&gt;</span><span class="w">
+</span><span class="err">ServerName</span><span class="w"> </span><span class="err">localhost</span><span class="w">
+</span></code></pre>
+</div>
+
+<p><em>注意把DocumentRoot 修改为自己的路径 （我的是admin)</em></p>
+
+<p>#####将域名解析到本机 :</p>
+
+<ul>
+  <li><span style="background-color:AliceBlue ">127.0.0.1  phabricator.local.nfl.com</span> 添加到hosts <span style="background-color:AliceBlue ">vi /private/etc/hosts</span></li>
+</ul>
+
+<p>之后重启 apache <span style="background-color:AliceBlue ">$ sudo apachectl -k restart</span></p>
+
+<p>###进行最后设置
+用浏览器打开 <a href="http://phabricator.local.nfl.com/">phabricator.local.nfl.com</a> 如果之前的操作都没有问题，这个网页会被打开。
+<img src="https://raw.githubusercontent.com/19kka/19kka.github.io/master/images/pha_01.png" alt="image" />
+嗯，是这样的图就对了。然后你需要做一些配置，解决它告诉你的issue（一般有20多个）。安装到此结束。</p>
+
+<hr />
+<ol>
+  <li><a href="https://secure.phabricator.com/book/phabricator/article/installation_guide/">https://secure.phabricator.com/book/phabricator/article/installation_guide/</a></li>
+  <li><a href="https://secure.phabricator.com/book/phabricator/article/arcanist_mac_os_x/">https://secure.phabricator.com/book/phabricator/article/arcanist_mac_os_x/</a></li>
+</ol>
+
+</div>
+
+
+
+<div class="about">
+    <div class="about__devider">*****</div>
+    <div class="about__text">
+        Written by <strong>  fan yang </strong>
+        on <strong>15 April 2016</strong>
+    </div>
+</div>
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = '19kka';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+        </div>
+
+        <script src="/assets/vendor/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+        
+    </body>
+</html>
